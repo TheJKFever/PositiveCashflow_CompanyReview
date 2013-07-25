@@ -1,7 +1,7 @@
 package baseClasses;
 
 
-public class LLStringLog<T> implements StringLogInterface{
+public class LLStringLog<T> implements SortedLLInterface<T>{
 	
 	LLNode<T> head,previous,current;
 	
@@ -11,9 +11,9 @@ public class LLStringLog<T> implements StringLogInterface{
 		current=null;
 	}
 	@Override
-	public void insert(String element) {
+	public void insert(T element) {
 		// insert beginning	
-		LLNode<T> newNode = new LLNode(element);
+		LLNode<T> newNode = new LLNode<T>(element);
 		previous = head;
 		head = newNode;	
 
@@ -30,11 +30,7 @@ public class LLStringLog<T> implements StringLogInterface{
 		
 	}
 
-	@Override
-	public boolean contains(String element) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	@Override
 	public boolean isFull() {
@@ -51,8 +47,13 @@ public class LLStringLog<T> implements StringLogInterface{
 		}
 		return list;
 	}
-	public String getHead() {
+	public T getHead() {
 		return head.getData();
+	}
+	@Override
+	public boolean contains(Object element) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
