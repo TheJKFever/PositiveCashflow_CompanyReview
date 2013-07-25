@@ -1,11 +1,11 @@
 package baseClasses;
 
 
-public class LLStringLog<T> implements SortedLLInterface<T>{
+public class SortedLL<T> implements SortedLLInterface<T>{
 	
 	LLNode<T> head,previous,current;
 	
-	public LLStringLog() {
+	public SortedLL() {
 		head=null;
 		previous=null;
 		current=null;
