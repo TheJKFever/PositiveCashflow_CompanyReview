@@ -1,9 +1,9 @@
 package baseClasses;
 
 
-public class LLStringLog implements StringLogInterface{
+public class LLStringLog<T> implements StringLogInterface{
 	
-	LLNode head,previous,current;
+	LLNode<T> head,previous,current;
 	
 	public LLStringLog() {
 		head=null;
@@ -13,7 +13,7 @@ public class LLStringLog implements StringLogInterface{
 	@Override
 	public void insert(String element) {
 		// insert beginning	
-		LLNode newNode = new LLNode(element);
+		LLNode<T> newNode = new LLNode(element);
 		previous = head;
 		head = newNode;	
 

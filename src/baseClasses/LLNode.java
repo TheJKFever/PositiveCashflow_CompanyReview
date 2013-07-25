@@ -3,24 +3,24 @@ package baseClasses;
 public class LLNode<T>
 {
   private LLNode<T> link;
-  private T info;
+  private T data;
   
   public LLNode(T info)
   {
-    this.info = info;
+    this.data = info;
     link = null;
   }
  
-  public void setInfo(T info)
+  public void setData(T info)
   // Sets info of this LLNode.
   {
-    this.info = info;
+    this.data = info;
   }
 
-  public T getInfo()
+  public T getData()
   // Returns info of this LLONode.
   {
-    return info;
+    return data;
   }
  
   public void setLink(LLNode<T> link)
