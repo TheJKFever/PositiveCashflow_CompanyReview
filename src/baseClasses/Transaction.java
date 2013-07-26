@@ -47,7 +47,7 @@ public class Transaction implements Comparable<Transaction> {
 		}
 	}
 	
-	//SETTERS
+	//SETTERS - Dont need setters, just create a new transaction
 //	public void setDescription(String description) {
 //		this.description = description;
 //	}

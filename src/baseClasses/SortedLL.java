@@ -1,6 +1,6 @@
 package baseClasses;
 
-public class SortedLL<T extends Comparable<T>> implements SortedLLInterface<T> {
+public class SortedLL<T> implements SortedLLInterface<T>{
 	
 	LLNode<T> head,previous,current;
 	
