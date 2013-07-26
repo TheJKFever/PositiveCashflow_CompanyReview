@@ -1,39 +1,37 @@
 package baseClasses;
 
-public class LLNode<T>
-{
-  private LLNode<T> link;
-  private T data;
-  
-  public LLNode(T info)
-  {
-    this.data = info;
-    link = null;
-  }
- 
-  public void setData(T info)
-  // Sets info of this LLNode.
-  {
-    this.data = info;
-  }
+public class LLNode<T> implements Comparable<LLNode<T>>{
+	private LLNode<T> link;
+	private T data;
 
-  public T getData()
-  // Returns info of this LLONode.
-  {
-    return data;
-  }
- 
-  public void setLink(LLNode<T> link)
-  // Sets link of this LLNode.
-  {
-    this.link = link;
-  }
+	public LLNode(T info) {
+		this.data = info;
+		link = null;
+	}
+	
+	//GETTERS
+	public LLNode<T> getLink() {
+		return link;
+	}
 
-  public LLNode<T> getLink()
-  // Returns link of this LLNode.
-  {
-    return link;
-  }
+	public T getData() {
+		return data;
+	}
+	
+	//SETTERS
+	public void setData(T info) {
+		this.data = info;
+	}
+
+	public void setLink(LLNode<T> link) {
+		this.link = link;
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public int compareTo(LLNode<T> other) {
+		return ((Comparable<T>) this.getData()).compareTo(other.getData());
+	}
+
 }
  
  

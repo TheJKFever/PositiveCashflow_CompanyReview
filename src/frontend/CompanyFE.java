@@ -12,7 +12,6 @@ public class CompanyFE extends Company{
 	public CompanyFE(boolean good, String companyName, int uniqueID) {
 		super(good, companyName, uniqueID);
 		transactionList = new SortedLL<Transaction>();
-System.out.println();
 	}
 	
 

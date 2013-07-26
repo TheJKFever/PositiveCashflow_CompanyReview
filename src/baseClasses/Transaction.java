@@ -2,7 +2,7 @@ package baseClasses;
 
 import java.util.Date;
 
-public class Transaction {
+public class Transaction implements Comparable<Transaction> {
 	private String description;
 	private double amount;
 	private Date date;
@@ -30,6 +30,21 @@ public class Transaction {
 
 	public Date getDate() {
 		return date;
+	}
+
+	@Override
+	public int compareTo(Transaction other) {
+		if (this.getDate().compareTo(other.getDate())<0) {
+			return -1;
+		} else if (this.getDate().compareTo(other.getDate())>0){
+			return 1;
+		} else { //Dates are the same
+			if (this.getDescription().compareTo(other.getDescription())<0){
+				return -1;
+			} else if (this.getDescription().compareTo(other.getDescription())>0){
+				return 1;
+			} else {return 0;} //Dates and Description are the same
+		}
 	}
 	
 	//SETTERS
