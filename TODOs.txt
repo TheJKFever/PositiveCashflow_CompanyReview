@@ -1,1 +1,3 @@
-Read/write CSVs
+Read/write CSVs (original description, date, amount, 
+search in CSVs
+FrontEnd GUI 
