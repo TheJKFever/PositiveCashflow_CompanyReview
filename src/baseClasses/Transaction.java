@@ -9,14 +9,14 @@ public class Transaction implements Comparable<Transaction> {
 	
 	public Transaction(String description){
 		super();
-		this.description = description;
+		setDescription(description);
 	}
 	
 	public Transaction(String description, double amount, Date date) {
 		super();
-		this.description = description;
-		this.amount = amount;
-		this.date = date;
+		setDescription(description);
+		setAmount(amount);
+		setDate(date);
 	}
 	
 	//GETTERS
@@ -47,6 +47,7 @@ public class Transaction implements Comparable<Transaction> {
 		}
 	}
 	
+<<<<<<< HEAD
 	//SETTERS - Dont need setters, just create a new transaction
 //	public void setDescription(String description) {
 //		this.description = description;
@@ -59,5 +60,19 @@ public class Transaction implements Comparable<Transaction> {
 //	public void setDate(Date date) {
 //		this.date = date;
 //	}	
+=======
+	//SETTERS
+	private void setDescription(String description) {
+		this.description = description;
+	}
+
+	private void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	private void setDate(Date date) {
+		this.date = date;
+	}	
+>>>>>>> b2e8a61a79d8e2ad87acf33e361bcef138b83fd0
 	
 }

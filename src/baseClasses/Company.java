@@ -7,9 +7,9 @@ public class Company {
 
 	public Company(boolean good, String companyName, int uniqueID) {
 		super();
-		this.good = good;
-		this.companyName = companyName;
-		this.uniqueID = uniqueID;
+		setGood(good);
+		setCompanyName(companyName);
+		setUniqueID(uniqueID);
 	}
 
 	//GETTERS
@@ -21,18 +21,23 @@ public class Company {
 		return companyName;
 	}
 
+
 	public int getUniqueID() {
 		return uniqueID;
 	}	
-	
+
 	//SETTERS
-	public void setGood(boolean good) {
+	private void setGood(boolean good) {
 		this.good = good;
 	}
 
-	public void setCompanyName(String companyName) {
+	private void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 
-	
+	private void setUniqueID(int uniqueID){
+		this.uniqueID = uniqueID;
+	}
+
+
 }

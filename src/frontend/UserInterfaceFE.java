@@ -1,7 +1,7 @@
 package frontend;
 
 import java.io.File;
-import baseClasses.SortedLL;
+import baseClasses.*;
 
 public class UserInterfaceFE {
 
