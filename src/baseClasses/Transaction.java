@@ -47,20 +47,6 @@ public class Transaction implements Comparable<Transaction> {
 		}
 	}
 	
-<<<<<<< HEAD
-	//SETTERS - Dont need setters, just create a new transaction
-//	public void setDescription(String description) {
-//		this.description = description;
-//	}
-//
-//	public void setAmount(double amount) {
-//		this.amount = amount;
-//	}
-//
-//	public void setDate(Date date) {
-//		this.date = date;
-//	}	
-=======
 	//SETTERS
 	private void setDescription(String description) {
 		this.description = description;
@@ -73,6 +59,5 @@ public class Transaction implements Comparable<Transaction> {
 	private void setDate(Date date) {
 		this.date = date;
 	}	
->>>>>>> b2e8a61a79d8e2ad87acf33e361bcef138b83fd0
 	
 }
