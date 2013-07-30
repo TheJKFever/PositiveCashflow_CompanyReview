@@ -1,6 +1,8 @@
 package frontend;
 
 import java.io.File;
+import java.io.IOException;
+
 import baseClasses.*;
 
 public class UserInterfaceFE {
@@ -8,7 +10,7 @@ public class UserInterfaceFE {
 	protected SortedLL<CompanyFE> companies;
 	private double total=0, totalGood, totalBad, totalUnknown;
 	private File input;
-	
+	ReadWriteCSV readWrite;
 	
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
@@ -22,6 +24,28 @@ public class UserInterfaceFE {
 	public UserInterfaceFE(File input){
 		super();
 		this.input = input;
+		readData(input);
+	}
+
+	private void readData(File input2) {
+		//TODO
+		readWrite = new ReadWriteCSV();
+		CompanyFE temp = new CompanyFE();
+		try {
+			readWrite.read(input2.getCanonicalPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		//TODO add algorithm to pull from temp and move to Companies
+		
+		
+		
+		
 	}
 
 	//GETTERS

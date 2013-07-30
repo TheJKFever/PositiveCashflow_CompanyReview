@@ -5,12 +5,17 @@ public class Company {
 	private String companyName;
 	private int uniqueID;
 
+	public Company(){
+		
+	}
+	
 	public Company(boolean good, String companyName, int uniqueID) {
 		super();
 		setGood(good);
 		setCompanyName(companyName);
 		setUniqueID(uniqueID);
 	}
+	
 
 	//GETTERS
 	public boolean isGood() {
