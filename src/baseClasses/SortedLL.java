@@ -22,6 +22,14 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 	}
 	
 	@Override
+	public T get(T element) throws ElementDoesNotExistException {
+		if (!contains(element)){
+			throw new ElementDoesNotExistException();			
+		}
+		return current.getData();		
+	}
+	
+	@Override
 	public void add(T element) {	// sorted insert
 		LLNode<T> newNode = new LLNode<T>(element);
 		current = head;

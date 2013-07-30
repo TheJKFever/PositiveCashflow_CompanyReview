@@ -4,10 +4,6 @@ public class Company {
 	private boolean good;
 	private String companyName;
 	private int uniqueID;
-
-	public Company(){
-		
-	}
 	
 	public Company(boolean good, String companyName, int uniqueID) {
 		super();

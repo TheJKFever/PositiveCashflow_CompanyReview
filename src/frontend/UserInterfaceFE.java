@@ -30,7 +30,7 @@ public class UserInterfaceFE {
 	private void readData(File input2) {
 		//TODO
 		readWrite = new ReadWriteCSV();
-		CompanyFE temp = new CompanyFE();
+//		CompanyFE temp = new CompanyFE();
 		try {
 			readWrite.read(input2.getCanonicalPath());
 		} catch (IOException e) {
@@ -41,8 +41,16 @@ public class UserInterfaceFE {
 		
 		
 		
-		//TODO add algorithm to pull from temp and move to Companies
-		
+		//TODO
+		//Create Method to read each Transaction from File input
+		//Create a company in companies called "Unknown" (See below)
+		CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
+		companies.add(unknown);
+		//create a new transaction for each line
+//TODO  LOOP-->		companies.get(unknown).getTransactionList().add(...)
+//TODO	after done then, Loop through unknown transactionlist and Search DatabaseBE and compare 
+		//with transactions, if find then get companyname and add companyName to companies, 
+		//and look if there's a good/bad and if there is add it.
 		
 		
 		

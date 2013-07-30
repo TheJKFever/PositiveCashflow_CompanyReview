@@ -8,10 +8,6 @@ public class CompanyFE extends Company{
 	private int uniqueID;
 	private SortedLL<Transaction> transactionList;
 	
-	public CompanyFE(){
-		super();
-		transactionList = new SortedLL<Transaction>();
-	}
 	public CompanyFE(boolean good, String companyName, int uniqueID) {
 		super(good, companyName, uniqueID);
 		transactionList = new SortedLL<Transaction>();
