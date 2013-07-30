@@ -17,8 +17,6 @@ public class CompanyFE extends Company{
 		transactionList = new SortedLL<Transaction>();
 	}
 
-	
-
 	public boolean isGood() {
 		return good;
 	}
@@ -53,10 +51,5 @@ public class CompanyFE extends Company{
 		this.uniqueID = uniqueID;
 	}
 
-
-	public void setTransactionList(SortedLL<Transaction> transactionList) {
-		this.transactionList = transactionList;
-	}
-	
 
 }
