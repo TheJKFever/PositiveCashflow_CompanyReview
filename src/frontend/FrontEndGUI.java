@@ -38,7 +38,7 @@ public class FrontEndGUI extends JFrame {
 		headerPanel.add(Logo);
 		Logo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		Logo.setHorizontalAlignment(SwingConstants.CENTER);
-		Logo.setIcon(new ImageIcon("C:\\Hard Drive\\Programs\\CSC_202\\PositiveCashflow_CompanyReview\\images\\logo.png"));
+		Logo.setIcon(new ImageIcon("images\\logo.png"));
 		
 		JLabel welcomeMessage = new JLabel("Please upload a csv file with the following in the header: \"Date\", \"Original Description\", and \"Amount\"");
 		welcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -99,8 +99,11 @@ public class FrontEndGUI extends JFrame {
 		goodTable.setRowSelectionAllowed(false);
 		goodTable.setFillsViewportHeight(true);
 		goodTable.setModel(new DefaultTableModel(
-				profileData.getGoodTransactions(),
-			new String[] {
+				new String[][] {{
+						"Date", "Company", "Transaction Description", "Amount"
+					}}
+//				profileData.getGoodTransactions(),
+			,new String[] {
 				"Date", "Company", "Transaction Description", "Amount"
 			}
 		) {
