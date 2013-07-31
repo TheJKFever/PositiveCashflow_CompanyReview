@@ -33,17 +33,10 @@ public class ReadWriteCSV {
 		CSVWriter writer = null;
 		try {
 			writer = new CSVWriter(new FileWriter("yourfile.csv"), '\t');
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	     // feed in your array (or convert your data to an array)
-	     String[] entries = "first#second#third".split("#");
-	     writer.writeNext(entries);
-		try {
-			writer.close();
+			String[] entries = "first#second#third".split("#");
+		     writer.writeNext(entries);
+				writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -52,17 +45,14 @@ public class ReadWriteCSV {
 		CSVReader reader = null;
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 		
-		try {
-			reader = new CSVReader(new FileReader(input));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		
 		String [] nextLine = null;
 		//get correct index
 		int indexDate = -1;
 		int indexAmount = -1;
 		int indexDescription = -1;
 		try {
+			reader = new CSVReader(new FileReader(input));
 			if((nextLine = reader.readNext()) != null){
 				int length = nextLine.length;
 				for(int i = 0; i < length; i++){
