@@ -2,7 +2,7 @@ package baseClasses;
 
 public class Company {
 	private boolean good;
-	private String companyName;
+	private String companyName, typeOfCompany;
 	private int uniqueID;
 	
 	public Company(boolean good, String companyName, int uniqueID) {
@@ -26,18 +26,26 @@ public class Company {
 	public int getUniqueID() {
 		return uniqueID;
 	}	
+	
+	public String getTypeOfCompany(){
+		return typeOfCompany;
+	}
 
 	//SETTERS
-	private void setGood(boolean good) {
+	public void setGood(boolean good) {
 		this.good = good;
 	}
 
-	private void setCompanyName(String companyName) {
+	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 
-	private void setUniqueID(int uniqueID){
+	public void setUniqueID(int uniqueID){
 		this.uniqueID = uniqueID;
+	}
+	
+	public void setTypeOfCompany(String typeOfCompany){
+		this.typeOfCompany = typeOfCompany;
 	}
 
 
