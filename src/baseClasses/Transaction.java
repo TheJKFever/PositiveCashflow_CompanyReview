@@ -57,4 +57,9 @@ public class Transaction implements Comparable<Transaction> {
 		this.date = date;
 	}	
 	
+	
+	public String toString(){
+		return ("[" + date + " , " + amount + " , " + description + "]");
+	}
+	
 }

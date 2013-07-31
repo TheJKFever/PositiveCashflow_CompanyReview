@@ -3,6 +3,8 @@ package frontend;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import au.com.bytecode.opencsv.CSVReader;
 import baseClasses.*;
 
 public class UserInterfaceFE {
@@ -29,6 +31,8 @@ public class UserInterfaceFE {
 
 	private void readData(File input2) {
 		//TODO
+		
+		
 		readWrite = new ReadWriteCSV();
 		try { //Creates unknown company in companies, and adds all transactions from file to it
 			CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
@@ -45,7 +49,14 @@ public class UserInterfaceFE {
 		//TODO
 		//Create Method to read each Transaction from File input
 		//Create a company in companies called "Unknown" (See below)
+		CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
+		companies.add(unknown);
 		//create a new transaction for each line
+		
+//		while(readWrite.)
+		
+		
+		
 //TODO  LOOP-->		companies.get(unknown).getTransactionList().add(...)
 //TODO	after done then, Loop through unknown transactionlist and Search DatabaseBE and compare 
 		//with transactions, if find then get companyname and add companyName to companies, 
