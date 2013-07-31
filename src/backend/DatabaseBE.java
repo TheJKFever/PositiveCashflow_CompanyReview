@@ -14,6 +14,10 @@ public class DatabaseBE implements Serializable {
 		unknown = new SortedLL<TransactionBE>();
 		companies = new SortedLL<TransactionBE>();
 	}
+	
+	public DatabaseBE(String fileName){
+		openDatabase(fileName);
+	}
 
 	public void saveDatabase(DatabaseBE object){
 		try {
@@ -25,9 +29,9 @@ public class DatabaseBE implements Serializable {
 		}
 	}
 	
-	public DatabaseBE openDatabase(){
+	public DatabaseBE openDatabase(String fileName){
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream("Database.dat"));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
 			DatabaseBE newDB = (DatabaseBE) in.readObject();
 			in.close();
 			return newDB;
