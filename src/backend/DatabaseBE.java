@@ -1,7 +1,6 @@
 package backend;
 
 import java.io.*;
-import java.util.ArrayList;
 import au.com.bytecode.opencsv.CSVReader;
 import baseClasses.*;
 
@@ -47,7 +46,6 @@ public class DatabaseBE implements Serializable {
 	public void addFromFile(String input){
 		//TODO input is a file, read CSV
 		CSVReader reader = null;
-		ArrayList<TransactionBE> transactions = new ArrayList<TransactionBE>();
 		String [] nextLine = null;
 		int indexCompany = -1;
 		int indexType = -1;
@@ -73,17 +71,22 @@ public class DatabaseBE implements Serializable {
 				}
 			}
 			if(indexCompany==-1 || indexType == -1 || indexDescription == -1 || indexGood ==-1){
-				throw new Exception("Formatted incorrectly");
+				new Exception("Formatted incorrectly");
 			}
 			while ((nextLine = reader.readNext()) != null) {
 				// nextLine[] is an array of values from the line
-				TransactionBE newTransaction = new TransactionBE( new Company(nextLine[indexGood], nextLine[indexCompany], );
-				transactions.add(new TransactionBE(nextLine[indexDescription], Double.valueOf(nextLine[indexType]), nextLine[indexCompany]));
+				boolean tempGood;
+				if (nextLine[indexGood].equalsIgnoreCase("Good")){
+					tempGood = true;
+				} else {
+					tempGood = false;
+				}
+				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
+				addTransaction(newTransaction);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return transactions;
 	}
 	
 	public void addTransaction(TransactionBE t){

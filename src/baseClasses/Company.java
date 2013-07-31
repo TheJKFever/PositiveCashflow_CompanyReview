@@ -3,15 +3,13 @@ package baseClasses;
 public class Company {
 	protected boolean good;
 	protected String companyName, typeOfCompany;
-	protected int uniqueID;
 	
-	public Company(boolean good, String companyName, int uniqueID) {
+	public Company(boolean good, String companyName, String type) {
 		super();
 		setGood(good);
 		setCompanyName(companyName);
-		setUniqueID(uniqueID);
-	}
-	
+		this.setTypeOfCompany(type);
+	}	
 
 	//GETTERS
 	public boolean isGood() {
@@ -21,10 +19,6 @@ public class Company {
 	public String getCompanyName() {
 		return companyName;
 	}
-
-	public int getUniqueID() {
-		return uniqueID;
-	}	
 	
 	public String getTypeOfCompany(){
 		return typeOfCompany;
@@ -39,13 +33,8 @@ public class Company {
 		this.companyName = companyName;
 	}
 
-	public void setUniqueID(int uniqueID){
-		this.uniqueID = uniqueID;
-	}
-	
 	public void setTypeOfCompany(String typeOfCompany){
 		this.typeOfCompany = typeOfCompany;
 	}
-
 
 }

@@ -11,9 +11,9 @@ public class TransactionBE extends Transaction {
 		company=null;
 	}
 	
-	public TransactionBE(String description) {
+	public TransactionBE(String description, Company company) {
 		super(description);
-		this.company=null;
+		this.company=company;
 	}
 	
 	public boolean equals(TransactionBE t){
