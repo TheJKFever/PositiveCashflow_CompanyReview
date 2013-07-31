@@ -24,8 +24,8 @@ private static final String ADDRESS_FILE="addresses.csv";
 			System.out.println(t.toString());
 		}
 		
-		
-		
+		Transaction temp2 = new Transaction("blkur", 898.34, "tonight");
+		System.out.println(temp2);
 		
 		
 		

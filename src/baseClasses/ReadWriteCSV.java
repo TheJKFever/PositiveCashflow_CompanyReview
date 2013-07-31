@@ -85,7 +85,7 @@ public class ReadWriteCSV {
 		try {
 			while ((nextLine = reader.readNext()) != null) {
 				// nextLine[] is an array of values from the line
-				transactions.add(new Transaction(nextLine[indexDate], Double.valueOf(nextLine[indexAmount]), nextLine[indexDescription]));
+				transactions.add(new Transaction(nextLine[indexDescription], Double.valueOf(nextLine[indexAmount]), nextLine[indexDate]));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
