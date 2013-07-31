@@ -2,7 +2,7 @@ package baseClasses;
 
 public class SortedLL<T> implements SortedLLInterface<T>{
 	
-	LLNode<T> head,previous,current;
+	public LLNode<T> head,previous,current;
 	int length = 0;
 	
 	public SortedLL() {
@@ -77,11 +77,7 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 		}
 		return false;
 	}
-	
-	public T getHead() {
-		return head.getData();
-	}	
-	
+		
 	public String toString() {
 		String list = "";
 		current = head;
@@ -92,7 +88,36 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 		return list;
 	}
 	
+	//GETTERS
 	public int length(){
 		return length;
 	}
+
+	public T getHead() {
+		return head.getData();
+	}	
+
+	public T getPrevious() {
+		return previous.getData();
+	}
+
+	public T getCurrent() {
+		return current.getData();
+	}
+
+	//SETTERS
+	public void setHead(LLNode<T> head) {
+		this.head = head;
+	}
+
+	public void setPrevious(LLNode<T> previous) {
+		this.previous = previous;
+	}
+
+	public void setCurrent(LLNode<T> current) {
+		this.current = current;
+	}
+	
+
+	
 }
