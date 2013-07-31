@@ -7,6 +7,8 @@ import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import backend.DatabaseBE;
+
 @SuppressWarnings("serial")
 public class FrontEndGUI extends JFrame {
 	
@@ -16,6 +18,7 @@ public class FrontEndGUI extends JFrame {
 	private static Rectangle viewer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
 	private JFrame popup;
 	private JTable goodTable, badTable, unknownTable;
+	private static DatabaseBE myDB;
 
 	public FrontEndGUI(){
 		setTitle("Positive Cashflow");
@@ -233,6 +236,7 @@ public class FrontEndGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					myDB = new DatabaseBE();
 					FrontEndGUI frame = new FrontEndGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -258,7 +262,7 @@ public class FrontEndGUI extends JFrame {
 					String inputFile = chooser.getCurrentDirectory().toString()+chooser.getSelectedFile().getName();
 System.out.println("Got to profile data read in");
 					try {
-						profileData = new UserInterfaceFE(inputFile);
+						profileData = new UserInterfaceFE(inputFile, myDB);
 						System.out.println("read in data successfully");
 						setToTabbedPanel();
 						import_Accepted=true;

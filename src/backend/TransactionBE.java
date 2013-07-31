@@ -16,13 +16,6 @@ public class TransactionBE extends Transaction {
 		this.company=company;
 	}
 	
-	public boolean equals(TransactionBE t){
-		if (t.getDescription().equals(this.getDescription())){
-			return true;
-		}
-		return false;
-	}
-	
 	//GETTERS
 	public Company getCompany() {
 		return company;

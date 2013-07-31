@@ -7,20 +7,21 @@ import baseClasses.*;
 public class DatabaseBE implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	protected SortedLL<TransactionBE> unknown;
-	protected SortedLL<TransactionBE> companies;
+	private SortedLL<TransactionBE> unknown;
+	private SortedLL<TransactionBE> companies;
 
 	public DatabaseBE(){
-		unknown = new SortedLL<TransactionBE>();
-		companies = new SortedLL<TransactionBE>();
+		try {
+			DatabaseBE newDB = openDatabase();
+			this.unknown = newDB.unknown;
+			this.companies = newDB.companies;
+		}
+		catch (Exception e){
+			this.unknown = new SortedLL<TransactionBE>();
+			this.companies = new SortedLL<TransactionBE>();
+		}
 	}
 	
-	
-	//TODO Make sure this returns the proper value and doesn't just do nothing
-	public DatabaseBE(String fileName){
-		openDatabase(fileName);
-	}
-
 	public void saveDatabase(DatabaseBE object){
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Database.dat"));
@@ -31,20 +32,31 @@ public class DatabaseBE implements Serializable {
 		}
 	}
 	
-	public DatabaseBE openDatabase(String fileName){
+	public DatabaseBE openDatabase(){
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("Database.dat"));
 			DatabaseBE newDB = (DatabaseBE) in.readObject();
 			in.close();
 			return newDB;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
 	
+	public void addTransaction(TransactionBE t){
+		if (!isKnown(t)){
+			if (t.getCompany()==null){
+				if(!isUnknown(t)){
+					unknown.add(t);
+				}				
+			} else {
+				companies.add(t);
+			}
+		}		
+	}	
+	
 	public void addFromFile(String input){
-		//TODO input is a file, read CSV
 		CSVReader reader = null;
 		String [] nextLine = null;
 		int indexCompany = -1;
@@ -89,30 +101,7 @@ public class DatabaseBE implements Serializable {
 		}
 	}
 	
-	public void addTransaction(TransactionBE t){
-		if (!isKnown(t)){
-			if (t.getCompany()==null){
-				if(!isUnknown(t)){
-					unknown.add(t);
-				}				
-			} else {
-				companies.add(t);
-			}
-		}		
-	}	
-	
-	//GETTERS
-	public SortedLL<TransactionBE> getUnknown() {
-		return unknown;
-	}
-
-	public SortedLL<TransactionBE> getCompanies() {
-		return companies;
-	}
-
-	
-	//PRIVATE METHODS
-	private boolean isKnown(TransactionBE t){
+	public boolean isKnown(Transaction t){
 		for (int i=0; i<companies.length();i++){
 			companies.current = companies.head;
 			while(companies.current!=null){
@@ -126,7 +115,7 @@ public class DatabaseBE implements Serializable {
 		return false;
 	}
 	
-	private boolean isUnknown(TransactionBE t) {
+	public boolean isUnknown(Transaction t) {
 		for (int i=0; i<unknown.length();i++){
 			unknown.current = unknown.head;
 			while(unknown.current!=null){
@@ -140,6 +129,18 @@ public class DatabaseBE implements Serializable {
 		return false;
 	}
 	
+	public Company getCurrentCo(){
+		return companies.current.getData().getCompany();
+	}
 	
+	
+	//GETTERS
+	public SortedLL<TransactionBE> getUnknown() {
+		return unknown;
+	}
+
+	public SortedLL<TransactionBE> getCompanies() {
+		return companies;
+	}
 	
 }

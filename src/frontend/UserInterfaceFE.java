@@ -1,10 +1,9 @@
 package frontend;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import au.com.bytecode.opencsv.CSVReader;
+import backend.DatabaseBE;
 import baseClasses.*;
 
 public class UserInterfaceFE {
@@ -13,9 +12,12 @@ public class UserInterfaceFE {
 	private double total=0, totalGood, totalBad, totalUnknown;
 	private File input;
 	ReadWriteCSV readWrite;
+	private CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown", null);
+
 	
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
+		companies.add(unknown);
 		this.total = 0;
 		this.totalGood = 0;
 		this.totalBad = 0;
@@ -23,30 +25,48 @@ public class UserInterfaceFE {
 		this.input = null;
 	}
 	
-	public UserInterfaceFE(String input){
+	public UserInterfaceFE(String input, DatabaseBE tempDB){
 		super();
 		this.input = new File(input);
 		readData(this.input);
+		updateUnknown(tempDB);
 	}
 
-	private void readData(File input2) {
-		//TODO
-		
-		
+	public void readData(File input2) { //Adds all transactions to unknown
 		readWrite = new ReadWriteCSV();
 		try { //Creates unknown company in companies, and adds all transactions from file to it
-			CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown", null);
-			companies.add(unknown);
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
 			for (Transaction i: tempList){
-				companies.get(unknown).addTransaction(i);
+				unknown.addTransaction(i);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}	
+	}
+	
+	private void updateUnknown(DatabaseBE tempDB){
+		//TODO
+		//see if is known, if is then search for company in companies, 
+		//if find, add transaction, if not add company and add transaction
+		//if not known, add to backend and leave in unknown
+		for (int i=0;i<unknown.getTransactionList().length();i++){
+			unknown.getTransactionList().current = unknown.getTransactionList().head;
+				while (unknown.getTransactionList().current!=null){
+					//If transaction is in known companies list
+					if (tempDB.isKnown(unknown.getTransactionList().current.getData())){
+						if (companies.contains(tempDB.getCurrentCo())){
+							
+						} else {
+							
+						}
+					} else {
+						
+					}
+					
+					unknown.getTransactionList().current = unknown.getTransactionList().current.getLink();
+				}
+			
 		}
-		
-		
-		
 		
 	}
 

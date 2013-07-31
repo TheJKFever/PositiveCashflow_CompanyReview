@@ -1,5 +1,7 @@
 package baseClasses;
 
+import backend.TransactionBE;
+
 public class Transaction implements Comparable<Transaction> {
 	private String description, date;
 	private double amount;
@@ -14,6 +16,13 @@ public class Transaction implements Comparable<Transaction> {
 		setDescription(description);
 		setAmount(amount);
 		setDate(date);
+	}
+	
+	public boolean equals(Transaction t){
+		if (t.getDescription().equals(this.getDescription())){
+			return true;
+		}
+		return false;
 	}
 	
 	//GETTERS

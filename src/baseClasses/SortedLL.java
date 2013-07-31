@@ -24,9 +24,13 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 	}
 	
 	@Override
-	public T get(T element) throws ElementDoesNotExistException {
-		if (!contains(element)){
-			throw new ElementDoesNotExistException();			
+	public T get(T element){
+		try {
+			if (!contains(element)){
+				throw new ElementDoesNotExistException("Element not found in list");
+			}
+		} catch (ElementDoesNotExistException e){
+			System.out.println(e.getMessage());	
 		}
 		return current.getData();		
 	}
