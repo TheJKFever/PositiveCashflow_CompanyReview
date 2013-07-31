@@ -41,7 +41,7 @@ public class UserInterfaceFE {
 			for (Transaction i: tempList){
 				companies.get(unknown).addTransaction(i);
 			}
-		} catch (IOException | ElementDoesNotExistException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -55,7 +55,7 @@ public class UserInterfaceFE {
 			for(Transaction t : readWrite.readTransactions(input.getCanonicalPath())){
 				companies.get(unknown).addTransaction(t);
 			}
-		} catch (IOException | ElementDoesNotExistException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 //TODO	after done then, Loop through unknown transactionlist and Search DatabaseBE and compare 

@@ -20,8 +20,13 @@ private static final String ADDRESS_FILE="addresses.csv";
 //		
 		ReadWriteCSV temp = new ReadWriteCSV();
 		
-		for(Transaction t : temp.readTransactions(ADDRESS_FILE)){
-			System.out.println(t.toString());
+		try {
+			for(Transaction t : temp.readTransactions(ADDRESS_FILE)){
+				System.out.println(t.toString());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		Transaction temp2 = new Transaction("blkur", 898.34, "tonight");

@@ -48,7 +48,7 @@ public class ReadWriteCSV {
 		}
 	}
 	
-	public ArrayList<Transaction> readTransactions(String input){
+	public ArrayList<Transaction> readTransactions(String input) throws Exception{
 		CSVReader reader = null;
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 		
@@ -76,6 +76,9 @@ public class ReadWriteCSV {
 						indexDescription = i;
 					}
 				}
+			}
+			if(indexDate==-1 || indexAmount == -1 || indexDescription == -1){
+				throw new Exception("Formatted incorrectly");
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
