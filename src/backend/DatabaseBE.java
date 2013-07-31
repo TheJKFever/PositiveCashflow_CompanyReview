@@ -6,6 +6,7 @@ import baseClasses.*;
 
 public class DatabaseBE implements Serializable {
 
+	private static int lastUniqueID;
 	private static final long serialVersionUID = 1L;
 	protected SortedLL<TransactionBE> unknown;
 	protected SortedLL<TransactionBE> companies;
