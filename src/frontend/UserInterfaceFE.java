@@ -46,18 +46,18 @@ public class UserInterfaceFE {
 		}
 		
 		
-		//TODO
-		//Create Method to read each Transaction from File input
-		//Create a company in companies called "Unknown" (See below)
+		
 		CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
 		companies.add(unknown);
 		//create a new transaction for each line
 		
-//		while(readWrite.)
-		
-		
-		
-//TODO  LOOP-->		companies.get(unknown).getTransactionList().add(...)
+		try {
+			for(Transaction t : readWrite.readTransactions(input.getCanonicalPath())){
+				companies.get(unknown).addTransaction(t);
+			}
+		} catch (IOException | ElementDoesNotExistException e) {
+			e.printStackTrace();
+		}
 //TODO	after done then, Loop through unknown transactionlist and Search DatabaseBE and compare 
 		//with transactions, if find then get companyname and add companyName to companies, 
 		//and look if there's a good/bad and if there is add it.
