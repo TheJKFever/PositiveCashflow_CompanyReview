@@ -54,11 +54,32 @@ public class UserInterfaceFE {
 				while (unknown.getTransactionList().current!=null){
 					//If transaction is in known companies list
 					if (tempDB.isKnown(unknown.getTransactionList().current.getData())){
-						if (companies.contains(tempDB.getCurrentCo())){
-							
-						} else {
-							
+						companies.current=companies.head;
+						//found company in BE companies
+						//iterate through companies to see if it'a already in the list
+						while (companies.current!=null){
+							//If find company in FE list
+							if (companies.current.getData().getCompanyName().equals(tempDB.getCurrentCo())){
+								companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().head;
+								//iterate through transactions to see if transaction is already there
+								while (companies.current.getData().getTransactionList().current!=null){
+									//If find transaction
+									if (unknown.getTransactionList().current.getData().equals(companies.current.getData().getTransactionList().current)){
+										break;
+									}
+									companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
+								} 
+								//Did not find transaction
+								//add current transaction from unknown to known company
+								companies.current.getData().addTransaction(unknown.getTransactionList().current.getData());
+								unknown.getTransactionList().remove();
+								break;
+							}
+							companies.current = companies.current.getLink();
 						}
+						//Did not find company in FE, add to companies
+						CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
+						companies.add(newCompanyFE);
 					} else {
 						
 					}

@@ -11,6 +11,15 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 		current=null;
 	}
 
+	public void remove(){
+		if (current==head) 		//head node (includes single node case)
+			head.setLink(head.getLink());
+		else { 					//other than head nodes
+			previous.setLink(current.getLink());
+		}
+		length-=1;
+	}
+	
 	@Override
 	public void remove(T element) {
 		if (contains(element)) {	//If doesn't contain element, skips remove
