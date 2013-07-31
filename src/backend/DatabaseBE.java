@@ -36,9 +36,7 @@ public class DatabaseBE implements Serializable {
 		}
 		return null;
 	}
-	
-	
-	
+		
 	
 	//GETTERS
 	public SortedLL<TransactionBE> getUnknown() {

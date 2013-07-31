@@ -3,9 +3,6 @@ package frontend;
 import baseClasses.*;
 
 public class CompanyFE extends Company{
-	private boolean good;
-	private String companyName;
-	private int uniqueID;
 	private SortedLL<Transaction> transactionList;
 	
 	public CompanyFE(boolean good, String companyName, int uniqueID) {
@@ -13,39 +10,14 @@ public class CompanyFE extends Company{
 		transactionList = new SortedLL<Transaction>();
 	}
 
-	public boolean isGood() {
-		return good;
-	}
-
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-
-	public int getUniqueID() {
-		return uniqueID;
-	}
-
-
+	//GETTERS
 	public SortedLL<Transaction> getTransactionList() {
 		return transactionList;
 	}
 
-
-	public void setGood(boolean good) {
-		this.good = good;
+	//SETTERS
+	public void addTransaction(Transaction t){
+		transactionList.add(t);
 	}
-
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-
-	public void setUniqueID(int uniqueID) {
-		this.uniqueID = uniqueID;
-	}
-
 
 }

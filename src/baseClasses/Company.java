@@ -1,9 +1,9 @@
 package baseClasses;
 
 public class Company {
-	private boolean good;
-	private String companyName, typeOfCompany;
-	private int uniqueID;
+	protected boolean good;
+	protected String companyName, typeOfCompany;
+	protected int uniqueID;
 	
 	public Company(boolean good, String companyName, int uniqueID) {
 		super();
@@ -21,7 +21,6 @@ public class Company {
 	public String getCompanyName() {
 		return companyName;
 	}
-
 
 	public int getUniqueID() {
 		return uniqueID;

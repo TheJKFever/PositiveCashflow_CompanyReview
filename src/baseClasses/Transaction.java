@@ -1,18 +1,15 @@
 package baseClasses;
 
-import java.util.Date;
-
 public class Transaction implements Comparable<Transaction> {
-	private String description;
+	private String description, date;
 	private double amount;
-	private Date date;
 	
 	public Transaction(String description){
 		super();
 		setDescription(description);
 	}
 	
-	public Transaction(String description, double amount, Date date) {
+	public Transaction(String description, double amount, String date) {
 		super();
 		setDescription(description);
 		setAmount(amount);
@@ -28,7 +25,7 @@ public class Transaction implements Comparable<Transaction> {
 		return amount;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
@@ -56,7 +53,7 @@ public class Transaction implements Comparable<Transaction> {
 		this.amount = amount;
 	}
 
-	private void setDate(Date date) {
+	private void setDate(String date) {
 		this.date = date;
 	}	
 	
