@@ -255,9 +255,8 @@ public class FrontEndGUI extends JFrame {
 			chooser.setFileFilter(filter);
 			try{
 				if ((chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)&&(chooser.getSelectedFile().getName().endsWith(".csv"))) {
-					System.out.println(chooser.getCurrentDirectory().toString()+chooser.getSelectedFile().getName()); //String inputFile = 
-	//***********************IMPORTANT***************************//
-	//				profileData = new UserInterfaceFE(inputFile);
+					String inputFile = chooser.getCurrentDirectory().toString()+chooser.getSelectedFile().getName();
+					profileData = new UserInterfaceFE(inputFile);
 System.out.println("Have not set tabbed");					
 					setToTabbedPanel();
 System.out.println("Set Tabbed");

@@ -21,10 +21,10 @@ public class UserInterfaceFE {
 		this.input = null;
 	}
 	
-	public UserInterfaceFE(File input){
+	public UserInterfaceFE(String input){
 		super();
-		this.input = input;
-		readData(input);
+		this.input = new File(input);
+		readData(this.input);
 	}
 
 	private void readData(File input2) {
