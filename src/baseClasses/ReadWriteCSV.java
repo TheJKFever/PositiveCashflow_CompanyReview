@@ -71,7 +71,6 @@ public class ReadWriteCSV {
 				throw new Exception("Formatted incorrectly");
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
