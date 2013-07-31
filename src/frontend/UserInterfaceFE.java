@@ -41,7 +41,7 @@ public class UserInterfaceFE {
 			for (Transaction i: tempList){
 				companies.get(unknown).addTransaction(i);
 			}
-		} catch (IOException e) {
+		} catch (IOException | ElementDoesNotExistException e) {
 			e.printStackTrace();
 		}
 		
