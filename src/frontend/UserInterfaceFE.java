@@ -30,7 +30,7 @@ public class UserInterfaceFE {
 	private void readData(File input2) {
 		//TODO
 		readWrite = new ReadWriteCSV();
-		try {
+		try { //Creates unknown company in companies, and adds all transactions from file to it
 			CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
 			companies.add(unknown);
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
@@ -38,11 +38,8 @@ public class UserInterfaceFE {
 				companies.get(unknown).addTransaction(i);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		
 		
 		//TODO
