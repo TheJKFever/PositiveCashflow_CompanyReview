@@ -2,7 +2,7 @@ package frontend;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.ArrayList;
 import baseClasses.*;
 
 public class UserInterfaceFE {
@@ -30,9 +30,13 @@ public class UserInterfaceFE {
 	private void readData(File input2) {
 		//TODO
 		readWrite = new ReadWriteCSV();
-//		CompanyFE temp = new CompanyFE();
 		try {
-			readWrite.read(input2.getCanonicalPath());
+			CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
+			companies.add(unknown);
+			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
+			for (Transaction i: tempList){
+				companies.get(unknown).addTransaction(i);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,8 +48,6 @@ public class UserInterfaceFE {
 		//TODO
 		//Create Method to read each Transaction from File input
 		//Create a company in companies called "Unknown" (See below)
-		CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
-		companies.add(unknown);
 		//create a new transaction for each line
 //TODO  LOOP-->		companies.get(unknown).getTransactionList().add(...)
 //TODO	after done then, Loop through unknown transactionlist and Search DatabaseBE and compare 

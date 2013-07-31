@@ -256,11 +256,16 @@ public class FrontEndGUI extends JFrame {
 			try{
 				if ((chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)&&(chooser.getSelectedFile().getName().endsWith(".csv"))) {
 					String inputFile = chooser.getCurrentDirectory().toString()+chooser.getSelectedFile().getName();
-					profileData = new UserInterfaceFE(inputFile);
-System.out.println("Have not set tabbed");					
-					setToTabbedPanel();
-System.out.println("Set Tabbed");
-					import_Accepted=true;
+System.out.println("Got to profile data read in");
+					try {
+						profileData = new UserInterfaceFE(inputFile);
+						System.out.println("read in data successfully");
+						setToTabbedPanel();
+						import_Accepted=true;
+					}
+					catch (Exception e){
+						System.out.println("Error while reading in data");
+					}
 				} else {
 					JOptionPane.showMessageDialog(popup, "There was an error uploading the file,  please try again", "ERROR", 0);
 				}
