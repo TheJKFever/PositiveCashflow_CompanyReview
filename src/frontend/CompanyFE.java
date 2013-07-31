@@ -5,8 +5,8 @@ import baseClasses.*;
 public class CompanyFE extends Company{
 	private SortedLL<Transaction> transactionList;
 	
-	public CompanyFE(boolean good, String companyName, int uniqueID) {
-		super(good, companyName, uniqueID);
+	public CompanyFE(boolean good, String companyName, String companyType) {
+		super(good, companyName, companyType);
 		transactionList = new SortedLL<Transaction>();
 	}
 

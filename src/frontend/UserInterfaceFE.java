@@ -35,7 +35,7 @@ public class UserInterfaceFE {
 		
 		readWrite = new ReadWriteCSV();
 		try { //Creates unknown company in companies, and adds all transactions from file to it
-			CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
+			CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown", null);
 			companies.add(unknown);
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
 			for (Transaction i: tempList){
@@ -45,22 +45,6 @@ public class UserInterfaceFE {
 			e.printStackTrace();
 		}
 		
-		
-		
-		CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown",0);
-		companies.add(unknown);
-		//create a new transaction for each line
-		
-		try {
-			for(Transaction t : readWrite.readTransactions(input.getCanonicalPath())){
-				companies.get(unknown).addTransaction(t);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-//TODO	after done then, Loop through unknown transactionlist and Search DatabaseBE and compare 
-		//with transactions, if find then get companyname and add companyName to companies, 
-		//and look if there's a good/bad and if there is add it.
 		
 		
 		
