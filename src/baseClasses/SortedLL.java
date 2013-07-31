@@ -3,6 +3,7 @@ package baseClasses;
 public class SortedLL<T> implements SortedLLInterface<T>{
 	
 	LLNode<T> head,previous,current;
+	int length = 0;
 	
 	public SortedLL() {
 		head=null;
@@ -18,6 +19,7 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 			else { 					//other than head nodes
 				previous.setLink(current.getLink());
 			}
+			length-=1;
 		}
 	}
 	
@@ -54,11 +56,13 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 		if (head==null){ 			//list is empty
 			head = newNode;
 		}
+		length+=1;
 	}
 
 	@Override
 	public void clear() {
 		head=null;
+		length=0;
 	}
 	
 	@Override
@@ -88,4 +92,7 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 		return list;
 	}
 	
+	public int length(){
+		return length;
+	}
 }
