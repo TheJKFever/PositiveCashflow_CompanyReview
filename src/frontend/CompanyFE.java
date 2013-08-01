@@ -2,7 +2,7 @@ package frontend;
 
 import baseClasses.*;
 /**
- * 
+ *  
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
