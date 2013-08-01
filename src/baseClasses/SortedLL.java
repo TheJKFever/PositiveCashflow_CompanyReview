@@ -4,10 +4,13 @@ package baseClasses;
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class SortedLL<T> implements SortedLLInterface<T>{
+
+import java.util.Iterator;
+
+public class SortedLL<T> implements SortedLLInterface<T>, Iterable<T> {
 	
-	public LLNode<T> head,previous,current;
-	int length = 0;
+	protected LLNode<T> head,previous,current;
+	protected int length = 0;
 	
 	public SortedLL() {
 		head=null;
@@ -134,7 +137,15 @@ public class SortedLL<T> implements SortedLLInterface<T>{
 	public void setCurrent(LLNode<T> current) {
 		this.current = current;
 	}
+
+//TODO Create iterator
+	public Iterator<T> iterator() {
+		return null;
+//		return this.get(m_ActiveProfile);
+	}
 	
 
-	
+		
 }
+
+
