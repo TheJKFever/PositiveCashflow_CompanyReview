@@ -10,7 +10,7 @@ import baseClasses.*;
  */
 public class DatabaseBE implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5847593522878274079L;
 	private SortedLL<TransactionBE> unknown;
 	private SortedLL<TransactionBE> companies;
 
@@ -31,19 +31,20 @@ public class DatabaseBE implements Serializable {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("files\\Database.dat"));
 			out.writeObject(this);
 			out.close();
+			System.out.println("Save Succeeded");
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Save Failed: "+e);
 		}
 	}
 	
 	public DatabaseBE openDatabase(){
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream("files\\Database.dat"));
-			DatabaseBE newDB = (DatabaseBE) in.readObject();
+			DatabaseBE newDB = (DatabaseBE)in.readObject();
 			in.close();
 			return newDB;
 		} catch (Exception e) {
-			System.out.println("Open Database failed, create new one");
+			System.out.println("Open Database failed, create new one: "+e);
 		}
 		return null;
 	}
@@ -152,9 +153,9 @@ System.out.println(newTransaction);
 	
 	
 	public static void main(String[] args){
-		DatabaseBE myDB = new DatabaseBE();
-		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
-		myDB.saveDatabase(myDB);
+//		DatabaseBE myDB = new DatabaseBE();
+//		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
+//		myDB.saveDatabase(myDB);
 		DatabaseBE testDB = new DatabaseBE();
 		System.out.println(testDB.getCompanies().head.getData());
 	}

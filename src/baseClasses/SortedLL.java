@@ -5,10 +5,12 @@ package baseClasses;
  * CSC202 Final Project
  */
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class SortedLL<T> implements SortedLLInterface<T>, Iterable<T> {
+public class SortedLL<T> implements SortedLLInterface<T>, Iterable<T>, Serializable {
 	
+	private static final long serialVersionUID = -7602219899624401677L;
 	public LLNode<T> head,previous,current;
 	protected int length = 0;
 	

@@ -1,13 +1,16 @@
 package backend;
 
+import java.io.Serializable;
+
 import baseClasses.*;
 /**
  * 
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class TransactionBE extends Transaction {
+public class TransactionBE extends Transaction implements Serializable {
 	
+	private static final long serialVersionUID = -8665707701617784839L;
 	private Company company;
 	
 	public TransactionBE(){

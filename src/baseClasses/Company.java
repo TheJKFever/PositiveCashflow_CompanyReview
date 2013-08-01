@@ -1,10 +1,14 @@
 package baseClasses;
+
+import java.io.Serializable;
+
 /**
- * 
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class Company {
+public class Company implements Serializable{
+
+	private static final long serialVersionUID = -8698835401119697249L;
 	protected boolean good;
 	protected String companyName, typeOfCompany;
 	

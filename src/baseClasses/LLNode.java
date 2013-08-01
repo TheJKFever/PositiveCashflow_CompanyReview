@@ -1,10 +1,14 @@
 package baseClasses;
+
+import java.io.Serializable;
+
 /**
- * 
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class LLNode<T> implements Comparable<LLNode<T>>{
+public class LLNode<T> implements Comparable<LLNode<T>>, Serializable {
+
+	private static final long serialVersionUID = -4333566258263636472L;
 	private LLNode<T> link;
 	private T data;
 

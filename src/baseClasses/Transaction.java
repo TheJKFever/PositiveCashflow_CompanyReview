@@ -1,5 +1,6 @@
 package baseClasses;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,9 @@ import java.util.Date;
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class Transaction implements Comparable<Transaction> {
+public class Transaction implements Comparable<Transaction>, Serializable {
+
+	private static final long serialVersionUID = -7138989113734490032L;
 	private String description;
 	private Date date;
 	private double amount;
