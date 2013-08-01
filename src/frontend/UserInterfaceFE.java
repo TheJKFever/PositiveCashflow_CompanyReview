@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import backend.DatabaseBE;
+import backend.TransactionBE;
 import baseClasses.*;
 /**
  * 
@@ -17,6 +18,7 @@ public class UserInterfaceFE {
 	private File input;
 	ReadWriteCSV readWrite;
 	private CompanyFE unknown = new CompanyFE((Boolean)null, "Unknown", null);
+	private boolean found;
 
 	
 	public UserInterfaceFE() {
@@ -53,46 +55,49 @@ public class UserInterfaceFE {
 		//see if is known, if is then search for company in companies, 
 		//if find, add transaction, if not add company and add transaction
 		//if not known, add to backend and leave in unknown
-		for (int i=0;i<unknown.getTransactionList().length();i++){
-			unknown.getTransactionList().current = unknown.getTransactionList().head;
-				while (unknown.getTransactionList().current!=null){
-					//If transaction is in BE known list
-					if (tempDB.isKnown(unknown.getTransactionList().getCurrent())){
-						companies.current=companies.head;
-						//iterate through FE companies to see if it'a already in the list
-						while (companies.current!=null){
-							//If find company in FE list
-							if (companies.getCurrent().getCompanyName().equals(tempDB.getCurrentCo())){
-								companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().head;
-								//iterate through transactions to see if transaction is already there
-								while (companies.getCurrent().getTransactionList().current!=null){
-									//If find transaction
-									if (unknown.getTransactionList().getCurrent().equals(companies.getCurrent().getTransactionList().current)){
-										break;
-									}
-									companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().current.getLink();
-								} 
-								//Did not find transaction
-								//add current transaction from unknown to known company
-								companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
-								unknown.getTransactionList().remove();
-								break;
-							}
-							companies.current = companies.current.getLink();
-						}
-						//Did not find company in FE, add to companies
-						CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
-						newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent());
-						companies.add(newCompanyFE);
-					} else { //Could not find in known companies, whatever is left over add to BEunknown
-						
+		unknown.getTransactionList().current = unknown.getTransactionList().head;
+		while (unknown.getTransactionList().current!=null){
+			found=false;
+			//If transaction is in BE known list
+			if (tempDB.isKnown(unknown.getTransactionList().getCurrent())){
+				companies.current=companies.head;
+				//iterate through FE companies to see if it'a already in the list
+				while (companies.current!=null){
+					//If find company in FE list
+					if (companies.getCurrent().getCompanyName().equals(tempDB.getCurrentCo())){
+						found=true;
+//								companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().head;
+//								//iterate through transactions to see if transaction is already there
+//								while (companies.getCurrent().getTransactionList().current!=null){
+//									//If find transaction
+//									if (unknown.getTransactionList().getCurrent().equals(companies.getCurrent().getTransactionList().current)){
+//										break;
+//									}
+//									companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().current.getLink();
+//								} 
+						//Did not find transaction
+						//add current transaction from unknown to known company
+						companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
+						unknown.getTransactionList().remove();
+						break;
 					}
-					
-					unknown.getTransactionList().current = unknown.getTransactionList().current.getLink();
+					companies.current = companies.current.getLink();
 				}
-			
+				if (!found){
+				//Did not find company in FE, add to companies
+					CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
+					newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent());
+					companies.add(newCompanyFE);
+				}
+			} else { //Could not find in known companies, whatever is left over add to BEunknown
+				//TODO
+				if (!tempDB.isUnknown(unknown.getTransactionList().getCurrent())){
+					TransactionBE newTBE = new TransactionBE(unknown.getTransactionList().getCurrent().getDescription(),null);
+					tempDB.getUnknown().add(newTBE);
+				}						
+			}
+			unknown.getTransactionList().current = unknown.getTransactionList().current.getLink();
 		}
-		
 	}
 
 	//GETTERS
@@ -128,30 +133,30 @@ public class UserInterfaceFE {
 		return totalUnknown/total;
 	}
 
-	public File getInput() {
-		return input;
-	}
 	
 	public Object[][] getGoodTransactions() {
+		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
 		return null;
 	}
 	
 	public Object[][] getBadTransactions() {
+		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
 		return null;
 	}
 
 	public Object[][] getUnknownTransactions() {
+		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Transaction Description", "Amount", "Company", "Good/Bad"}		
 		return null;
 	}
 
 
 	//SETTERS
-	public void setCompanies(SortedLL<CompanyFE> companies) {
-		this.companies = companies;
-	}
+//	public void setCompanies(SortedLL<CompanyFE> companies) {
+//		this.companies = companies;
+//	}
 
 	public void setTotal(double total) {
 		this.total = total;
@@ -168,9 +173,4 @@ public class UserInterfaceFE {
 	public void setTotalUnknown(double totalUnknown) {
 		this.totalUnknown = totalUnknown;
 	}
-
-	public void setInput(File input) {
-		this.input = input;
-	}
-
 }
