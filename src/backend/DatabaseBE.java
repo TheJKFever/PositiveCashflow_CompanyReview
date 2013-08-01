@@ -28,7 +28,7 @@ public class DatabaseBE implements Serializable {
 	
 	public void saveDatabase(DatabaseBE object){
 		try {
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Database.dat"));
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("files\\Database.dat"));
 			out.writeObject(this);
 			out.close();
 		} catch (Exception e) {
@@ -38,12 +38,12 @@ public class DatabaseBE implements Serializable {
 	
 	public DatabaseBE openDatabase(){
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream("Database.dat"));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("files\\Database.dat"));
 			DatabaseBE newDB = (DatabaseBE) in.readObject();
 			in.close();
 			return newDB;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("Open Database failed, create new one");
 		}
 		return null;
 	}
@@ -60,6 +60,8 @@ public class DatabaseBE implements Serializable {
 		}		
 	}	
 	
+	
+	//TODO TEST THIS
 	public void addFromFile(String input){
 		CSVReader reader = null;
 		String [] nextLine = null;
@@ -98,6 +100,7 @@ public class DatabaseBE implements Serializable {
 					tempGood = false;
 				}
 				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
+System.out.println(newTransaction);
 				addTransaction(newTransaction);
 			}
 		} catch (IOException e) {
@@ -145,6 +148,15 @@ public class DatabaseBE implements Serializable {
 
 	public SortedLL<TransactionBE> getCompanies() {
 		return companies;
+	}
+	
+	
+	public static void main(String[] args){
+		DatabaseBE myDB = new DatabaseBE();
+		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
+		myDB.saveDatabase(myDB);
+		DatabaseBE testDB = new DatabaseBE();
+		System.out.println(testDB.getCompanies().head.getData());
 	}
 	
 }

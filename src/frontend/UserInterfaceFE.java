@@ -173,4 +173,9 @@ public class UserInterfaceFE {
 	public void setTotalUnknown(double totalUnknown) {
 		this.totalUnknown = totalUnknown;
 	}
+	
+	//TODO Test the clean method and others
+	public static void main(String[] args){
+		UserInterfaceFE UI = new UserInterfaceFE();
+	}
 }

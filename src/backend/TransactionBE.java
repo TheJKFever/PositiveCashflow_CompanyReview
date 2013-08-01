@@ -29,4 +29,24 @@ public class TransactionBE extends Transaction {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+	
+	@Override
+	public int compareTo(Transaction other) {
+		if (this.getDescription().compareTo(other.getDescription())<0) {
+			return -1;
+		} else if (this.getDescription().compareTo(other.getDescription())>0){
+			return 1;
+		} else { //Dates are the same
+			if (this.getDescription().compareTo(other.getDescription())<0){
+				return -1;
+			} else if (this.getDescription().compareTo(other.getDescription())>0){
+				return 1;
+			} else {return 0;} //Dates and Description are the same
+		}
+	}
+	
+	public String toString(){
+		return ("[" + this.getDescription() + " , " + company.getCompanyName() + " , " + company.getTypeOfCompany() + " , " + company.isGood() + "]");
+	}
+	
 }
