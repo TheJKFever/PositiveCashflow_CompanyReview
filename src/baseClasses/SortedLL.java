@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class SortedLL<T> implements SortedLLInterface<T>, Iterable<T> {
 	
-	protected LLNode<T> head,previous,current;
+	public LLNode<T> head,previous,current;
 	protected int length = 0;
 	
 	public SortedLL() {

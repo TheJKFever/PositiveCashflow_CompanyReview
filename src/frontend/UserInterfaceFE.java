@@ -16,7 +16,7 @@ public class UserInterfaceFE {
 	private double total=0, totalGood, totalBad, totalUnknown;
 	private File input;
 	ReadWriteCSV readWrite;
-	private CompanyFE unknown = new CompanyFE((Boolean) null, "Unknown", null);
+	private CompanyFE unknown = new CompanyFE((Boolean)null, "Unknown", null);
 
 	
 	public UserInterfaceFE() {
