@@ -1,5 +1,9 @@
 package baseClasses;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public interface SortedLLInterface<T> {
 	public void add(T element);
 	public T get(T element) throws ElementDoesNotExistException;

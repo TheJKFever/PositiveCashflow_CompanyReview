@@ -8,7 +8,11 @@ import java.util.ArrayList;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class ReadWriteCSV {
 
 	public void read(String input){

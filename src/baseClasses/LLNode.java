@@ -1,5 +1,9 @@
 package baseClasses;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class LLNode<T> implements Comparable<LLNode<T>>{
 	private LLNode<T> link;
 	private T data;

@@ -8,7 +8,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import backend.DatabaseBE;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 @SuppressWarnings("serial")
 public class FrontEndGUI extends JFrame {
 	

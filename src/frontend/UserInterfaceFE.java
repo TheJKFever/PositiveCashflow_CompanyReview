@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import backend.DatabaseBE;
 import baseClasses.*;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class UserInterfaceFE {
 
 	protected SortedLL<CompanyFE> companies;

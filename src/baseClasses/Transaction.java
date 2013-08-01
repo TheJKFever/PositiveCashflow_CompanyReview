@@ -1,7 +1,9 @@
 package baseClasses;
-
-import backend.TransactionBE;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class Transaction implements Comparable<Transaction> {
 	private String description, date;
 	private double amount;

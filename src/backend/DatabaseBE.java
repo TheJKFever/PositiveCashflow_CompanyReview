@@ -3,7 +3,11 @@ package backend;
 import java.io.*;
 import au.com.bytecode.opencsv.CSVReader;
 import baseClasses.*;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class DatabaseBE implements Serializable {
 
 	private static final long serialVersionUID = 1L;

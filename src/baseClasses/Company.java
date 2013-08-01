@@ -1,5 +1,9 @@
 package baseClasses;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class Company {
 	protected boolean good;
 	protected String companyName, typeOfCompany;

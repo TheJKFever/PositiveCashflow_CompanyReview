@@ -1,5 +1,9 @@
 package baseClasses;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class SortedLL<T> implements SortedLLInterface<T>{
 	
 	public LLNode<T> head,previous,current;

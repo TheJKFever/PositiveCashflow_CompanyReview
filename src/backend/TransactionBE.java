@@ -1,7 +1,11 @@
 package backend;
 
 import baseClasses.*;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class TransactionBE extends Transaction {
 	
 	private Company company;

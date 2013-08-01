@@ -1,13 +1,11 @@
 package baseClasses;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.List;
-
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
-
+/**
+ * 
+ * @author Jeroen Goossens & Jon Koehmstedt
+ * CSC202 Final Project
+ */
 public class CSVTest {
 
 private static final String ADDRESS_FILE="addresses.csv";
@@ -25,7 +23,6 @@ private static final String ADDRESS_FILE="addresses.csv";
 				System.out.println(t.toString());
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
