@@ -19,7 +19,7 @@ public class UserInterfaceFE {
 	private CompanyFE unknown;
 	private boolean found;
 
-	
+
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
 		unknown = new CompanyFE((Boolean)null, "Unknown", null);
@@ -30,7 +30,7 @@ public class UserInterfaceFE {
 		this.totalUnknown = 0;
 		this.input = null;
 	}
-	
+
 	public UserInterfaceFE(String input, DatabaseBE tempDB){
 		super();
 		this.input = new File(input);
@@ -43,14 +43,14 @@ public class UserInterfaceFE {
 		try { //Creates unknown company in companies, and adds all transactions from file to it
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
 			for (Transaction i: tempList){
-System.out.println(i);
+				System.out.println(i.toString());
 				unknown.addTransaction(i);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 	}
-	
+
 	private void updateUnknown(DatabaseBE tempDB){
 		//TODO
 		//see if is known, if is then search for company in companies, 
@@ -67,15 +67,15 @@ System.out.println(i);
 					//If find company in FE list
 					if (companies.getCurrent().getCompanyName().equals(tempDB.getCurrentCo())){
 						found=true;
-//								companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().head;
-//								//iterate through transactions to see if transaction is already there
-//								while (companies.getCurrent().getTransactionList().current!=null){
-//									//If find transaction
-//									if (unknown.getTransactionList().getCurrent().equals(companies.getCurrent().getTransactionList().current)){
-//										break;
-//									}
-//									companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().current.getLink();
-//								} 
+						//								companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().head;
+						//								//iterate through transactions to see if transaction is already there
+						//								while (companies.getCurrent().getTransactionList().current!=null){
+						//									//If find transaction
+						//									if (unknown.getTransactionList().getCurrent().equals(companies.getCurrent().getTransactionList().current)){
+						//										break;
+						//									}
+						//									companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().current.getLink();
+						//								} 
 						//Did not find transaction
 						//add current transaction from unknown to known company
 						companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
@@ -85,7 +85,7 @@ System.out.println(i);
 					companies.current = companies.current.getLink();
 				}
 				if (!found){
-				//Did not find company in FE, add to companies
+					//Did not find company in FE, add to companies
 					CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
 					newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent());
 					companies.add(newCompanyFE);
@@ -135,13 +135,13 @@ System.out.println(i);
 		return totalUnknown/total;
 	}
 
-	
+
 	public Object[][] getGoodTransactions() {
 		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
 		return null;
 	}
-	
+
 	public Object[][] getBadTransactions() {
 		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
@@ -156,9 +156,9 @@ System.out.println(i);
 
 
 	//SETTERS
-//	public void setCompanies(SortedLL<CompanyFE> companies) {
-//		this.companies = companies;
-//	}
+	//	public void setCompanies(SortedLL<CompanyFE> companies) {
+	//		this.companies = companies;
+	//	}
 
 	public void setTotal(double total) {
 		this.total = total;
@@ -175,7 +175,7 @@ System.out.println(i);
 	public void setTotalUnknown(double totalUnknown) {
 		this.totalUnknown = totalUnknown;
 	}
-	
+
 	//TODO Test the clean method and others
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();

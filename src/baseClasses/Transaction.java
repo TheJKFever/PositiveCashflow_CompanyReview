@@ -1,6 +1,7 @@
 package baseClasses;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -141,12 +142,26 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 				// TODO Auto-generated method stub
 				
 			}
+			
+			@Override
+			public String toString(){
+				String strdate = null;
+
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+				if (this.getTime() != null) {
+				strdate = sdf.format(this.getTime().getTime());
+				}
+				
+				
+				return strdate;
+			}
 		};
 		
 	}
 
 	public String toString(){
-		return ("[" + date + " , " + amount + " , " + description + "]");
+		return ("[" + date+ " , " + amount + " , " + description + "]");
 	}
 	
 }
