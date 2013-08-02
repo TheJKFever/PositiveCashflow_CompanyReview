@@ -6,7 +6,7 @@ import baseClasses.*;
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class CompanyFE extends Company{
+public class CompanyFE extends Company implements Comparable<CompanyFE>{
 
 	private static final long serialVersionUID = 6275261625641986745L;
 	private SortedLL<Transaction> transactionList;
@@ -38,9 +38,18 @@ public class CompanyFE extends Company{
 	public String toString(){
 		String output = "";
 		output+=companyName+" ("+typeOfCompany+"): "+good+"\n";
-		
-		
 		return output;
+	}
+
+	@Override
+	public int compareTo(CompanyFE coPany) {
+		if (this.getCompanyName().compareTo(coPany.getCompanyName())<0) {
+			return -1;
+		} else if (this.getCompanyName().compareTo(coPany.getCompanyName())>0){
+			return 1;
+		} else {
+		return 0;
+		}
 	}
 
 }

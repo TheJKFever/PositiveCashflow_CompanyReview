@@ -37,7 +37,7 @@ public class LLNode<T> implements Comparable<LLNode<T>>, Serializable {
 	
 	@SuppressWarnings("unchecked")
 	public int compareTo(LLNode<T> other) {
-		return ((Comparable<T>) this.getData()).compareTo(other.getData());
+		return ((Comparable<T>)this.getData()).compareTo(other.getData());
 	}
 
 }
