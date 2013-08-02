@@ -71,18 +71,14 @@ public class UserInterfaceFE {
 					//If find company in FE list
 					if (companies.getCurrent().getCompanyName().equals(tempDB.getCurrentCo())){
 						found=true;
-						//								companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().head;
-						//								//iterate through transactions to see if transaction is already there
-						//								while (companies.getCurrent().getTransactionList().current!=null){
-						//									//If find transaction
-						//									if (unknown.getTransactionList().getCurrent().equals(companies.getCurrent().getTransactionList().current)){
-						//										break;
-						//									}
-						//									companies.getCurrent().getTransactionList().current = companies.getCurrent().getTransactionList().current.getLink();
-						//								} 
 						//Did not find transaction
-						//add current transaction from unknown to known company
+						//add current transaction from unknown to known company					
 						companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
+						//TODO add totals to company
+						double tempAmount = unknown.getTransactionList().getCurrent().getAmount();
+						companies.getCurrent().setTotal(companies.getCurrent().getTotal()+tempAmount);
+						
+						
 						unknown.getTransactionList().remove();
 						break;
 					}
