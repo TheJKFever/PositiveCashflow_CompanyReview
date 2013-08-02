@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-public class Company implements Serializable{
+public class Company implements Serializable, Comparable{
 
 	private static final long serialVersionUID = -8698835401119697249L;
 	protected boolean good;
@@ -43,6 +43,12 @@ public class Company implements Serializable{
 
 	public void setTypeOfCompany(String typeOfCompany){
 		this.typeOfCompany = typeOfCompany;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
