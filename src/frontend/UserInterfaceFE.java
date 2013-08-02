@@ -22,7 +22,7 @@ public class UserInterfaceFE {
 
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
-		unknown = new CompanyFE((Boolean)null, "Unknown", null);
+		unknown = new CompanyFE(true, "Unknown", "");
 		companies.add(unknown);
 		this.total = 0;
 		this.totalGood = 0;
@@ -33,6 +33,9 @@ public class UserInterfaceFE {
 
 	public UserInterfaceFE(String input, DatabaseBE tempDB){
 		super();
+		this.companies = new SortedLL<CompanyFE>();
+		unknown = new CompanyFE(true, "Unknown", "");
+		companies.add(unknown);
 		this.input = new File(input);
 		readData(this.input);
 		updateUnknown(tempDB);
@@ -42,6 +45,7 @@ public class UserInterfaceFE {
 		readWrite = new ReadWriteCSV();
 		try { //Creates unknown company in companies, and adds all transactions from file to it
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
+			System.out.println(companies.get(unknown).getTypeOfCompany());
 			for (Transaction i: tempList){
 				System.out.println(i.toString());
 				unknown.addTransaction(i);

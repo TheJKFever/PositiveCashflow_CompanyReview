@@ -127,12 +127,8 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 			
 			@Override
 			public String toString(){
-				String strdate = null;
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-				if (this.getTime() != null) {
-				strdate = sdf.format(this.getTime().getTime());
-				}
-				return strdate;
+				String temp = "" + this.get(MONTH) +"/" + this.get(DAY_OF_MONTH) +"/"+ this.get(YEAR);
+				return temp;
 			}
 		};
 		
