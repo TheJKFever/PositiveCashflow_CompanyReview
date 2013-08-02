@@ -11,7 +11,7 @@ import baseClasses.*;
  */
 public class DatabaseBE implements Serializable {
 
-	private static final long serialVersionUID = -5847593522878274079L;
+	private static final long serialVersionUID = -8935217689413395301L;
 	private SortedLL<TransactionBE> unknown;
 	private SortedLL<TransactionBE> knownTransactions;
 
@@ -51,10 +51,8 @@ public class DatabaseBE implements Serializable {
 	
 	public void addTransaction(TransactionBE t){
 		if (!isKnown(t)){
-System.out.println(t);
 			if (t.getCompany().getCompanyName().equals("")){
 				if(!isUnknown(t)){
-System.out.println("ADded to Unknown");
 					unknown.add(t);
 				}				
 			} else {
@@ -62,9 +60,7 @@ System.out.println("ADded to Unknown");
 			}
 		}		
 	}	
-	
-	
-	//TODO TEST THIS
+		
 	public void addFromFile(String input){
 		CSVReader reader = null;
 		String [] nextLine = null;
@@ -104,7 +100,7 @@ System.out.println("ADded to Unknown");
 					tempGood = false;
 				}
 				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
-//System.out.println(newTransaction.getCompany().getCompanyName());
+//System.out.println(newTransaction.getCompany());
 				addTransaction(newTransaction);
 				count++;
 			}
@@ -113,33 +109,43 @@ System.out.println(count);
 			e.printStackTrace();
 		}
 	}
-	
-	public boolean isKnown(Transaction t){
-		return knownTransactions.contains((TransactionBE)t);
-//		knownTransactions.current = knownTransactions.getHead();
-//		while(knownTransactions.getCurrent()!=null){
-//			if (knownTransactions.current.getData().equals(t)) {
-//				return true;
-//			}
-//			knownTransactions.current=knownTransactions.current.getLink();
-//		}
-//		return false;
+		
+	public boolean isKnown(TransactionBE t){
+		return knownTransactions.contains(t);
 	}
 	
-	public boolean isUnknown(Transaction t) {
-		return unknown.contains((TransactionBE)t);
-//		unknown.current = unknown.getHead();
-//		while(unknown.current!=null){
-//			if (unknown.current.getData().equals(t)) {
-//				return true;
-//			}
-//			unknown.current=unknown.current.getLink();
-//		}
-//		return false;
+	public boolean isUnknown(TransactionBE t) {
+		return unknown.contains(t);
+	}
+	
+	public boolean isKnown(Transaction t){
+		boolean temp = false;
+		knownTransactions.current=knownTransactions.head;
+		while (knownTransactions.current!=null){
+			if (knownTransactions.current.getData().equals(t)){
+System.out.println(knownTransactions.getCurrent());
+				temp=true;
+			}
+			knownTransactions.current = knownTransactions.current.getLink();
+		}
+		return temp;
+	}
+	
+	public boolean isUnknown(Transaction t){
+		boolean temp = false;
+		unknown.current=unknown.head;
+		while (unknown.current!=null){
+			if (unknown.current.getData().equals(t)){
+				temp=true;
+			}
+			unknown.current = unknown.current.getLink();
+		}
+		return temp;
 	}
 	
 	public Company getCurrentCo(){
-		return knownTransactions.current.getData().getCompany();
+System.out.println(knownTransactions.getCurrent());
+		return knownTransactions.getCurrent().getData().getCompany();
 	}
 	
 	//GETTERS
@@ -153,16 +159,16 @@ System.out.println(count);
 	
 	
 	public static void main(String[] args){
-		DatabaseBE myDB = new DatabaseBE();
-		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
-		myDB.saveDatabase(myDB);
+//		DatabaseBE myDB = new DatabaseBE();
+//		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
+//		myDB.saveDatabase(myDB);
 		DatabaseBE testDB = new DatabaseBE();
 		System.out.println("__________UNKNOWN TRANSACTIONS___________");
-//		System.out.println(testDB.getUnknown().toString());
+		System.out.println(testDB.getUnknown().toString());
 		System.out.println(testDB.unknown.length());
 		
 		System.out.println("__________KNOWN TRANSACTIONS___________");
-//		System.out.println(testDB.getKnownTransactions().toString());
+		System.out.println(testDB.getKnownTransactions().toString());
 		System.out.println(testDB.knownTransactions.length());
 	}
 	

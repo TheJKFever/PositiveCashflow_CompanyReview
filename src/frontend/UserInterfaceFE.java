@@ -55,7 +55,6 @@ public class UserInterfaceFE {
 	}
 
 	private void updateUnknown(DatabaseBE tempDB){
-		//TODO
 		//see if is known, if is then search for company in companies, 
 		//if find, add transaction, if not add company and add transaction
 		//if not known, add to backend and leave in unknown
@@ -63,22 +62,22 @@ public class UserInterfaceFE {
 		while (unknown.getTransactionList().current!=null){
 			found=false;
 			//If transaction is in BE known list
-			if (tempDB.isKnown(unknown.getTransactionList().getCurrent())){
+			if (tempDB.isKnown(unknown.getTransactionList().getCurrent().getData())){
 System.out.println("Transaction Is Known");
 				companies.current=companies.head;
 				//iterate through FE companies to see if it'a already in the list
 				while (companies.current!=null){
 					//If find company in FE list
-					if (companies.getCurrent().getCompanyName().equals(tempDB.getCurrentCo())){
+					if (companies.getCurrent().getData().getCompanyName().equals(tempDB.getCurrentCo())){
 System.out.println("Company is already in list");
 						found=true;
 						//Did not find transaction
 						//add current transaction from unknown to known company					
-						companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
+						companies.getCurrent().getData().addTransaction(unknown.getTransactionList().getCurrent().getData());
 						//add total to company
-						double tempAmount = unknown.getTransactionList().getCurrent().getAmount();
+						double tempAmount = unknown.getTransactionList().getCurrent().getData().getAmount();
 System.out.println(tempAmount);
-						companies.getCurrent().setTotal(companies.getCurrent().getTotal()+tempAmount);
+						companies.getCurrent().getData().setTotal(companies.getCurrent().getData().getTotal()+tempAmount);
 						unknown.getTransactionList().remove();
 						break;
 					}
@@ -87,13 +86,13 @@ System.out.println(tempAmount);
 				if (!found){
 					//Did not find company in FE, add to companies
 					CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
-					newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent());
+					newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent().getData());
 					companies.add(newCompanyFE);
 				}
 			} else { //Could not find in known companies, whatever is left over add to BEunknown
 				//TODO
-				if (!tempDB.isUnknown(unknown.getTransactionList().getCurrent())){
-					TransactionBE newTBE = new TransactionBE(unknown.getTransactionList().getCurrent().getDescription(),null);
+				if (!tempDB.isUnknown(unknown.getTransactionList().getCurrent().getData())){
+					TransactionBE newTBE = new TransactionBE(unknown.getTransactionList().getCurrent().getData().getDescription(),null);
 					tempDB.getUnknown().add(newTBE);
 				}						
 			}
@@ -170,7 +169,7 @@ System.out.println(tempAmount);
 
 	public void setTotalUnknown(double totalUnknown) {
 		this.totalUnknown = totalUnknown;
-	}
+	}	
 
 	//TODO Test the clean method and others
 	public static void main(String[] args){

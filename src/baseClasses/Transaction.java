@@ -56,9 +56,9 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 		} else if (this.getDate().compareTo(other.getDate())>0){
 			return 1;
 		} else { //Dates are the same
-			if (this.getDescription().compareTo(other.getDescription())<0){
+			if (this.getDescription().toLowerCase().compareTo(other.getDescription().toLowerCase())<0){
 				return -1;
-			} else if (this.getDescription().compareTo(other.getDescription())>0){
+			} else if (this.getDescription().toLowerCase().compareTo(other.getDescription().toLowerCase())>0){
 				return 1;
 			} else {return 0;} //Dates and Description are the same
 		}
