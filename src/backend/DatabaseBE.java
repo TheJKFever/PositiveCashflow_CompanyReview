@@ -59,7 +59,6 @@ public class DatabaseBE implements Serializable {
 				knownTransactions.add(t);
 			}
 		}
-		else {System.out.println("uh-oh....");};
 	}	
 		
 	public void addFromFile(String input){
@@ -158,9 +157,9 @@ System.out.println(count);
 	
 	
 	public static void main(String[] args){
-		DatabaseBE myDB = new DatabaseBE();
-		myDB.addFromFile("files\\known transactions.csv");
-		myDB.saveDatabase(myDB);
+//		DatabaseBE myDB = new DatabaseBE();
+//		myDB.addFromFile("files\\known transactions.csv");
+//		myDB.saveDatabase(myDB);
 		DatabaseBE testDB = new DatabaseBE();
 		System.out.println("__________UNKNOWN TRANSACTIONS___________");
 		System.out.println(testDB.getUnknown().toString());

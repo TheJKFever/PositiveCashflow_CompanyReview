@@ -59,9 +59,11 @@ public class UserInterfaceFE {
 		//if find, add transaction, if not add company and add transaction
 		//if not known, add to backend and leave in unknown
 		unknown.getTransactionList().current = unknown.getTransactionList().head;
-		while (unknown.getTransactionList().current!=null){
+		while (unknown.getTransactionList().getCurrent()!=null){
 			found=false;
 			//If transaction is in BE known list
+			
+			System.out.println("in while loop");
 			if (tempDB.isKnown(unknown.getTransactionList().getCurrent().getData())){
 System.out.println("Transaction Is Known: "+unknown.getTransactionList().getCurrent().getData());
 				companies.current=companies.head;
@@ -93,7 +95,8 @@ System.out.println("Transaction Is Known: "+unknown.getTransactionList().getCurr
 			else { //Could not find in known companies, whatever is left over add to BEunknown
 System.out.println("Transaction Is Unknown: "+unknown.getTransactionList().getCurrent().getData());
 				if (!tempDB.isUnknown(unknown.getTransactionList().getCurrent().getData())){
-System.out.println("Is in the unknown backend test");
+System.out.println("S U C C E S S ! ! ! ! !");
+System.exit(0);
 					TransactionBE newTBE = new TransactionBE(unknown.getTransactionList().getCurrent().getData().getDescription(),null);
 					tempDB.getUnknown().add(newTBE);
 				}						
