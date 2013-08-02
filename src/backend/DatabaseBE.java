@@ -12,17 +12,17 @@ public class DatabaseBE implements Serializable {
 
 	private static final long serialVersionUID = -5847593522878274079L;
 	private SortedLL<TransactionBE> unknown;
-	private SortedLL<TransactionBE> companies;
+	private SortedLL<TransactionBE> knownTransactions;
 
 	public DatabaseBE(){
 		try {
 			DatabaseBE newDB = openDatabase();
 			this.unknown = newDB.unknown;
-			this.companies = newDB.companies;
+			this.knownTransactions = newDB.knownTransactions;
 		}
 		catch (Exception e){
 			this.unknown = new SortedLL<TransactionBE>();
-			this.companies = new SortedLL<TransactionBE>();
+			this.knownTransactions = new SortedLL<TransactionBE>();
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class DatabaseBE implements Serializable {
 					unknown.add(t);
 				}				
 			} else {
-				companies.add(t);
+				knownTransactions.add(t);
 			}
 		}		
 	}	
@@ -66,6 +66,7 @@ public class DatabaseBE implements Serializable {
 	public void addFromFile(String input){
 		CSVReader reader = null;
 		String [] nextLine = null;
+		int count = 0;
 		int indexCompany = -1;
 		int indexType = -1;
 		int indexDescription = -1;
@@ -103,42 +104,39 @@ public class DatabaseBE implements Serializable {
 				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
 System.out.println(newTransaction);
 				addTransaction(newTransaction);
+				count++;
 			}
+System.out.println(count);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public boolean isKnown(Transaction t){
-		for (int i=0; i<companies.length();i++){
-			companies.current = companies.head;
-			while(companies.current!=null){
-				if (companies.current.getData().equals(t)) {
-					return true;
-				}
-				companies.previous=companies.current;
-				companies.current=companies.current.getLink();
+		knownTransactions.current = knownTransactions.head;
+		while(knownTransactions.current!=null){
+			if (knownTransactions.current.getData().equals(t)) {
+				return true;
 			}
+			knownTransactions.current=knownTransactions.current.getLink();
 		}
 		return false;
 	}
 	
 	public boolean isUnknown(Transaction t) {
-		for (int i=0; i<unknown.length();i++){
-			unknown.current = unknown.head;
-			while(unknown.current!=null){
-				if (unknown.current.getData().equals(t)) {
-					return true;
-				}
-				unknown.previous=unknown.current;
-				unknown.current=unknown.current.getLink();
+		unknown.current = unknown.head;
+		while(unknown.current!=null){
+			if (unknown.current.getData().equals(t)) {
+				return true;
 			}
+			unknown.previous=unknown.current;
+			unknown.current=unknown.current.getLink();
 		}
 		return false;
 	}
 	
 	public Company getCurrentCo(){
-		return companies.current.getData().getCompany();
+		return knownTransactions.current.getData().getCompany();
 	}
 	
 	
@@ -147,17 +145,22 @@ System.out.println(newTransaction);
 		return unknown;
 	}
 
-	public SortedLL<TransactionBE> getCompanies() {
-		return companies;
+	public SortedLL<TransactionBE> getKnownTransactions() {
+		return knownTransactions;
 	}
 	
 	
 	public static void main(String[] args){
-//		DatabaseBE myDB = new DatabaseBE();
-//		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
-//		myDB.saveDatabase(myDB);
+		DatabaseBE myDB = new DatabaseBE();
+		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
+		myDB.saveDatabase(myDB);
 		DatabaseBE testDB = new DatabaseBE();
-		System.out.println(testDB.getCompanies().head.getData());
+		System.out.println("__________UNKNOWN TRANSACTIONS___________");
+		System.out.println(testDB.getUnknown().toString());
+		
+		System.out.println("__________KNOWN TRANSACTIONS___________");
+		System.out.println(testDB.getKnownTransactions().toString());
+		System.out.println(testDB.knownTransactions.length());
 	}
 	
 }

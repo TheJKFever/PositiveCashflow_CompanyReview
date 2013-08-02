@@ -6,9 +6,8 @@ package baseClasses;
  */
 
 import java.io.Serializable;
-import java.util.Iterator;
 
-public class SortedLL<T> implements SortedLLInterface<T>, Iterable<T>, Serializable {
+public class SortedLL<T> implements SortedLLInterface<T>, Serializable { //Iterable<T>
 	
 	private static final long serialVersionUID = -7602219899624401677L;
 	public LLNode<T> head,previous,current;
@@ -141,10 +140,10 @@ public class SortedLL<T> implements SortedLLInterface<T>, Iterable<T>, Serializa
 	}
 
 //TODO Create iterator
-	public Iterator<T> iterator() {
-		return null;
-//		return this.get(m_ActiveProfile);
-	}
+//	public Iterator<T> iterator() {
+//		return null;
+////		return this.get(m_ActiveProfile);
+//	}
 	
 
 		

@@ -45,9 +45,8 @@ public class UserInterfaceFE {
 		readWrite = new ReadWriteCSV();
 		try { //Creates unknown company in companies, and adds all transactions from file to it
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
-			System.out.println(companies.get(unknown).getTypeOfCompany());
+//System.out.println(companies.get(unknown).getTypeOfCompany());
 			for (Transaction i: tempList){
-				System.out.println(i.toString());
 				unknown.addTransaction(i);
 			}
 		} catch (Exception e) {
@@ -65,17 +64,20 @@ public class UserInterfaceFE {
 			found=false;
 			//If transaction is in BE known list
 			if (tempDB.isKnown(unknown.getTransactionList().getCurrent())){
+System.out.println("Transaction Is Known");
 				companies.current=companies.head;
 				//iterate through FE companies to see if it'a already in the list
 				while (companies.current!=null){
 					//If find company in FE list
 					if (companies.getCurrent().getCompanyName().equals(tempDB.getCurrentCo())){
+System.out.println("Company is already in list");
 						found=true;
 						//Did not find transaction
 						//add current transaction from unknown to known company					
 						companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
 						//add total to company
 						double tempAmount = unknown.getTransactionList().getCurrent().getAmount();
+System.out.println(tempAmount);
 						companies.getCurrent().setTotal(companies.getCurrent().getTotal()+tempAmount);
 						unknown.getTransactionList().remove();
 						break;
@@ -95,7 +97,7 @@ public class UserInterfaceFE {
 					tempDB.getUnknown().add(newTBE);
 				}						
 			}
-			System.out.println(unknown.getTransactionList().current.getData());
+//System.out.println(unknown.getTransactionList().current.getData());
 			unknown.getTransactionList().current = unknown.getTransactionList().current.getLink();
 		}
 	}
@@ -174,6 +176,8 @@ public class UserInterfaceFE {
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();
 		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
-		System.out.println(""+UI.getPercentGood());
+		CompanyFE unknowntester = new CompanyFE(true,"Unknown","");
+		System.out.print(UI.companies.toString());
+//		System.out.println(UI.companies.getCurrent().getTransactionList().toString());
 	}
 }

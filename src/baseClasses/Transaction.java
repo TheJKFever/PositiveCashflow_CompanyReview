@@ -74,12 +74,7 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 	}
 
 	private void setDate(String date2) {
-		System.out.println(date2);//print out date
-		//TODO change to calendar
 		String[] d = date2.split("/");
-		System.out.println(d[0]);
-		System.out.println(d[1]);
-		System.out.println(d[2]);
 		initializeCalendar();
 		date.clear();
 		date.set(Integer.valueOf(d[2]), Integer.valueOf(d[0]), Integer.valueOf(d[1]));	
