@@ -154,10 +154,6 @@ public class UserInterfaceFE {
 
 
 	//SETTERS
-	//	public void setCompanies(SortedLL<CompanyFE> companies) {
-	//		this.companies = companies;
-	//	}
-
 	public void setTotal(double total) {
 		this.total = total;
 	}
@@ -177,7 +173,7 @@ public class UserInterfaceFE {
 	//TODO Test the clean method and others
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();
-		UserInterfaceFE UI = new UserInterfaceFE("files\\transactions.csv",myDB);
+		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
 		System.out.println(""+UI.getPercentGood());
 	}
 }
