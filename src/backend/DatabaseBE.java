@@ -11,7 +11,7 @@ import baseClasses.*;
  */
 public class DatabaseBE implements Serializable {
 
-	private static final long serialVersionUID = -8935217689413395301L;
+	private static final long serialVersionUID = 3441675073201743442L;
 	private SortedLL<TransactionBE> unknown;
 	private SortedLL<TransactionBE> knownTransactions;
 
@@ -49,7 +49,7 @@ public class DatabaseBE implements Serializable {
 		}
 	}
 	
-	public void addTransaction(TransactionBE t){
+	public void addTransaction(TransactionBE t){//TODO reference point
 		if (!isKnown(t)){
 			if (t.getCompany().getCompanyName().equals("")){
 				if(!isUnknown(t)){
@@ -58,7 +58,8 @@ public class DatabaseBE implements Serializable {
 			} else {
 				knownTransactions.add(t);
 			}
-		}		
+		}
+		else {System.out.println("uh-oh....");};
 	}	
 		
 	public void addFromFile(String input){
@@ -111,18 +112,18 @@ System.out.println(count);
 	}
 		
 	public boolean isKnown(TransactionBE t){
-		return knownTransactions.contains(t);
+		return isKnown((Transaction)t);
 	}
 	
 	public boolean isUnknown(TransactionBE t) {
-		return unknown.contains(t);
+		return isUnknown((Transaction)t);
 	}
 	
 	public boolean isKnown(Transaction t){
 		boolean temp = false;
 		knownTransactions.current=knownTransactions.head;
 		while (knownTransactions.current!=null){
-			if (knownTransactions.current.getData().equals(t)){
+			if (knownTransactions.current.getData().getDescription().equals(t.getDescription())){
 				return true;
 			}
 			knownTransactions.current = knownTransactions.current.getLink();
@@ -134,7 +135,7 @@ System.out.println(count);
 		boolean temp = false;
 		unknown.current=unknown.head;
 		while (unknown.current!=null){
-			if (unknown.current.getData().equals(t)){
+			if (unknown.current.getData().getDescription().equals(t.getDescription())){
 				return true;
 			}
 			unknown.current = unknown.current.getLink();
@@ -157,17 +158,17 @@ System.out.println(count);
 	
 	
 	public static void main(String[] args){
-//		DatabaseBE myDB = new DatabaseBE();
-//		myDB.addFromFile("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\known transactions.csv");
-//		myDB.saveDatabase(myDB);
+		DatabaseBE myDB = new DatabaseBE();
+		myDB.addFromFile("files\\known transactions.csv");
+		myDB.saveDatabase(myDB);
 		DatabaseBE testDB = new DatabaseBE();
 		System.out.println("__________UNKNOWN TRANSACTIONS___________");
 		System.out.println(testDB.getUnknown().toString());
 		System.out.println(testDB.unknown.length());
 		
-//		System.out.println("__________KNOWN TRANSACTIONS___________");
-//		System.out.println(testDB.getKnownTransactions().toString());
-//		System.out.println(testDB.knownTransactions.length());
+		System.out.println("__________KNOWN TRANSACTIONS___________");
+		System.out.println(testDB.getKnownTransactions().toString());
+		System.out.println(testDB.knownTransactions.length());
 	}
 	
 }

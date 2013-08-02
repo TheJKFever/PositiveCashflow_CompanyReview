@@ -11,7 +11,8 @@ import java.util.Calendar;
  */
 public class Transaction implements Comparable<Transaction>, Serializable {
 
-	private static final long serialVersionUID = -7138989113734490032L;
+
+	private static final long serialVersionUID = -488996164500650961L;
 	private String description;
 	private Calendar date;
 	private double amount;
