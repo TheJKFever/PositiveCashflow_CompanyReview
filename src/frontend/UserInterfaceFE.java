@@ -179,7 +179,7 @@ System.out.println(i);
 	//TODO Test the clean method and others
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();
-		UserInterfaceFE UI = new UserInterfaceFE("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\Original transactions.csv",myDB);
+		UserInterfaceFE UI = new UserInterfaceFE("files\\transactions.csv",myDB);
 		System.out.println(""+UI.getPercentGood());
 	}
 }

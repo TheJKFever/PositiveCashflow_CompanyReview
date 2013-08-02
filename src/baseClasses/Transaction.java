@@ -1,6 +1,7 @@
 package baseClasses;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,8 +13,9 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 
 	private static final long serialVersionUID = -7138989113734490032L;
 	private String description;
-	private Date date;
+	private Calendar date;
 	private double amount;
+	
 	
 	public Transaction(String description){
 		super();
@@ -43,7 +45,7 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 		return amount;
 	}
 
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
@@ -71,14 +73,78 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 		this.amount = amount;
 	}
 
-	private void setDate(String date) {
-		System.out.println(date);
-		@SuppressWarnings("deprecation")
-		Date temp = new Date(date+" 00:00:00 AM");
-		this.date = temp;
-	}	
+	private void setDate(String date2) {
+		System.out.println(date2);//print out date
+		//TODO change to calendar
+		String[] d = date2.split("/");
+		System.out.println(d[0]);
+		System.out.println(d[1]);
+		System.out.println(d[2]);
+		initializeCalendar();
+		date.clear();
+		date.set(Integer.valueOf(d[2]), Integer.valueOf(d[0]), Integer.valueOf(d[1]));	
+		}	
 	
 	
+	private void initializeCalendar() {
+		date = new Calendar() {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 2909678555343046040L;
+
+			@Override
+			public void roll(int field, boolean up) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public int getMinimum(int field) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public int getMaximum(int field) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public int getLeastMaximum(int field) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public int getGreatestMinimum(int field) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			protected void computeTime() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			protected void computeFields() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void add(int field, int amount) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+	}
+
 	public String toString(){
 		return ("[" + date + " , " + amount + " , " + description + "]");
 	}
