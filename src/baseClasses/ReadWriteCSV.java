@@ -49,7 +49,6 @@ public class ReadWriteCSV {
 		CSVReader reader = null;
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 		
-		
 		String [] nextLine = null;
 		//get correct index
 		int indexDate = -1;
@@ -83,6 +82,7 @@ public class ReadWriteCSV {
 		try {
 			while ((nextLine = reader.readNext()) != null) {
 				// nextLine[] is an array of values from the line
+				System.out.println(nextLine[indexDate]);
 				transactions.add(new Transaction(nextLine[indexDescription], Double.valueOf(nextLine[indexAmount]), nextLine[indexDate]));
 			}
 		} catch (IOException e) {

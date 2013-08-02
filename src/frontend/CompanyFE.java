@@ -15,7 +15,7 @@ public class CompanyFE extends Company{
 		super(good, companyName, companyType);
 		transactionList = new SortedLL<Transaction>();
 	}
-
+	
 	//GETTERS
 	public SortedLL<Transaction> getTransactionList() {
 		return transactionList;

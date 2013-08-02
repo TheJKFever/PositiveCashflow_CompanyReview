@@ -16,13 +16,13 @@ public class UserInterfaceFE {
 	private double total=0, totalGood, totalBad, totalUnknown;
 	private File input;
 	ReadWriteCSV readWrite;
-	@SuppressWarnings("null")
-	private CompanyFE unknown = new CompanyFE((Boolean)null, "Unknown", null);
+	private CompanyFE unknown;
 	private boolean found;
 
 	
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
+		unknown = new CompanyFE((Boolean)null, "Unknown", null);
 		companies.add(unknown);
 		this.total = 0;
 		this.totalGood = 0;
@@ -43,6 +43,7 @@ public class UserInterfaceFE {
 		try { //Creates unknown company in companies, and adds all transactions from file to it
 			ArrayList<Transaction> tempList = readWrite.readTransactions(input2.getCanonicalPath());
 			for (Transaction i: tempList){
+System.out.println(i);
 				unknown.addTransaction(i);
 			}
 		} catch (Exception e) {
@@ -96,6 +97,7 @@ public class UserInterfaceFE {
 					tempDB.getUnknown().add(newTBE);
 				}						
 			}
+			System.out.println(unknown.getTransactionList().current.getData());
 			unknown.getTransactionList().current = unknown.getTransactionList().current.getLink();
 		}
 	}
