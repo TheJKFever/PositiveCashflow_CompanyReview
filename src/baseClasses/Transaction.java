@@ -3,7 +3,6 @@ package baseClasses;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * 
@@ -89,71 +88,50 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 	
 	private void initializeCalendar() {
 		date = new Calendar() {
-			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 2909678555343046040L;
-
 			@Override
 			public void roll(int field, boolean up) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public int getMinimum(int field) {
-				// TODO Auto-generated method stub
 				return 0;
 			}
 			
 			@Override
 			public int getMaximum(int field) {
-				// TODO Auto-generated method stub
 				return 0;
 			}
 			
 			@Override
 			public int getLeastMaximum(int field) {
-				// TODO Auto-generated method stub
 				return 0;
 			}
 			
 			@Override
 			public int getGreatestMinimum(int field) {
-				// TODO Auto-generated method stub
 				return 0;
 			}
 			
 			@Override
-			protected void computeTime() {
-				// TODO Auto-generated method stub
-				
+			protected void computeTime() {				
 			}
 			
 			@Override
-			protected void computeFields() {
-				// TODO Auto-generated method stub
-				
+			protected void computeFields() {				
 			}
 			
 			@Override
-			public void add(int field, int amount) {
-				// TODO Auto-generated method stub
-				
+			public void add(int field, int amount) {				
 			}
 			
 			@Override
 			public String toString(){
 				String strdate = null;
-
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
 				if (this.getTime() != null) {
 				strdate = sdf.format(this.getTime().getTime());
 				}
-				
-				
 				return strdate;
 			}
 		};
