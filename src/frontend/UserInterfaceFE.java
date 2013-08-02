@@ -74,11 +74,9 @@ public class UserInterfaceFE {
 						//Did not find transaction
 						//add current transaction from unknown to known company					
 						companies.getCurrent().addTransaction(unknown.getTransactionList().getCurrent());
-						//TODO add totals to company
+						//add total to company
 						double tempAmount = unknown.getTransactionList().getCurrent().getAmount();
 						companies.getCurrent().setTotal(companies.getCurrent().getTotal()+tempAmount);
-						
-						
 						unknown.getTransactionList().remove();
 						break;
 					}
