@@ -69,7 +69,7 @@ public class SortedLL<T> implements SortedLLInterface<T>, Serializable { //Itera
 				}
 			} else if (current.getLink()==null) {	//add to end
 					current.setLink(newNode);
-					break;
+					current=current.getLink();
 			}
 			previous=current;
 			current=current.getLink();

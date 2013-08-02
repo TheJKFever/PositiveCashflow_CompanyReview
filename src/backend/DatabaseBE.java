@@ -123,8 +123,7 @@ System.out.println(count);
 		knownTransactions.current=knownTransactions.head;
 		while (knownTransactions.current!=null){
 			if (knownTransactions.current.getData().equals(t)){
-System.out.println(knownTransactions.getCurrent());
-				temp=true;
+				return true;
 			}
 			knownTransactions.current = knownTransactions.current.getLink();
 		}
@@ -136,7 +135,7 @@ System.out.println(knownTransactions.getCurrent());
 		unknown.current=unknown.head;
 		while (unknown.current!=null){
 			if (unknown.current.getData().equals(t)){
-				temp=true;
+				return true;
 			}
 			unknown.current = unknown.current.getLink();
 		}
@@ -144,7 +143,6 @@ System.out.println(knownTransactions.getCurrent());
 	}
 	
 	public Company getCurrentCo(){
-System.out.println(knownTransactions.getCurrent());
 		return knownTransactions.getCurrent().getData().getCompany();
 	}
 	
@@ -167,9 +165,9 @@ System.out.println(knownTransactions.getCurrent());
 		System.out.println(testDB.getUnknown().toString());
 		System.out.println(testDB.unknown.length());
 		
-		System.out.println("__________KNOWN TRANSACTIONS___________");
-		System.out.println(testDB.getKnownTransactions().toString());
-		System.out.println(testDB.knownTransactions.length());
+//		System.out.println("__________KNOWN TRANSACTIONS___________");
+//		System.out.println(testDB.getKnownTransactions().toString());
+//		System.out.println(testDB.knownTransactions.length());
 	}
 	
 }
