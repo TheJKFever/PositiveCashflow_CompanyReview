@@ -1,6 +1,7 @@
 package backend;
 
 import java.io.*;
+
 import au.com.bytecode.opencsv.CSVReader;
 import baseClasses.*;
 /**
@@ -20,7 +21,7 @@ public class DatabaseBE implements Serializable {
 			this.unknown = newDB.unknown;
 			this.knownTransactions = newDB.knownTransactions;
 		}
-		catch (Exception e){
+		catch (FileNotFoundException e){
 			this.unknown = new SortedLL<TransactionBE>();
 			this.knownTransactions = new SortedLL<TransactionBE>();
 		}
@@ -37,22 +38,23 @@ public class DatabaseBE implements Serializable {
 		}
 	}
 	
-	public DatabaseBE openDatabase(){
+	public DatabaseBE openDatabase() throws FileNotFoundException{
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream("files\\Database.dat"));
 			DatabaseBE newDB = (DatabaseBE)in.readObject();
 			in.close();
 			return newDB;
 		} catch (Exception e) {
-			System.out.println("Open Database failed, create new one: "+e);
+			throw new FileNotFoundException("Open Database failed, create new one: "+e);
 		}
-		return null;
 	}
 	
 	public void addTransaction(TransactionBE t){
 		if (!isKnown(t)){
-			if (t.getCompany()==null){
+System.out.println(t);
+			if (t.getCompany().getCompanyName().equals("")){
 				if(!isUnknown(t)){
+System.out.println("ADded to Unknown");
 					unknown.add(t);
 				}				
 			} else {
@@ -102,7 +104,7 @@ public class DatabaseBE implements Serializable {
 					tempGood = false;
 				}
 				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
-//System.out.println(newTransaction);
+//System.out.println(newTransaction.getCompany().getCompanyName());
 				addTransaction(newTransaction);
 				count++;
 			}
@@ -113,33 +115,32 @@ System.out.println(count);
 	}
 	
 	public boolean isKnown(Transaction t){
-		knownTransactions.current = knownTransactions.head;
-		while(knownTransactions.getCurrent()!=null){
-			if (knownTransactions.current.getData().equals(t)) {
-				return true;
-			}
-			knownTransactions.current=knownTransactions.current.getLink();
-		}
-System.out.println("false");
-System.exit(0);
-		return false;
+		return knownTransactions.contains((TransactionBE)t);
+//		knownTransactions.current = knownTransactions.getHead();
+//		while(knownTransactions.getCurrent()!=null){
+//			if (knownTransactions.current.getData().equals(t)) {
+//				return true;
+//			}
+//			knownTransactions.current=knownTransactions.current.getLink();
+//		}
+//		return false;
 	}
 	
 	public boolean isUnknown(Transaction t) {
-		unknown.current = unknown.head;
-		while(unknown.current!=null){
-			if (unknown.current.getData().equals(t)) {
-				return true;
-			}
-			unknown.current=unknown.current.getLink();
-		}
-		return false;
+		return unknown.contains((TransactionBE)t);
+//		unknown.current = unknown.getHead();
+//		while(unknown.current!=null){
+//			if (unknown.current.getData().equals(t)) {
+//				return true;
+//			}
+//			unknown.current=unknown.current.getLink();
+//		}
+//		return false;
 	}
 	
 	public Company getCurrentCo(){
 		return knownTransactions.current.getData().getCompany();
 	}
-	
 	
 	//GETTERS
 	public SortedLL<TransactionBE> getUnknown() {

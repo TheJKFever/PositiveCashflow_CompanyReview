@@ -14,7 +14,7 @@ public class SortedLL<T> implements SortedLLInterface<T>, Serializable { //Itera
 	protected int length = 0;
 	
 	public SortedLL() {
-		head=null;
+		head = null;
 		previous=null;
 		current=null;
 	}
@@ -114,16 +114,16 @@ public class SortedLL<T> implements SortedLLInterface<T>, Serializable { //Itera
 		return length;
 	}
 
-	public T getHead() {
-		return head.getData();
+	public LLNode<T> getHead() {
+		return head;
 	}	
 
-	public T getPrevious() {
-		return previous.getData();
+	public LLNode<T> getPrevious() {
+		return previous;
 	}
 
-	public T getCurrent() {
-		return current.getData();
+	public LLNode<T> getCurrent() {
+		return current;
 	}
 
 	//SETTERS

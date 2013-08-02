@@ -130,7 +130,7 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 	}
 
 	public String toString(){
-		return ("[" + date+ " , " + amount + " , " + description + "]");
+		return ("[" + date+ "," + amount + "," + description + "]");
 	}
 	
 }
