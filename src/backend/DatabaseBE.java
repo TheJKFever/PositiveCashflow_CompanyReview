@@ -102,7 +102,7 @@ public class DatabaseBE implements Serializable {
 					tempGood = false;
 				}
 				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
-System.out.println(newTransaction);
+//System.out.println(newTransaction);
 				addTransaction(newTransaction);
 				count++;
 			}
@@ -114,12 +114,14 @@ System.out.println(count);
 	
 	public boolean isKnown(Transaction t){
 		knownTransactions.current = knownTransactions.head;
-		while(knownTransactions.current!=null){
+		while(knownTransactions.getCurrent()!=null){
 			if (knownTransactions.current.getData().equals(t)) {
 				return true;
 			}
 			knownTransactions.current=knownTransactions.current.getLink();
 		}
+System.out.println("false");
+System.exit(0);
 		return false;
 	}
 	
@@ -129,7 +131,6 @@ System.out.println(count);
 			if (unknown.current.getData().equals(t)) {
 				return true;
 			}
-			unknown.previous=unknown.current;
 			unknown.current=unknown.current.getLink();
 		}
 		return false;
@@ -156,10 +157,11 @@ System.out.println(count);
 		myDB.saveDatabase(myDB);
 		DatabaseBE testDB = new DatabaseBE();
 		System.out.println("__________UNKNOWN TRANSACTIONS___________");
-		System.out.println(testDB.getUnknown().toString());
+//		System.out.println(testDB.getUnknown().toString());
+		System.out.println(testDB.unknown.length());
 		
 		System.out.println("__________KNOWN TRANSACTIONS___________");
-		System.out.println(testDB.getKnownTransactions().toString());
+//		System.out.println(testDB.getKnownTransactions().toString());
 		System.out.println(testDB.knownTransactions.length());
 	}
 	
