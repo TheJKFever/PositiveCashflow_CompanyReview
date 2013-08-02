@@ -74,15 +74,14 @@ public class ReadWriteCSV {
 				reader.close();
 				throw new Exception("Formatted incorrectly");
 			}
-			reader.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		try {
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+//		
+//		try {
 			while ((nextLine = reader.readNext()) != null) {
 				// nextLine[] is an array of values from the line
-				System.out.println(nextLine[indexDate]);
+				System.out.println("inside reader while");
 				transactions.add(new Transaction(nextLine[indexDescription], Double.valueOf(nextLine[indexAmount]), nextLine[indexDate]));
 			}
 		} catch (IOException e) {

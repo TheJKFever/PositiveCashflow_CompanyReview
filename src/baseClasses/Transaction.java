@@ -72,6 +72,7 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 	}
 
 	private void setDate(String date) {
+		System.out.println(date);
 		@SuppressWarnings("deprecation")
 		Date temp = new Date(date+" 00:00:00 AM");
 		this.date = temp;
