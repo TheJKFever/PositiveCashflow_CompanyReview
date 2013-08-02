@@ -10,11 +10,12 @@ public class CompanyFE extends Company implements Comparable<Company> {
 
 	private static final long serialVersionUID = 3780106583035252376L;
 	private SortedLL<Transaction> transactionList;
-	private double total=0;
+	private double total;
 	
 	public CompanyFE(boolean good, String companyName, String companyType) {
 		super(good, companyName, companyType);
 		transactionList = new SortedLL<Transaction>();
+		total=0;
 	}
 	
 	//GETTERS
@@ -29,6 +30,7 @@ public class CompanyFE extends Company implements Comparable<Company> {
 	//SETTERS
 	public void addTransaction(Transaction t){
 		transactionList.add(t);
+		total+=t.getAmount();
 	}
 
 	public void setTotal(double total) {

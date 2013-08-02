@@ -2,6 +2,7 @@ package frontend;
 
 import java.io.File;
 import java.util.ArrayList;
+
 import backend.DatabaseBE;
 import backend.TransactionBE;
 import baseClasses.*;
@@ -13,7 +14,7 @@ import baseClasses.*;
 public class UserInterfaceFE {
 
 	protected SortedLL<CompanyFE> companies;
-	private double total=0, totalGood, totalBad, totalUnknown;
+	private double total, totalGood, totalBad, totalUnknown;
 	private File input;
 	ReadWriteCSV readWrite;
 	private CompanyFE unknown;
@@ -22,7 +23,7 @@ public class UserInterfaceFE {
 
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
-		unknown = new CompanyFE(true, "Unknown", "");
+		unknown = new CompanyFE((Boolean)null, "Unknown", "");
 		companies.add(unknown);
 		this.total = 0;
 		this.totalGood = 0;
@@ -59,13 +60,11 @@ public class UserInterfaceFE {
 		//if find, add transaction, if not add company and add transaction
 		//if not known, add to backend and leave in unknown
 		unknown.getTransactionList().current = unknown.getTransactionList().head;
-		while (unknown.getTransactionList().getCurrent()!=null){
+		while (unknown.getTransactionList().current!=null){
 			found=false;
 			//If transaction is in BE known list
-			
-			System.out.println("in while loop");
 			if (tempDB.isKnown(unknown.getTransactionList().getCurrent().getData())){
-System.out.println("Transaction Is Known: "+unknown.getTransactionList().getCurrent().getData());
+//System.out.println("Transaction Is Known: "+unknown.getTransactionList().getCurrent().getData());
 				companies.current=companies.head;
 				//iterate through FE companies to see if it'a already in the list
 				while (companies.current!=null){
@@ -76,36 +75,47 @@ System.out.println("Transaction Is Known: "+unknown.getTransactionList().getCurr
 						//Did not find transaction
 						//add current transaction from unknown to known company					
 						companies.getCurrent().getData().addTransaction(unknown.getTransactionList().getCurrent().getData());
+						distributeAmount(unknown.getTransactionList().getCurrent().getData(), companies.getCurrent().getData());
 						//add total to company
-						double tempAmount = unknown.getTransactionList().getCurrent().getData().getAmount();
-						companies.getCurrent().getData().setTotal(companies.getCurrent().getData().getTotal()+tempAmount);
 						unknown.getTransactionList().remove();
 						break;
 					}
 					companies.current = companies.current.getLink();
 				}
 				if (!found){
+//System.out.println("Company was not in list");
 					//Did not find company in FE, add to companies
 					CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
 					newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent().getData());
+					distributeAmount(unknown.getTransactionList().getCurrent().getData(), companies.getCurrent().getData());
 					unknown.getTransactionList().remove();
 					companies.add(newCompanyFE);
 				}
 			} 
 			else { //Could not find in known companies, whatever is left over add to BEunknown
-System.out.println("Transaction Is Unknown: "+unknown.getTransactionList().getCurrent().getData());
+//System.out.println("Transaction Is Unknown: "+unknown.getTransactionList().getCurrent().getData());
+				distributeAmount(unknown.getTransactionList().getCurrent().getData(), unknown);
 				if (!tempDB.isUnknown(unknown.getTransactionList().getCurrent().getData())){
-System.out.println("S U C C E S S ! ! ! ! !");
-System.exit(0);
 					TransactionBE newTBE = new TransactionBE(unknown.getTransactionList().getCurrent().getData().getDescription(),null);
 					tempDB.getUnknown().add(newTBE);
 				}						
 			}
-System.out.print(unknown.getTransactionList().length()+": ");
-//if (unknown.getTransactionList().length()==1569) break;
+//System.out.print(unknown.getTransactionList().length()+": ");
 			unknown.getTransactionList().previous = unknown.getTransactionList().current;
 			unknown.getTransactionList().current = unknown.getTransactionList().current.getLink();
 		}
+	}
+
+	
+	private void distributeAmount(Transaction t, CompanyFE c) {
+		if (c.isGood()==(Boolean)null){
+			totalUnknown+=t.getAmount();
+		} else if (c.isGood()) {
+			totalGood+=t.getAmount();
+		} else {
+			totalBad+=t.getAmount();
+		}
+		total+=t.getAmount();
 	}
 
 	//GETTERS
@@ -181,12 +191,10 @@ System.out.print(unknown.getTransactionList().length()+": ");
 	//TODO Test the clean method and others
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();
-		
-		
 		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
 		System.out.println("Completely finished");
 //		CompanyFE unknowntester = new CompanyFE(true,"Unknown","");
-		System.out.print(UI.unknown.getTransactionList().toString());
+//		System.out.print(UI.unknown.getTransactionList().toString());
 //		System.out.println(UI.companies.getCurrent().getTransactionList().toString());
 	}
 }

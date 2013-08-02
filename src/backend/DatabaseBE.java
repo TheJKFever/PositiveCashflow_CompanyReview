@@ -157,17 +157,17 @@ System.out.println(count);
 	
 	
 	public static void main(String[] args){
-//		DatabaseBE myDB = new DatabaseBE();
-//		myDB.addFromFile("files\\known transactions.csv");
-//		myDB.saveDatabase(myDB);
-		DatabaseBE testDB = new DatabaseBE();
-		System.out.println("__________UNKNOWN TRANSACTIONS___________");
-		System.out.println(testDB.getUnknown().toString());
-		System.out.println(testDB.unknown.length());
-		
-		System.out.println("__________KNOWN TRANSACTIONS___________");
-		System.out.println(testDB.getKnownTransactions().toString());
-		System.out.println(testDB.knownTransactions.length());
+		DatabaseBE myDB = new DatabaseBE();
+		myDB.addFromFile("files\\known transactions.csv");
+		myDB.saveDatabase(myDB);
+//		DatabaseBE testDB = new DatabaseBE();
+//		System.out.println("__________UNKNOWN TRANSACTIONS___________");
+//		System.out.println(testDB.getUnknown().toString());
+//		System.out.println(testDB.unknown.length());
+//		
+//		System.out.println("__________KNOWN TRANSACTIONS___________");
+//		System.out.println(testDB.getKnownTransactions().toString());
+//		System.out.println(testDB.knownTransactions.length());
 	}
 	
 }
