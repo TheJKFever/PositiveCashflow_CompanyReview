@@ -72,8 +72,10 @@ public class ReadWriteCSV {
 				}
 			}
 			if(indexDate==-1 || indexAmount == -1 || indexDescription == -1){
+				reader.close();
 				throw new Exception("Formatted incorrectly");
 			}
+			reader.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

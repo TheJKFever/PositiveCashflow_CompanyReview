@@ -17,7 +17,6 @@ import backend.DatabaseBE;
 public class FrontEndGUI extends JFrame {
 	
 	private JPanel contentPane, tabbedPanel, importPanel;
-	private static boolean import_Accepted = false;
 	private UserInterfaceFE profileData = new UserInterfaceFE();
 	private static Rectangle viewer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
 	private JFrame popup;
@@ -269,7 +268,6 @@ System.out.println("Got to profile data read in");
 						profileData = new UserInterfaceFE(inputFile, myDB);
 						System.out.println("read in data successfully");
 						setToTabbedPanel();
-						import_Accepted=true;
 					}
 					catch (Exception e){
 						System.out.println("Error while reading in data");

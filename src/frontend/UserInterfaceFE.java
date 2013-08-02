@@ -2,7 +2,6 @@ package frontend;
 
 import java.io.File;
 import java.util.ArrayList;
-
 import backend.DatabaseBE;
 import backend.TransactionBE;
 import baseClasses.*;
@@ -17,6 +16,7 @@ public class UserInterfaceFE {
 	private double total=0, totalGood, totalBad, totalUnknown;
 	private File input;
 	ReadWriteCSV readWrite;
+	@SuppressWarnings("null")
 	private CompanyFE unknown = new CompanyFE((Boolean)null, "Unknown", null);
 	private boolean found;
 
@@ -176,6 +176,8 @@ public class UserInterfaceFE {
 	
 	//TODO Test the clean method and others
 	public static void main(String[] args){
-		UserInterfaceFE UI = new UserInterfaceFE();
+		DatabaseBE myDB = new DatabaseBE();
+		UserInterfaceFE UI = new UserInterfaceFE("C:\\Hard Drive\\Education\\NVCC\\Classes\\13\' Summer\\CSC 202\\PositiveCashflow - Company Reviewer\\files\\Original transactions.csv",myDB);
+		System.out.println(""+UI.getPercentGood());
 	}
 }

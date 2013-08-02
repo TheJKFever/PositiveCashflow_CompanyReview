@@ -7,6 +7,8 @@ import baseClasses.*;
  * CSC202 Final Project
  */
 public class CompanyFE extends Company{
+
+	private static final long serialVersionUID = 6275261625641986745L;
 	private SortedLL<Transaction> transactionList;
 	
 	public CompanyFE(boolean good, String companyName, String companyType) {
