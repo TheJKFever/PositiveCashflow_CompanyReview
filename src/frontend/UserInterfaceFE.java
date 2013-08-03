@@ -167,7 +167,7 @@ public class UserInterfaceFE {
 
 
 	public String[][] getGoodTransactions() {
-		String[][] object = new String[countGood+1][4];
+		String[][] object = new String[countGood][4];
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
@@ -214,7 +214,7 @@ System.out.println(countBad);
 	}
 	
 	public String[][] getUnknownTransactions() {
-		String[][] object = new String[countUnknown][5];
+		String[][] object = new String[countUnknown+10000][5];
 System.out.println(countUnknown);
 		companies.current = companies.getHead();
 		int count=0;
@@ -222,12 +222,14 @@ System.out.println(countUnknown);
 			if (companies.current.getData().isGood()==0){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
-System.out.println(companies.current.getData().getTransactionList().getCurrent().getData().getDate()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getDescription()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
+System.out.println(companies.current.getData().getTransactionList().getCurrent().getData().getDate().toString()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getDescription()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
 					object[count][0] = companies.current.getData().getTransactionList().getCurrent().getData().getDate().toString();
 					object[count][1] = companies.current.getData().getTransactionList().getCurrent().getData().getDescription();
-					object[count][2] = ""+companies.current.getData().getTransactionList().getCurrent().getData().getAmount();
+					object[count][2] = Double.toString(companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
 					object[count][3] = "";
-					object[count][4] = "";					
+					object[count][4] = "";			
+					System.out.println("countUnknown = " + countUnknown);
+					System.out.println("count = " + count);
 					count++;
 					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().getCurrent();
 					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
@@ -286,7 +288,7 @@ System.out.println(companies.current.getData().getTransactionList().getCurrent()
 		DatabaseBE myDB = new DatabaseBE();
 		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
 		
-//		System.out.println(UI.unknown.getTransactionList());
+		System.out.println(UI.unknown.getTransactionList());
 		
 		
 //		UI.companies.current = UI.companies.getHead();
