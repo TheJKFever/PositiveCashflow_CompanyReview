@@ -99,36 +99,54 @@ public class ReadWriteCSV {
 			e1.printStackTrace();
 		}
 
-		
-		
-		
-		writer.writeNext("Good transactions".split(""));
-		String[] t = {"Date", "Company", "Transaction Description", "Amount ($)"};
-		writer.writeNext(t);
+		String[] header= {"Date", "Transaction Description", "Amount ($)", "Company", "Good/Bad"};
+		writer.writeNext(header);
 		for(Object[] temp : inputGood){
-			String[] q = new String[temp.length];
-			for(int i = 0; i < 4; i++){
-				q[i] = temp[i].toString();
-				
+			String[] q = new String[5];
+			for(int i = 0; i < 5; i++){
+				switch (i){
+					case 0: 
+						q[0] = temp[i].toString();
+						break;
+					case 1:
+						q[3] = temp[i].toString();
+						break;
+					case 2:
+						q[1] = temp[i].toString();
+						break;
+					case 3:
+						q[2] = temp[i].toString();
+						break;
+					case 4:
+						q[4] = "Good";
+						break;
+				}
 			}
 			writer.writeNext(q);
 		}
-		writer.writeNext("Bad transactions".split(""));
-		String[] r= {"Date", "Company", "Transaction Description", "Amount ($)"};
-		writer.writeNext(r);
 		for(Object[] temp : inputBad){
-			String[] q = new String[temp.length];
-			for(int i = 0; i < 4; i++){
-				q[i] = temp[i].toString();
-				
+			String[] q = new String[5];
+			for(int i = 0; i < 5; i++){
+				switch (i){
+					case 0: 
+						q[0] = temp[i].toString();
+						break;
+					case 1:
+						q[3] = temp[i].toString();
+						break;
+					case 2:
+						q[1] = temp[i].toString();
+						break;
+					case 3:
+						q[2] = temp[i].toString();
+						break;
+					case 4:
+						q[4] = "Bad";
+						break;
+				}
 			}
 			writer.writeNext(q);
-		}
-		String[] f = {"Unknown transactions"};
-		writer.writeNext(f);
-		String[] u= {"Date", "Transaction Description", "Amount ($)", "Company", "Good/Bad"};
-		writer.writeNext(u);
-		
+		}		
 		//TODO fix me please?
 		for(Object[] temp : inputUnknown){
 			String[] q = new String[temp.length];

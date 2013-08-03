@@ -80,7 +80,6 @@ public class FrontEndGUI extends JFrame {
 	
 	@SuppressWarnings("serial")
 	private void setToTabbedPanel(){
-		System.out.println("Got inside SetToTabbedPanel");
 		tabbedPanel = new JPanel();
 		tabbedPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -292,14 +291,12 @@ public class FrontEndGUI extends JFrame {
   		CompanyLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
   		CompanyLabel.setAlignmentX(0.5f);
   		companyTab.add(CompanyLabel);
-System.out.println("Before fourth ProfileDate call"); 
   		companyTable = new JTable(){
               public boolean getScrollableTracksViewportWidth()
               {
                   return getPreferredSize().width < getParent().getWidth();
               }
           };
-System.out.println("Got through fourth Profile Data Call");			
         companyTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
   		companyTable.setRowSelectionAllowed(false);
   		companyTable.setFillsViewportHeight(true);
@@ -379,12 +376,7 @@ System.out.println("Got through fourth Profile Data Call");
 		lowerPanel.add(exportBtn, gbc_exportBtn_1);
 		exportBtn.setFont(new Font("Dialog", Font.PLAIN, 16));
         
-        
-        
-        
 //REMOVE IMPORT PANEL AND ADD TABBED PANEL
-        System.out.println("Got to change content pane");
-        
 		contentPane.removeAll();
 		contentPane.add(tabbedPanel);
 		setContentPane(contentPane);
@@ -473,7 +465,6 @@ System.out.println("Got through fourth Profile Data Call");
 			try{
 				if ((chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)&&(chooser.getSelectedFile().getName().endsWith(".csv"))) {
 					String inputFile = chooser.getCurrentDirectory().toString()+"\\"+chooser.getSelectedFile().getName();
-System.out.println("Got to profile data read in");
 						profileData = new UserInterfaceFE(inputFile, myDB);
 System.out.println("read in data successfully");
 						setToTabbedPanel();
@@ -496,7 +487,13 @@ System.out.println("read in data successfully");
 			try{
 				if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 					String outputFile = chooser.getCurrentDirectory().toString()+"\\"+chooser.getSelectedFile().getName()+".csv";
-					ReadWriteCSV.writeToCSV(outputFile, profileData.getGoodTransactions(), profileData.getBadTransactions(), profileData.getUnknownTransactions());
+					Object[][] unknownTableArray = new Object[unknownTable.getModel().getRowCount()][5];
+					for (int i=0; i<unknownTable.getModel().getRowCount();i++){
+						for (int j=0;j<5;j++){
+							unknownTableArray[i][j] = unknownTable.getModel().getValueAt(i, j);
+						}
+					}
+					ReadWriteCSV.writeToCSV(outputFile, profileData.getGoodTransactions(), profileData.getBadTransactions(), unknownTableArray);
 					JOptionPane.showMessageDialog(popup, "S U C C E S S ! ! !", "SUCCESS", 0);
 				} else {
 					JOptionPane.showMessageDialog(popup, "There was an error uploading the file,  please try again", "ERROR", 0);
