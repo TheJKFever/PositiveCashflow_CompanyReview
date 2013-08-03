@@ -168,17 +168,17 @@ public class UserInterfaceFE {
 
 
 	public Object[][] getGoodTransactions() {
-		Object[][] object = new String[countGood][4];
+		Object[][] object = new Object[countGood][4];
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
 			if (companies.current.getData().isGood()==1){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
-					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate();
-					object[count][1] = companies.current.getData().getCompanyName();
-					object[count][2] = companies.current.getData().getTransactionList().current.getData().getDescription();
-					object[count][3] = "$"+Double.toString((int)(companies.current.getData().getTransactionList().current.getData().getAmount()*100)/100.0);
+					object[count][0] = (Object)(companies.current.getData().getTransactionList().current.getData().getDate());
+					object[count][1] = (Object)companies.current.getData().getCompanyName();
+					object[count][2] = (Object)companies.current.getData().getTransactionList().current.getData().getDescription();
+					object[count][3] = (Object)"$"+Double.toString((int)(companies.current.getData().getTransactionList().current.getData().getAmount()*100)/100.0);
 					count++;
 					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().getCurrent();
 					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
@@ -191,7 +191,7 @@ public class UserInterfaceFE {
 	}
 
 	public Object[][] getBadTransactions() {
-		Object[][] object = new String[countBad][4];
+		Object[][] object = new Object[countBad][4];
 System.out.println(countBad);
 		companies.current = companies.getHead();
 		int count=0;
@@ -215,7 +215,7 @@ System.out.println(countBad);
 	}
 	
 	public Object[][] getUnknownTransactions() {
-		Object[][] object = new String[countUnknown+1000][5];
+		Object[][] object = new Object[countUnknown+1000][5];
 System.out.println(countUnknown);
 		companies.current = companies.getHead();
 		int count=0;
@@ -241,7 +241,7 @@ System.out.println(countUnknown);
 	}
 	
 	public Object[][] getCompanySummary() {
-		Object[][] object = new String[companies.length()][3];
+		Object[][] object = new Object[companies.length()][3];
 		companies.current = companies.getHead();
 		int count=0;
 		companies.current = companies.getHead();

@@ -3,7 +3,7 @@ package frontend;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Calendar;
-
+import java.util.Comparator;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -122,7 +122,6 @@ public class FrontEndGUI extends JFrame {
         goodTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		goodTable.setRowSelectionAllowed(false);
 		goodTable.setFillsViewportHeight(true);
-		goodTable.setAutoCreateRowSorter(true);
 System.out.println("Before first ProfileDate call");		
 		goodTable.setModel(new DefaultTableModel(
 				profileData.getGoodTransactions(),
@@ -130,15 +129,17 @@ System.out.println("Before first ProfileDate call");
 						"Date", "Company", "Transaction Description", "Amount ($)"
 					}
 			){
-			Class[] columnTypes = new Class[] {
-					Calendar.class, String.class, String.class, String.class
-				};
-			public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
+			Class[] columnTypes = new Class[] {Calendar.class, String.class, String.class, String.class, String.class};
+			boolean[] columnEditables = new boolean[] {false, false, false, false};
+			Comparator<Calendar> comparator = new Comparator<Calendar>(){
+				@Override
+				public int compare(Calendar o1, Calendar o2) {
+					return o1.compareTo(o2);
 				}
-			boolean[] columnEditables = new boolean[] {
-					false, false, false, false
-				};
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
 			public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
 				}
@@ -158,6 +159,11 @@ System.out.println("Got through first Profile Data Call");
 		goodTable.getColumnModel().getColumn(3).setResizable(false);
 		goodTable.getColumnModel().getColumn(3).setMinWidth(1);
 		goodTable.getColumnModel().getColumn(3).setMaxWidth(100);
+		
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(goodTable.getModel());
+		goodTable.setRowSorter(sorter);
+//		goodTable.setAutoCreateRowSorter(true);
+
 		goodTable.getModel();
         JScrollPane scrollPaneGood = new JScrollPane(goodTable);
         goodTab.add(scrollPaneGood);
@@ -443,7 +449,7 @@ System.out.println("read in data successfully");
 				}
 			}
 			catch (Exception e){
-				System.out.println(e.getStackTrace().toString());
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(popup, e.getStackTrace(), "EXCEPTION", 0);
 			}
 		}

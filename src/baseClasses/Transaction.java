@@ -118,6 +118,24 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 			}
 			
 			@Override
+			public int compareTo(Calendar other){
+				if (this.get(Calendar.YEAR)<other.get(Calendar.YEAR)){
+					return -1;
+				} else if (this.get(Calendar.YEAR)==other.get(Calendar.YEAR)){
+					if (this.get(Calendar.MONTH)<other.get(Calendar.MONTH)){
+						return -1;
+					} else if (this.get(Calendar.MONTH)==other.get(Calendar.MONTH)){
+						if (this.get(Calendar.DAY_OF_MONTH)<other.get(Calendar.DAY_OF_MONTH)){
+							return -1;
+						} else if (this.get(Calendar.DAY_OF_MONTH)==other.get(Calendar.DAY_OF_MONTH)){
+							return 0;
+						}
+					}
+				}
+				return 1;
+			}
+			
+			@Override
 			public void add(int field, int amount) {				
 			}
 			
@@ -132,6 +150,22 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 
 	public String toString(){
 		return ("[" + date+ "," + amount + "," + description + "]");
+	}
+	
+	
+	
+	public static void main(String[] args){
+		Transaction t = new Transaction("bought some crap");
+		t.setDate("11/1/12");
+		Transaction tj = new Transaction("bought some juice");
+		tj.setDate("11/3/12");
+		
+		System.out.println(""+tj.getDate().get(Calendar.YEAR));
+		System.out.println(""+tj.getDate().get(Calendar.MONTH));
+		System.out.println(""+tj.getDate().get(Calendar.DAY_OF_MONTH));
+		
+		System.out.println(t.getDate().compareTo(tj.getDate()));
+		
 	}
 	
 }
