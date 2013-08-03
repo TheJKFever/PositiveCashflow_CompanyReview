@@ -13,9 +13,9 @@ import backend.DatabaseBE;
  * @author Jeroen Goossens & Jon Koehmstedt
  * CSC202 Final Project
  */
-@SuppressWarnings("serial")
 public class FrontEndGUI extends JFrame {
 	
+	private static final long serialVersionUID = -6511477525339689224L;
 	private JPanel contentPane, tabbedPanel, importPanel;
 	private static UserInterfaceFE profileData;
 	private static Rectangle viewer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
@@ -74,7 +74,6 @@ public class FrontEndGUI extends JFrame {
 	}
 	
 	
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	private void setToTabbedPanel(){		
 		tabbedPanel = new JPanel();
 		tabbedPanel.setLayout(new BorderLayout(0, 0));
@@ -111,9 +110,7 @@ public class FrontEndGUI extends JFrame {
 		goodTable.setRowSelectionAllowed(false);
 		goodTable.setFillsViewportHeight(true);
 		goodTable.setModel(new DefaultTableModel(
-				new String[][] {
-						{"Date", "Transaction Description", "Amount", "Company", "Good/Bad"}
-				},
+				profileData.getGoodTransactions(),
 				new String[] {
 						"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
 					}
@@ -156,9 +153,7 @@ public class FrontEndGUI extends JFrame {
   		badTable.setRowSelectionAllowed(false);
   		badTable.setFillsViewportHeight(true);
   		badTable.setModel(new DefaultTableModel(
-  			new String[][] {
-  				{"Date", "Company", "Transaction Description", "Amount"},
-  			},
+  			profileData.getBadTransactions() ,
   			new String[] {
   				"Date", "Company", "Transaction Description", "Amount"
   			}
@@ -201,9 +196,7 @@ public class FrontEndGUI extends JFrame {
   		unknownTable.setRowSelectionAllowed(false);
   		unknownTable.setFillsViewportHeight(true);
   		unknownTable.setModel(new DefaultTableModel(
-  			new String[][] {
-  				{"Date", "Transaction Description", "Amount", "Company", "Good/Bad"},
-  			},
+  			profileData.getUnknownTransactions(),
   			new String[] {
   				"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
   			}
