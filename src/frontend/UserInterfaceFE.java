@@ -167,7 +167,7 @@ public class UserInterfaceFE {
 
 
 	public String[][] getGoodTransactions() {
-		String[][] object = new String[countGood][4];
+		String[][] object = new String[countGood+1][4];
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
@@ -190,7 +190,7 @@ public class UserInterfaceFE {
 	}
 
 	public String[][] getBadTransactions() {
-		String[][] object = new String[countBad][4];
+		String[][] object = new String[countBad+1][4];
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
@@ -213,7 +213,7 @@ public class UserInterfaceFE {
 	}
 	
 	public String[][] getUnknownTransactions() {
-		String[][] object = new String[countUnknown][5];
+		String[][] object = new String[countUnknown+1][5];
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
@@ -234,6 +234,35 @@ public class UserInterfaceFE {
 			companies.current = companies.getCurrent().getLink();
 		}
 		return object;
+	}
+	
+	public String[][] getCompanySummary() {
+		String[][] object = new String[companies.length()+1][3];
+		companies.current = companies.getHead();
+		int count=0;
+		while (companies.current!=null){
+			companies.current = companies.getHead();
+			while(companies.current!=null){
+				object[count][0] = companies.current.getData().getCompanyName();
+				object[count][1] = getGoodString(companies.current.getData());
+				object[count][2] = ""+companies.current.getData().getTotal();
+				count++;
+				companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
+			}
+			companies.previous = companies.getCurrent();
+			companies.current = companies.getCurrent().getLink();
+		}
+		return object;
+	}
+
+	public String getGoodString(Company c){
+		if (c.isGood()==1) {
+			return "Good";
+		} else if (c.isGood()==2){
+			return "Bad";
+		}
+		return "Unknown";
 	}
 
 	//SETTERS
@@ -260,4 +289,5 @@ public class UserInterfaceFE {
 		System.out.println("Completely finished");
 
 	}
+
 }

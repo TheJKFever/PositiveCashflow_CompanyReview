@@ -8,7 +8,7 @@ import baseClasses.*;
  */
 public class CompanyFE extends Company implements Comparable<Company> {
 
-	private static final long serialVersionUID = 3780106583035252376L;
+	private static final long serialVersionUID = 735691711181453767L;
 	private SortedLL<Transaction> transactionList;
 	private double total;
 	

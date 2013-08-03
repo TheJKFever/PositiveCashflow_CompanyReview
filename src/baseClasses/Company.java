@@ -10,8 +10,8 @@ public class Company implements Serializable, Comparable<Company> {
 	/*   
 	 * 	Company isGood Key: 0 = unknown, 1 = good, 2 = bad
 	 */
-
-	private static final long serialVersionUID = -8698835401119697249L;
+	
+	private static final long serialVersionUID = 5854496261816208067L;
 	protected int isGood;
 	protected String companyName, typeOfCompany;
 	

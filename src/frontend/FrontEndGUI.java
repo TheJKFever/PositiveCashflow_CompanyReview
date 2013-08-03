@@ -21,7 +21,7 @@ public class FrontEndGUI extends JFrame {
 	private static UserInterfaceFE profileData;
 	private static Rectangle viewer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
 	private JFrame popup;
-	private JTable goodTable, badTable, unknownTable;
+	private JTable goodTable, badTable, unknownTable, companyTable;
 	private static DatabaseBE myDB;
 
 	public FrontEndGUI(){
@@ -203,23 +203,72 @@ public class FrontEndGUI extends JFrame {
   				"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
   			}
   		));
+  		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(100);
   		unknownTable.getColumnModel().getColumn(0).setResizable(false);
   		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
   		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
-  		unknownTable.getColumnModel().getColumn(1).setResizable(false);
+  		unknownTable.getColumnModel().getColumn(1).setResizable(true);
   		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(400);
   		unknownTable.getColumnModel().getColumn(1).setMinWidth(2);
   		unknownTable.getColumnModel().getColumn(1).setMaxWidth(500);
+  		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(75);
   		unknownTable.getColumnModel().getColumn(2).setResizable(false);
   		unknownTable.getColumnModel().getColumn(2).setMinWidth(2);
   		unknownTable.getColumnModel().getColumn(2).setMaxWidth(75);
-  		unknownTable.getColumnModel().getColumn(3).setResizable(false);
+  		unknownTable.getColumnModel().getColumn(3).setResizable(true);
   		unknownTable.getColumnModel().getColumn(3).setPreferredWidth(300);
   		unknownTable.getColumnModel().getColumn(3).setMinWidth(1);
   		unknownTable.getColumnModel().getColumn(3).setMaxWidth(500);
+  		unknownTable.getColumnModel().getColumn(4).setResizable(false);
+  		unknownTable.getColumnModel().getColumn(4).setPreferredWidth(75);
+  		unknownTable.getColumnModel().getColumn(4).setMinWidth(1);
+  		unknownTable.getColumnModel().getColumn(4).setMaxWidth(75);
   		unknownTable.getModel();
         JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
-        unknownTab.add(scrollPaneUnknown);				
+        unknownTab.add(scrollPaneUnknown);
+        
+//CREATE BAD TAB
+  		JPanel companyTab = new JPanel();
+  		tabbedPane.addTab("Bad", null, badTab, null);
+  		companyTab.setLayout(new BoxLayout(badTab, BoxLayout.Y_AXIS));
+  		
+  		JLabel CompanyLabel = new JLabel("Summary of Companies");
+  		CompanyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+  		CompanyLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+  		CompanyLabel.setAlignmentX(0.5f);
+  		companyTab.add(CompanyLabel);
+  		companyTable = new JTable(){
+              public boolean getScrollableTracksViewportWidth()
+              {
+                  return getPreferredSize().width < getParent().getWidth();
+              }
+          };
+  		companyTable.setRowSelectionAllowed(false);
+  		companyTable.setFillsViewportHeight(true);
+  		companyTable.setModel(new DefaultTableModel(
+  			profileData.getCompanySummary() ,
+  			new String[] {
+  				"Company", "Good/Bad", "Total"
+  			}
+  		));
+  		companyTable.getColumnModel().getColumn(0).setResizable(true);
+  		companyTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+  		companyTable.getColumnModel().getColumn(0).setMinWidth(2);
+  		companyTable.getColumnModel().getColumn(0).setMaxWidth(300);
+  		companyTable.getColumnModel().getColumn(1).setResizable(false);
+  		companyTable.getColumnModel().getColumn(1).setPreferredWidth(75);
+  		companyTable.getColumnModel().getColumn(1).setMinWidth(2);
+  		companyTable.getColumnModel().getColumn(1).setMaxWidth(75);
+  		companyTable.getColumnModel().getColumn(2).setResizable(false);
+  		companyTable.getColumnModel().getColumn(2).setPreferredWidth(75);
+  		companyTable.getColumnModel().getColumn(2).setMinWidth(2);
+  		companyTable.getColumnModel().getColumn(2).setMaxWidth(75);
+  		companyTable.getModel();
+        JScrollPane scrollPaneCompany = new JScrollPane(companyTable);
+        companyTab.add(scrollPaneCompany);        
+        
+        
+        
 
 //REMOVE IMPORT PANEL AND ADD TABBED PANEL
 		contentPane.removeAll();
