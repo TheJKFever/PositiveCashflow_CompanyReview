@@ -2,13 +2,12 @@ package frontend;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Calendar;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
 
 import backend.DatabaseBE;
 /**
@@ -131,10 +130,16 @@ System.out.println("Before first ProfileDate call");
 						"Date", "Company", "Transaction Description", "Amount ($)"
 					}
 			){
+			Class[] columnTypes = new Class[] {
+					Calendar.class, String.class, String.class, String.class
+				};
+			public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
 			boolean[] columnEditables = new boolean[] {
 					false, false, false, false
 				};
-				public boolean isCellEditable(int row, int column) {
+			public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
 				}
 			});
@@ -184,10 +189,16 @@ System.out.println("Before first ProfileDate call");
 						"Date", "Company", "Transaction Description", "Amount ($)"
 					}
 			){
+			Class[] columnTypes = new Class[] {
+					Calendar.class, String.class, String.class, String.class
+				};
+			public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
 			boolean[] columnEditables = new boolean[] {
 					false, false, false, false
 				};
-				public boolean isCellEditable(int row, int column) {
+			public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
 				}
 			});
@@ -237,10 +248,16 @@ System.out.println("Got through first Profile Data Call");
       						"Date", "Transaction Description", "Amount ($)", "Company", "Good/Bad"
       					}
       			){
+      			Class[] columnTypes = new Class[] {
+    					Calendar.class, String.class, String.class, String.class, String.class
+    				};
+    			public Class getColumnClass(int columnIndex) {
+    					return columnTypes[columnIndex];
+    				}
     			boolean[] columnEditables = new boolean[] {
     					false, false, false, true, true
     				};
-    				public boolean isCellEditable(int row, int column) {
+    			public boolean isCellEditable(int row, int column) {
     					return columnEditables[column];
     				}
     			});
@@ -297,10 +314,16 @@ System.out.println("Got through fourth Profile Data Call");
   				"Company", "Good/Bad", "Total"
   			}
   		){
+  			Class[] columnTypes = new Class[] {
+				String.class, String.class, String.class
+			};
+  			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
 			boolean[] columnEditables = new boolean[] {
 					false, false, false
 				};
-				public boolean isCellEditable(int row, int column) {
+			public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
 				}
 			});
