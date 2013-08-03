@@ -179,7 +179,7 @@ public class UserInterfaceFE {
 					object[count][2] = companies.current.getData().getTransactionList().current.getData().getDescription();
 					object[count][3] = ""+companies.current.getData().getTransactionList().current.getData().getAmount();
 					count++;
-					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().getCurrent();
 					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
 				}
 			}
@@ -190,7 +190,8 @@ public class UserInterfaceFE {
 	}
 
 	public String[][] getBadTransactions() {
-		String[][] object = new String[countBad+1][4];
+		String[][] object = new String[countBad][4];
+System.out.println(countBad);
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
@@ -202,7 +203,7 @@ public class UserInterfaceFE {
 					object[count][2] = companies.current.getData().getTransactionList().current.getData().getDescription();
 					object[count][3] = ""+companies.current.getData().getTransactionList().current.getData().getAmount();
 					count++;
-					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().getCurrent();
 					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
 				}
 			}
@@ -213,20 +214,22 @@ public class UserInterfaceFE {
 	}
 	
 	public String[][] getUnknownTransactions() {
-		String[][] object = new String[countUnknown+1][5];
+		String[][] object = new String[countUnknown][5];
+System.out.println(countUnknown);
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
 			if (companies.current.getData().isGood()==0){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
-					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
-					object[count][1] = companies.current.getData().getTransactionList().current.getData().getDescription();
-					object[count][2] = ""+companies.current.getData().getTransactionList().current.getData().getAmount();
+System.out.println(companies.current.getData().getTransactionList().getCurrent().getData().getDate()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getDescription()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
+					object[count][0] = companies.current.getData().getTransactionList().getCurrent().getData().getDate().toString();
+					object[count][1] = companies.current.getData().getTransactionList().getCurrent().getData().getDescription();
+					object[count][2] = ""+companies.current.getData().getTransactionList().getCurrent().getData().getAmount();
 					object[count][3] = "";
 					object[count][4] = "";					
 					count++;
-					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().getCurrent();
 					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
 				}
 			}
@@ -237,19 +240,15 @@ public class UserInterfaceFE {
 	}
 	
 	public String[][] getCompanySummary() {
-		String[][] object = new String[companies.length()+1][3];
+		String[][] object = new String[companies.length()][3];
 		companies.current = companies.getHead();
 		int count=0;
-		while (companies.current!=null){
-			companies.current = companies.getHead();
-			while(companies.current!=null){
-				object[count][0] = companies.current.getData().getCompanyName();
-				object[count][1] = getGoodString(companies.current.getData());
-				object[count][2] = ""+companies.current.getData().getTotal();
-				count++;
-				companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
-				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
-			}
+		companies.current = companies.getHead();
+		while(companies.current!=null){
+			object[count][0] = companies.current.getData().getCompanyName();
+			object[count][1] = getGoodString(companies.current.getData());
+			object[count][2] = ""+companies.current.getData().getTotal();
+			count++;
 			companies.previous = companies.getCurrent();
 			companies.current = companies.getCurrent().getLink();
 		}
@@ -286,12 +285,44 @@ public class UserInterfaceFE {
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();
 		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
-		System.out.println("Completely finished");
-		System.out.println("$"+UI.getTotal());
-		System.out.println("$"+UI.getTotalBad());
-		System.out.println("$"+UI.getTotalGood());
-		System.out.println("$"+UI.getTotalUnknown());
-		System.out.println(UI.getPercentBad()+"%");
+		
+//		System.out.println(UI.unknown.getTransactionList());
+		
+		
+//		UI.companies.current = UI.companies.getHead();
+//		UI.companies.current = UI.companies.getHead();
+//		while(UI.companies.current!=null){
+//			System.out.print(UI.companies.current.getData().getCompanyName()+"\t"+UI.getGoodString(UI.companies.current.getData())+"\t"+UI.companies.current.getData().getTotal()+"\n");
+//			UI.companies.previous = UI.companies.getCurrent();
+//			UI.companies.current = UI.companies.getCurrent().getLink();
+//		}
+		
+		
+		
+//		UI.companies.current = UI.companies.getHead();
+//		while (UI.companies.current!=null){
+//			if (UI.companies.current.getData().isGood()==0){
+//				UI.companies.current.getData().getTransactionList().current = UI.companies.current.getData().getTransactionList().getHead();
+//				while(UI.companies.current.getData().getTransactionList().current!=null){
+//					System.out.println(UI.companies.current.getData().getTransactionList().current.getData().getDate().toString()+"\t"
+//							+ UI.companies.current.getData().getTransactionList().current.getData().getDescription()+"\t"
+//							+ UI.companies.current.getData().getTransactionList().current.getData().getAmount());
+//					UI.companies.current.getData().getTransactionList().previous = UI.companies.current.getData().getTransactionList().current;
+//					UI.companies.current.getData().getTransactionList().current = UI.companies.current.getData().getTransactionList().current.getLink();
+//				}
+//			}
+//			UI.companies.previous = UI.companies.getCurrent();
+//			UI.companies.current = UI.companies.getCurrent().getLink();
+//		}
+		
+		
+		
+//		System.out.println("Completely finished");
+//		System.out.println("$"+UI.getTotal());
+//		System.out.println("$"+UI.getTotalBad());
+//		System.out.println("$"+UI.getTotalGood());
+//		System.out.println("$"+UI.getTotalUnknown());
+//		System.out.println(UI.getPercentBad()+"%");
 
 	}
 

@@ -50,9 +50,9 @@ public class Company implements Serializable, Comparable<Company> {
 
 	@Override
 	public int compareTo(Company coPany) {
-		if (this.getCompanyName().compareTo(coPany.getCompanyName())<0) {
+		if (this.getCompanyName().toLowerCase().compareTo(coPany.getCompanyName().toLowerCase())<0) {
 			return -1;
-		} else if (this.getCompanyName().compareTo(coPany.getCompanyName())>0){
+		} else if (this.getCompanyName().toLowerCase().compareTo(coPany.getCompanyName().toLowerCase())>0){
 			return 1;
 		} else {
 		return 0;

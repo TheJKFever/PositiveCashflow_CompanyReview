@@ -76,7 +76,8 @@ public class FrontEndGUI extends JFrame {
 	
 	
 	@SuppressWarnings("serial")
-	private void setToTabbedPanel(){		
+	private void setToTabbedPanel(){
+		System.out.println("Got inside SetToTabbedPanel");
 		tabbedPanel = new JPanel();
 		tabbedPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -111,12 +112,14 @@ public class FrontEndGUI extends JFrame {
         goodTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		goodTable.setRowSelectionAllowed(false);
 		goodTable.setFillsViewportHeight(true);
+System.out.println("Before first ProfileDate call");		
 		goodTable.setModel(new DefaultTableModel(
 				profileData.getGoodTransactions(),
 				new String[] {
-						"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
+						"Date", "Company", "Transaction Description", "Amount"
 					}
 			));
+System.out.println("Got through first Profile Data Call");		
 		goodTable.getColumnModel().getColumn(0).setResizable(false);
 		goodTable.getColumnModel().getColumn(0).setMinWidth(2);
 		goodTable.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -136,113 +139,166 @@ public class FrontEndGUI extends JFrame {
         goodTab.add(scrollPaneGood);
 		
 //CREATE BAD TAB
-  		JPanel badTab = new JPanel();
-  		tabbedPane.addTab("Bad", null, badTab, null);
-  		badTab.setLayout(new BoxLayout(badTab, BoxLayout.Y_AXIS));
-  		
-  		JLabel BadLabel = new JLabel("Bad Companies and Transactions");
-  		BadLabel.setHorizontalAlignment(SwingConstants.CENTER);
-  		BadLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-  		BadLabel.setAlignmentX(0.5f);
-  		badTab.add(BadLabel);
-  		
-  		badTable = new JTable(){
-              public boolean getScrollableTracksViewportWidth()
-              {
-                  return getPreferredSize().width < getParent().getWidth();
-              }
-          };
-  		badTable.setRowSelectionAllowed(false);
-  		badTable.setFillsViewportHeight(true);
-  		badTable.setModel(new DefaultTableModel(
-  			profileData.getBadTransactions() ,
-  			new String[] {
-  				"Date", "Company", "Transaction Description", "Amount"
-  			}
-  		));
-  		badTable.getColumnModel().getColumn(0).setResizable(false);
-  		badTable.getColumnModel().getColumn(0).setMinWidth(2);
-  		badTable.getColumnModel().getColumn(0).setMaxWidth(100);
-  		badTable.getColumnModel().getColumn(1).setResizable(false);
-  		badTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-  		badTable.getColumnModel().getColumn(1).setMinWidth(2);
-  		badTable.getColumnModel().getColumn(1).setMaxWidth(500);
-  		badTable.getColumnModel().getColumn(2).setResizable(false);
-  		badTable.getColumnModel().getColumn(2).setPreferredWidth(300);
-  		badTable.getColumnModel().getColumn(2).setMinWidth(2);
-  		badTable.getColumnModel().getColumn(2).setMaxWidth(500);
-  		badTable.getColumnModel().getColumn(3).setResizable(false);
-  		badTable.getColumnModel().getColumn(3).setMinWidth(1);
-  		badTable.getColumnModel().getColumn(3).setMaxWidth(75);
-  		badTable.getModel();
-        JScrollPane scrollPaneBad = new JScrollPane(badTable);
-        badTab.add(scrollPaneBad);
+		JPanel badTab = new JPanel();
+		tabbedPane.addTab("bad", null, badTab, null);
+		badTab.setLayout(new BoxLayout(badTab, BoxLayout.Y_AXIS));
 		
+		JLabel badLabel = new JLabel("Bad Companies and Transactions");
+		badLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		badLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		badLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		badTab.add(badLabel);
+		badTable = new JTable(){
+            public boolean getScrollableTracksViewportWidth()
+            {
+                return getPreferredSize().width < getParent().getWidth();
+            }
+        };
+        badTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+		badTable.setRowSelectionAllowed(false);
+		badTable.setFillsViewportHeight(true);
+System.out.println("Before first ProfileDate call");		
+		badTable.setModel(new DefaultTableModel(
+				profileData.getBadTransactions(),
+				new String[] {
+						"Date", "Company", "Transaction Description", "Amount"
+					}
+			));
+System.out.println("Got through first Profile Data Call");		
+		badTable.getColumnModel().getColumn(0).setResizable(false);
+		badTable.getColumnModel().getColumn(0).setMinWidth(2);
+		badTable.getColumnModel().getColumn(0).setMaxWidth(100);
+		badTable.getColumnModel().getColumn(1).setResizable(false);
+		badTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		badTable.getColumnModel().getColumn(1).setMinWidth(2);
+		badTable.getColumnModel().getColumn(1).setMaxWidth(500);
+		badTable.getColumnModel().getColumn(2).setResizable(false);
+		badTable.getColumnModel().getColumn(2).setPreferredWidth(300);
+		badTable.getColumnModel().getColumn(2).setMinWidth(2);
+		badTable.getColumnModel().getColumn(2).setMaxWidth(500);
+		badTable.getColumnModel().getColumn(3).setResizable(false);
+		badTable.getColumnModel().getColumn(3).setMinWidth(1);
+		badTable.getColumnModel().getColumn(3).setMaxWidth(75);
+		badTable.getModel();
+        JScrollPane scrollPanebad = new JScrollPane(badTable);
+        badTab.add(scrollPanebad);
+
 //CREATE UNKNOWN TAB
-  		JPanel unknownTab = new JPanel();
-  		tabbedPane.addTab("Unknown", null, unknownTab, null);
-  		unknownTab.setLayout(new BoxLayout(unknownTab, BoxLayout.Y_AXIS));
-  		
-  		JLabel unknownLabel = new JLabel("Unknown Transactions");
-  		unknownLabel.setHorizontalAlignment(SwingConstants.CENTER);
-  		unknownLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-  		unknownLabel.setAlignmentX(0.5f);
-  		unknownTab.add(unknownLabel);
-  		unknownTable = new JTable(){
-              public boolean getScrollableTracksViewportWidth()
-              {
-                  return getPreferredSize().width < getParent().getWidth();
-              }
-          };
-          unknownTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-  		unknownTable.setRowSelectionAllowed(false);
-  		unknownTable.setFillsViewportHeight(true);
-  		unknownTable.setModel(new DefaultTableModel(
-  			profileData.getUnknownTransactions(),
-  			new String[] {
-  				"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
-  			}
-  		));
-  		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-  		unknownTable.getColumnModel().getColumn(0).setResizable(false);
-  		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
-  		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
-  		unknownTable.getColumnModel().getColumn(1).setResizable(true);
-  		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(400);
-  		unknownTable.getColumnModel().getColumn(1).setMinWidth(2);
-  		unknownTable.getColumnModel().getColumn(1).setMaxWidth(500);
-  		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(75);
-  		unknownTable.getColumnModel().getColumn(2).setResizable(false);
-  		unknownTable.getColumnModel().getColumn(2).setMinWidth(2);
-  		unknownTable.getColumnModel().getColumn(2).setMaxWidth(75);
-  		unknownTable.getColumnModel().getColumn(3).setResizable(true);
-  		unknownTable.getColumnModel().getColumn(3).setPreferredWidth(300);
-  		unknownTable.getColumnModel().getColumn(3).setMinWidth(1);
-  		unknownTable.getColumnModel().getColumn(3).setMaxWidth(500);
-  		unknownTable.getColumnModel().getColumn(4).setResizable(false);
-  		unknownTable.getColumnModel().getColumn(4).setPreferredWidth(75);
-  		unknownTable.getColumnModel().getColumn(4).setMinWidth(1);
-  		unknownTable.getColumnModel().getColumn(4).setMaxWidth(75);
-  		unknownTable.getModel();
-        JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
-        unknownTab.add(scrollPaneUnknown);
+      		JPanel unknownTab = new JPanel();
+      		tabbedPane.addTab("unknown", null, unknownTab, null);
+      		unknownTab.setLayout(new BoxLayout(unknownTab, BoxLayout.Y_AXIS));
+      		
+      		JLabel unknownLabel = new JLabel("Unknown Companies and Transactions");
+      		unknownLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      		unknownLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+      		unknownLabel.setHorizontalAlignment(SwingConstants.CENTER);
+      		unknownTab.add(unknownLabel);
+      		unknownTable = new JTable(){
+                  public boolean getScrollableTracksViewportWidth()
+                  {
+                      return getPreferredSize().width < getParent().getWidth();
+                  }
+              };
+              unknownTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+      		unknownTable.setRowSelectionAllowed(false);
+      		unknownTable.setFillsViewportHeight(true);
+      System.out.println("Before third ProfileDate call");		
+      		unknownTable.setModel(new DefaultTableModel(
+      				profileData.getUnknownTransactions(),
+      				new String[] {
+      						"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
+      					}
+      			));
+      System.out.println("Got through third Profile Data Call");		
+      		unknownTable.getColumnModel().getColumn(0).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
+      		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
+      		unknownTable.getColumnModel().getColumn(1).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+      		unknownTable.getColumnModel().getColumn(1).setMinWidth(2);
+      		unknownTable.getColumnModel().getColumn(1).setMaxWidth(500);
+      		unknownTable.getColumnModel().getColumn(2).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(300);
+      		unknownTable.getColumnModel().getColumn(2).setMinWidth(2);
+      		unknownTable.getColumnModel().getColumn(2).setMaxWidth(500);
+      		unknownTable.getColumnModel().getColumn(3).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(3).setMinWidth(1);
+      		unknownTable.getColumnModel().getColumn(3).setMaxWidth(75);
+      		unknownTable.getModel();
+            JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
+            unknownTab.add(scrollPaneUnknown);        
         
-//CREATE BAD TAB
+        
+        
+//CREATE UNKNOWN TAB
+//		JPanel unknownTab = new JPanel();
+//		tabbedPane.addTab("unknown", null, unknownTab, null);
+//		unknownTab.setLayout(new BoxLayout(unknownTab, BoxLayout.Y_AXIS));
+//		
+//		JLabel unknownLabel = new JLabel("Unknown Companies and Transactions");
+//		unknownLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		unknownLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		unknownLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//		unknownTab.add(unknownLabel);
+//		unknownTable = new JTable(){
+//            public boolean getScrollableTracksViewportWidth()
+//            {
+//                return getPreferredSize().width < getParent().getWidth();
+//            }
+//        };
+//        unknownTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+//		unknownTable.setRowSelectionAllowed(false);
+//		unknownTable.setFillsViewportHeight(true);
+//System.out.println("Before third Profile Date call");  		
+//  		unknownTable.setModel(new DefaultTableModel(
+////  				profileData.getBadTransactions(),
+//  			profileData.getUnknownTransactions(),
+//  			new String[] {
+//  				"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
+//  			}
+//  		));
+//System.out.println("Got through third Profile Data Call");
+//		unknownTable.getColumnModel().getColumn(0).setResizable(false);
+//		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
+//		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
+//		unknownTable.getColumnModel().getColumn(1).setResizable(false);
+//		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+//		unknownTable.getColumnModel().getColumn(1).setMinWidth(2);
+//		unknownTable.getColumnModel().getColumn(1).setMaxWidth(500);
+//		unknownTable.getColumnModel().getColumn(2).setResizable(false);
+//		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(300);
+//		unknownTable.getColumnModel().getColumn(2).setMinWidth(2);
+//		unknownTable.getColumnModel().getColumn(2).setMaxWidth(500);
+//		unknownTable.getColumnModel().getColumn(3).setResizable(false);
+//		unknownTable.getColumnModel().getColumn(3).setMinWidth(1);
+//		unknownTable.getColumnModel().getColumn(3).setMaxWidth(75);
+//  		unknownTable.getColumnModel().getColumn(4).setResizable(false);
+//  		unknownTable.getColumnModel().getColumn(4).setPreferredWidth(75);
+//  		unknownTable.getColumnModel().getColumn(4).setMinWidth(1);
+//  		unknownTable.getColumnModel().getColumn(4).setMaxWidth(75);
+//  		unknownTable.getModel();
+//        JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
+//        unknownTab.add(scrollPaneUnknown);
+        
+//CREATE COMPANY TAB
   		JPanel companyTab = new JPanel();
-  		tabbedPane.addTab("Bad", null, badTab, null);
-  		companyTab.setLayout(new BoxLayout(badTab, BoxLayout.Y_AXIS));
+  		tabbedPane.addTab("Company Summary", null, companyTab, null);
+  		companyTab.setLayout(new BoxLayout(companyTab, BoxLayout.Y_AXIS));
   		
   		JLabel CompanyLabel = new JLabel("Summary of Companies");
   		CompanyLabel.setHorizontalAlignment(SwingConstants.CENTER);
   		CompanyLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
   		CompanyLabel.setAlignmentX(0.5f);
   		companyTab.add(CompanyLabel);
+System.out.println("Before fourth ProfileDate call"); 
   		companyTable = new JTable(){
               public boolean getScrollableTracksViewportWidth()
               {
                   return getPreferredSize().width < getParent().getWidth();
               }
           };
+System.out.println("Got through fourth Profile Data Call");			
+        companyTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
   		companyTable.setRowSelectionAllowed(false);
   		companyTable.setFillsViewportHeight(true);
   		companyTable.setModel(new DefaultTableModel(
@@ -265,12 +321,11 @@ public class FrontEndGUI extends JFrame {
   		companyTable.getColumnModel().getColumn(2).setMaxWidth(75);
   		companyTable.getModel();
         JScrollPane scrollPaneCompany = new JScrollPane(companyTable);
-        companyTab.add(scrollPaneCompany);        
-        
-        
-        
+        companyTab.add(scrollPaneCompany);             
 
 //REMOVE IMPORT PANEL AND ADD TABBED PANEL
+        System.out.println("Got to change content pane");
+        
 		contentPane.removeAll();
 		contentPane.add(tabbedPanel);
 		setContentPane(contentPane);
@@ -305,22 +360,18 @@ public class FrontEndGUI extends JFrame {
 			chooser.setFileFilter(filter);
 			try{
 				if ((chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)&&(chooser.getSelectedFile().getName().endsWith(".csv"))) {
-					String inputFile = chooser.getCurrentDirectory().toString()+chooser.getSelectedFile().getName();
+					String inputFile = chooser.getCurrentDirectory().toString()+"\\"+chooser.getSelectedFile().getName();
 System.out.println("Got to profile data read in");
-					try {
 						profileData = new UserInterfaceFE(inputFile, myDB);
 System.out.println("read in data successfully");
 						setToTabbedPanel();
-					}
-					catch (Exception e){
-						System.out.println("Error while reading in data");
-					}
 				} else {
 					JOptionPane.showMessageDialog(popup, "There was an error uploading the file,  please try again", "ERROR", 0);
 				}
 			}
 			catch (Exception e){
-				JOptionPane.showMessageDialog(popup, e.getMessage(), "EXCEPTION", 0);
+				System.out.println(e.getStackTrace().toString());
+				JOptionPane.showMessageDialog(popup, e.getStackTrace(), "EXCEPTION", 0);
 			}
 		}
 	}
