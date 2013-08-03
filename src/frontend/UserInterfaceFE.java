@@ -216,6 +216,7 @@ System.out.println(countBad);
 	
 	public Object[][] getUnknownTransactions() {
 		Object[][] object = new Object[countUnknown+1000][5];
+		//ArrayList<Object[]> arrayListofAList = new ArrayList<Object[]>();
 System.out.println(countUnknown);
 		companies.current = companies.getHead();
 		int count=0;
@@ -237,6 +238,10 @@ System.out.println(countUnknown);
 			companies.previous = companies.getCurrent();
 			companies.current = companies.getCurrent().getLink();
 		}
+		
+		
+		
+		
 		return object;
 	}
 	

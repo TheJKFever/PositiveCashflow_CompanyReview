@@ -160,6 +160,8 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 		Transaction tj = new Transaction("bought some juice");
 		tj.setDate("11/1/12");
 		
+		String q = ((Object)tj.getDate()).toString();
+		System.out.println("q"+q);
 		System.out.println(t.getDate().compareTo(tj.getDate()));
 		
 	}

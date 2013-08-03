@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
@@ -92,36 +93,50 @@ public class ReadWriteCSV {
 	 */
 	public static void writeToCSV(String filename, Object[][] inputGood, Object[][] inputBad, Object[][] inputUnknown){
 		CSVWriter writer = null;
-
-		String[][] good = (String[][])inputGood;
-		String[][] bad = (String[][])inputBad;
-		String[][] unknown = (String[][])inputUnknown;
-
-
 		try {
-			writer = new CSVWriter(new FileWriter(filename), '\t');
+			writer = new CSVWriter(new FileWriter(filename), ',');
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
+		
+		
+		
 		writer.writeNext("Good transactions".split(""));
 		String[] t = {"Date", "Company", "Transaction Description", "Amount ($)"};
 		writer.writeNext(t);
-		for(String[] temp : good){
-			writer.writeNext(temp);
+		for(Object[] temp : inputGood){
+			String[] q = new String[temp.length];
+			for(int i = 0; i < 4; i++){
+				q[i] = temp[i].toString();
+				
+			}
+			writer.writeNext(q);
 		}
 		writer.writeNext("Bad transactions".split(""));
 		String[] r= {"Date", "Company", "Transaction Description", "Amount ($)"};
 		writer.writeNext(r);
-		for(String[] temp : bad){
-			writer.writeNext(temp);
+		for(Object[] temp : inputBad){
+			String[] q = new String[temp.length];
+			for(int i = 0; i < 4; i++){
+				q[i] = temp[i].toString();
+				
+			}
+			writer.writeNext(q);
 		}
-		
-		writer.writeNext("Bad transactions".split(""));
+		String[] f = {"Unknown transactions"};
+		writer.writeNext(f);
 		String[] u= {"Date", "Transaction Description", "Amount ($)", "Company", "Good/Bad"};
 		writer.writeNext(u);
-		for(String[] temp : unknown){
-			writer.writeNext(temp);
+		
+		//TODO fix me please?
+		for(Object[] temp : inputUnknown){
+			String[] q = new String[temp.length];
+			for(int i = 0; i < 5; i++){
+				q[i] = temp[i].toString();
+				
+			}
+			writer.writeNext(q);
 		}
 		
 		try {
