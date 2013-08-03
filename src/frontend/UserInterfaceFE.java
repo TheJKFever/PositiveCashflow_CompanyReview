@@ -119,15 +119,16 @@ public class UserInterfaceFE {
 
 	
 	private void distributeAmount(Transaction t, CompanyFE c) {
-		if (c.isGood()==0){
-			totalUnknown+=t.getAmount();
-			countUnknown++;
-		} else if (c.isGood()==1) {
+		if (c.isGood()==1) {
 			totalGood+=t.getAmount();
 			countGood++;
 		} else if (c.isGood()==2){
 			totalBad+=t.getAmount();
 			countBad++;
+		}
+		else{
+			totalUnknown+=t.getAmount();
+			countUnknown++;
 		}
 		total+=t.getAmount();
 	}
