@@ -223,7 +223,7 @@ System.out.println(countUnknown);
 			if (companies.current.getData().isGood()==0){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
-System.out.println(companies.current.getData().getTransactionList().getCurrent().getData().getDate().toString()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getDescription()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
+//System.out.println(companies.current.getData().getTransactionList().getCurrent().getData().getDate().toString()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getDescription()+"\t"+companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
 					object[count][0] = companies.current.getData().getTransactionList().getCurrent().getData().getDate().toString();
 					object[count][1] = companies.current.getData().getTransactionList().getCurrent().getData().getDescription();
 					object[count][2] = Double.toString(companies.current.getData().getTransactionList().getCurrent().getData().getAmount());
