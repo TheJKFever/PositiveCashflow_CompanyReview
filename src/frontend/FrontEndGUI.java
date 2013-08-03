@@ -112,6 +112,7 @@ public class FrontEndGUI extends JFrame {
         goodTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		goodTable.setRowSelectionAllowed(false);
 		goodTable.setFillsViewportHeight(true);
+		goodTable.setAutoCreateRowSorter(true);
 System.out.println("Before first ProfileDate call");		
 		goodTable.setModel(new DefaultTableModel(
 				profileData.getGoodTransactions(),
@@ -157,6 +158,7 @@ System.out.println("Got through first Profile Data Call");
         badTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		badTable.setRowSelectionAllowed(false);
 		badTable.setFillsViewportHeight(true);
+		badTable.setAutoCreateRowSorter(true);
 System.out.println("Before first ProfileDate call");		
 		badTable.setModel(new DefaultTableModel(
 				profileData.getBadTransactions(),
@@ -202,6 +204,7 @@ System.out.println("Got through first Profile Data Call");
               unknownTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
       		unknownTable.setRowSelectionAllowed(false);
       		unknownTable.setFillsViewportHeight(true);
+      		unknownTable.setAutoCreateRowSorter(true);
       System.out.println("Before third ProfileDate call");		
       		unknownTable.setModel(new DefaultTableModel(
       				profileData.getUnknownTransactions(),
@@ -228,58 +231,6 @@ System.out.println("Got through first Profile Data Call");
             JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
             unknownTab.add(scrollPaneUnknown);        
         
-        
-        
-//CREATE UNKNOWN TAB
-//		JPanel unknownTab = new JPanel();
-//		tabbedPane.addTab("unknown", null, unknownTab, null);
-//		unknownTab.setLayout(new BoxLayout(unknownTab, BoxLayout.Y_AXIS));
-//		
-//		JLabel unknownLabel = new JLabel("Unknown Companies and Transactions");
-//		unknownLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		unknownLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//		unknownLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//		unknownTab.add(unknownLabel);
-//		unknownTable = new JTable(){
-//            public boolean getScrollableTracksViewportWidth()
-//            {
-//                return getPreferredSize().width < getParent().getWidth();
-//            }
-//        };
-//        unknownTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-//		unknownTable.setRowSelectionAllowed(false);
-//		unknownTable.setFillsViewportHeight(true);
-//System.out.println("Before third Profile Date call");  		
-//  		unknownTable.setModel(new DefaultTableModel(
-////  				profileData.getBadTransactions(),
-//  			profileData.getUnknownTransactions(),
-//  			new String[] {
-//  				"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
-//  			}
-//  		));
-//System.out.println("Got through third Profile Data Call");
-//		unknownTable.getColumnModel().getColumn(0).setResizable(false);
-//		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
-//		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
-//		unknownTable.getColumnModel().getColumn(1).setResizable(false);
-//		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-//		unknownTable.getColumnModel().getColumn(1).setMinWidth(2);
-//		unknownTable.getColumnModel().getColumn(1).setMaxWidth(500);
-//		unknownTable.getColumnModel().getColumn(2).setResizable(false);
-//		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(300);
-//		unknownTable.getColumnModel().getColumn(2).setMinWidth(2);
-//		unknownTable.getColumnModel().getColumn(2).setMaxWidth(500);
-//		unknownTable.getColumnModel().getColumn(3).setResizable(false);
-//		unknownTable.getColumnModel().getColumn(3).setMinWidth(1);
-//		unknownTable.getColumnModel().getColumn(3).setMaxWidth(75);
-//  		unknownTable.getColumnModel().getColumn(4).setResizable(false);
-//  		unknownTable.getColumnModel().getColumn(4).setPreferredWidth(75);
-//  		unknownTable.getColumnModel().getColumn(4).setMinWidth(1);
-//  		unknownTable.getColumnModel().getColumn(4).setMaxWidth(75);
-//  		unknownTable.getModel();
-//        JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
-//        unknownTab.add(scrollPaneUnknown);
-        
 //CREATE COMPANY TAB
   		JPanel companyTab = new JPanel();
   		tabbedPane.addTab("Company Summary", null, companyTab, null);
@@ -301,6 +252,7 @@ System.out.println("Got through fourth Profile Data Call");
         companyTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
   		companyTable.setRowSelectionAllowed(false);
   		companyTable.setFillsViewportHeight(true);
+  		companyTable.setAutoCreateRowSorter(true);
   		companyTable.setModel(new DefaultTableModel(
   			profileData.getCompanySummary() ,
   			new String[] {
