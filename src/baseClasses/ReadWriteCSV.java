@@ -32,23 +32,23 @@ public class ReadWriteCSV {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void write(String[] output, String adress){
 		CSVWriter writer = null;
 		try {
 			writer = new CSVWriter(new FileWriter("yourfile.csv"), '\t');
 			String[] entries = "first#second#third".split("#");
-		     writer.writeNext(entries);
-				writer.close();
+			writer.writeNext(entries);
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<Transaction> readTransactions(String input) throws Exception{
 		CSVReader reader = null;
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-		
+
 		String [] nextLine = null;
 		//get correct index
 		int indexDate = -1;
@@ -84,4 +84,51 @@ public class ReadWriteCSV {
 		return transactions;
 	}
 
+	/**
+	 * Writes to CSV
+	 * @param Object[][] inputGood (castable to String[][])
+	 * @param Object[][] inputBad (castable to String[][])
+	 * @param Object[][] inputUnknown (castable to String[][])
+	 */
+	public void writeToCSV(Object[][] inputGood,Object[][] inputBad, Object[][] inputUnknown){
+		CSVWriter writer = null;
+
+		String[][] good = (String[][])inputGood;
+		String[][] bad = (String[][])inputBad;
+		String[][] unknown = (String[][])inputUnknown;
+
+
+		try {
+			writer = new CSVWriter(new FileWriter("newReport.csv"), '\t');
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		writer.writeNext("Good transactions".split(""));
+		String[] t = {"Date", "Company", "Transaction Description", "Amount ($)"};
+		writer.writeNext(t);
+		for(String[] temp : good){
+			writer.writeNext(temp);
+		}
+		writer.writeNext("Bad transactions".split(""));
+		String[] r= {"Date", "Company", "Transaction Description", "Amount ($)"};
+		writer.writeNext(r);
+		for(String[] temp : bad){
+			writer.writeNext(temp);
+		}
+		
+		writer.writeNext("Bad transactions".split(""));
+		String[] u= {"Date", "Transaction Description", "Amount ($)", "Company", "Good/Bad"};
+		writer.writeNext(u);
+		for(String[] temp : unknown){
+			writer.writeNext(temp);
+		}
+		
+		try {
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
