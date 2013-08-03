@@ -90,7 +90,7 @@ public class ReadWriteCSV {
 	 * @param Object[][] inputBad (castable to String[][])
 	 * @param Object[][] inputUnknown (castable to String[][])
 	 */
-	public void writeToCSV(Object[][] inputGood,Object[][] inputBad, Object[][] inputUnknown){
+	public static void writeToCSV(String filename, Object[][] inputGood, Object[][] inputBad, Object[][] inputUnknown){
 		CSVWriter writer = null;
 
 		String[][] good = (String[][])inputGood;
@@ -99,7 +99,7 @@ public class ReadWriteCSV {
 
 
 		try {
-			writer = new CSVWriter(new FileWriter("newReport.csv"), '\t');
+			writer = new CSVWriter(new FileWriter(filename), '\t');
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

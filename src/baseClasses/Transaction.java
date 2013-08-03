@@ -158,11 +158,7 @@ public class Transaction implements Comparable<Transaction>, Serializable {
 		Transaction t = new Transaction("bought some crap");
 		t.setDate("11/1/12");
 		Transaction tj = new Transaction("bought some juice");
-		tj.setDate("11/3/12");
-		
-		System.out.println(""+tj.getDate().get(Calendar.YEAR));
-		System.out.println(""+tj.getDate().get(Calendar.MONTH));
-		System.out.println(""+tj.getDate().get(Calendar.DAY_OF_MONTH));
+		tj.setDate("11/1/12");
 		
 		System.out.println(t.getDate().compareTo(tj.getDate()));
 		

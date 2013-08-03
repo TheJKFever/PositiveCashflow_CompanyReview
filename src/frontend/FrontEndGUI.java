@@ -4,12 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Calendar;
 import java.util.Comparator;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.*;
 
 import backend.DatabaseBE;
+import baseClasses.ReadWriteCSV;
 /**
  * 
  * @author Jeroen Goossens & Jon Koehmstedt
@@ -122,7 +124,6 @@ public class FrontEndGUI extends JFrame {
         goodTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		goodTable.setRowSelectionAllowed(false);
 		goodTable.setFillsViewportHeight(true);
-System.out.println("Before first ProfileDate call");		
 		goodTable.setModel(new DefaultTableModel(
 				profileData.getGoodTransactions(),
 				new String[] {
@@ -131,12 +132,6 @@ System.out.println("Before first ProfileDate call");
 			){
 			Class[] columnTypes = new Class[] {Calendar.class, String.class, String.class, String.class, String.class};
 			boolean[] columnEditables = new boolean[] {false, false, false, false};
-			Comparator<Calendar> comparator = new Comparator<Calendar>(){
-				@Override
-				public int compare(Calendar o1, Calendar o2) {
-					return o1.compareTo(o2);
-				}
-			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -144,7 +139,6 @@ System.out.println("Before first ProfileDate call");
 					return columnEditables[column];
 				}
 			});
-System.out.println("Got through first Profile Data Call");		
 		goodTable.getColumnModel().getColumn(0).setResizable(false);
 		goodTable.getColumnModel().getColumn(0).setMinWidth(2);
 		goodTable.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -188,7 +182,6 @@ System.out.println("Got through first Profile Data Call");
 		badTable.setRowSelectionAllowed(false);
 		badTable.setFillsViewportHeight(true);
 		badTable.setAutoCreateRowSorter(true);
-System.out.println("Before first ProfileDate call");		
 		badTable.setModel(new DefaultTableModel(
 				profileData.getBadTransactions(),
 				new String[] {
@@ -208,7 +201,6 @@ System.out.println("Before first ProfileDate call");
 					return columnEditables[column];
 				}
 			});
-System.out.println("Got through first Profile Data Call");		
 		badTable.getColumnModel().getColumn(0).setResizable(false);
 		badTable.getColumnModel().getColumn(0).setMinWidth(2);
 		badTable.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -247,7 +239,6 @@ System.out.println("Got through first Profile Data Call");
       		unknownTable.setRowSelectionAllowed(false);
       		unknownTable.setFillsViewportHeight(true);
       		unknownTable.setAutoCreateRowSorter(true);
-      System.out.println("Before third ProfileDate call");		
       		unknownTable.setModel(new DefaultTableModel(
       				profileData.getUnknownTransactions(),
       				new String[] {
@@ -267,7 +258,6 @@ System.out.println("Got through first Profile Data Call");
     					return columnEditables[column];
     				}
     			});
-      System.out.println("Got through third Profile Data Call");		
       		unknownTable.getColumnModel().getColumn(0).setResizable(false);
       		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
       		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -349,6 +339,49 @@ System.out.println("Got through fourth Profile Data Call");
         JScrollPane scrollPaneCompany = new JScrollPane(companyTable);
         companyTab.add(scrollPaneCompany);             
 
+//CREATE EXPORT TAB
+		JPanel exportPanel = new JPanel();
+  		tabbedPane.addTab("Export", null, exportPanel, null);
+  		exportPanel.setLayout(new BoxLayout(exportPanel, BoxLayout.Y_AXIS));
+		
+		JPanel headerPanel = new JPanel();
+		exportPanel.add(headerPanel);
+		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+		
+		JLabel Logo = new JLabel("");
+		headerPanel.add(Logo);
+		Logo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		Logo.setHorizontalAlignment(SwingConstants.CENTER);
+		Logo.setIcon(new ImageIcon("images\\logo.png"));
+		
+		JLabel welcomeMessage = new JLabel("Please upload a csv file with the following in the header: \"Date\", \"Original Description\", and \"Amount\"");
+		welcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		welcomeMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		welcomeMessage.setBorder(new EmptyBorder(10, 5, 5, 5));
+		headerPanel.add(welcomeMessage);
+		
+		JPanel lowerPanel = new JPanel();
+		lowerPanel.setBorder(null);
+		lowerPanel.setForeground(Color.WHITE);
+		exportPanel.add(lowerPanel);
+		GridBagLayout importBtnPanel = new GridBagLayout();
+		importBtnPanel.columnWidths = new int[] {400, 100, 400};
+		importBtnPanel.rowHeights = new int[] {180, 45, 180};
+		importBtnPanel.columnWeights = new double[]{0.0, 0.0, 0.0};
+		importBtnPanel.rowWeights = new double[]{0.0, 0.0};
+		lowerPanel.setLayout(importBtnPanel);
+		GridBagConstraints gbc_exportBtn_1 = new GridBagConstraints();
+		gbc_exportBtn_1.insets = new Insets(0, 0, 5, 5);
+		gbc_exportBtn_1.gridx = 1;
+		gbc_exportBtn_1.gridy = 1;	
+		JButton exportBtn = new JButton("Export To File");
+		exportBtn.addActionListener(new exportAction());
+		lowerPanel.add(exportBtn, gbc_exportBtn_1);
+		exportBtn.setFont(new Font("Dialog", Font.PLAIN, 16));
+        
+        
+        
+        
 //REMOVE IMPORT PANEL AND ADD TABBED PANEL
         System.out.println("Got to change content pane");
         
@@ -444,6 +477,27 @@ System.out.println("Got to profile data read in");
 						profileData = new UserInterfaceFE(inputFile, myDB);
 System.out.println("read in data successfully");
 						setToTabbedPanel();
+				} else {
+					JOptionPane.showMessageDialog(popup, "There was an error uploading the file,  please try again", "ERROR", 0);
+				}
+			}
+			catch (Exception e){
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(popup, e.getStackTrace(), "EXCEPTION", 0);
+			}
+		}
+	}
+	
+	private class exportAction implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			JFileChooser chooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("csv", "csv");
+			chooser.setFileFilter(filter);
+			try{
+				if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+					String outputFile = chooser.getCurrentDirectory().toString()+"\\"+chooser.getSelectedFile().getName()+".csv";
+					ReadWriteCSV.writeToCSV(outputFile, profileData.getGoodTransactions(), profileData.getBadTransactions(), profileData.getUnknownTransactions());
+					JOptionPane.showMessageDialog(popup, "S U C C E S S ! ! !", "SUCCESS", 0);
 				} else {
 					JOptionPane.showMessageDialog(popup, "There was an error uploading the file,  please try again", "ERROR", 0);
 				}
