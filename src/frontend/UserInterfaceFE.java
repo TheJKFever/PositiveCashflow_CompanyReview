@@ -152,19 +152,29 @@ public class UserInterfaceFE {
 	}
 
 
-	public Object[][] getGoodTransactions() {
+	public String[][] getGoodTransactions() {
+		//TODO
+		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
+		companies.current = companies.getHead();
+		
+		while (companies.current!=null){
+			if (){
+				
+			}
+			companies.previous = companies.getCurrent();
+			companies.current = companies.getCurrent().getLink();
+		}
+		
+		return object;
+	}
+
+	public String[][] getBadTransactions() {
 		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
 		return null;
 	}
 
-	public Object[][] getBadTransactions() {
-		//TODO
-		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
-		return null;
-	}
-
-	public Object[][] getUnknownTransactions() {
+	public String[][] getUnknownTransactions() {
 		//TODO
 		// Loop through companies and return Object[][]: {"Date", "Transaction Description", "Amount", "Company", "Good/Bad"}		
 		return null;
