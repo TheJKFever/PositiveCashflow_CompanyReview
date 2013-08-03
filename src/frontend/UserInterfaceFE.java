@@ -15,6 +15,7 @@ public class UserInterfaceFE {
 
 	protected SortedLL<CompanyFE> companies;
 	private double total, totalGood, totalBad, totalUnknown;
+	private int countGood, countBad, countUnknown;
 	private File input;
 	ReadWriteCSV readWrite;
 	private CompanyFE unknown;
@@ -29,6 +30,9 @@ public class UserInterfaceFE {
 		this.totalGood = 0;
 		this.totalBad = 0;
 		this.totalUnknown = 0;
+		this.countGood=0;
+		this.countBad=0;
+		this.countUnknown=0;
 		this.input = null;
 	}
 
@@ -37,6 +41,13 @@ public class UserInterfaceFE {
 		this.companies = new SortedLL<CompanyFE>();
 		unknown = new CompanyFE(true, "Unknown", "");
 		companies.add(unknown);
+		this.total = 0;
+		this.totalGood = 0;
+		this.totalBad = 0;
+		this.totalUnknown = 0;
+		this.countGood=0;
+		this.countBad=0;
+		this.countUnknown=0;
 		this.input = new File(input);
 		readData(this.input);
 		updateUnknown(tempDB);
@@ -110,10 +121,13 @@ public class UserInterfaceFE {
 	private void distributeAmount(Transaction t, CompanyFE c) {
 		if (c.isGood()==(Boolean)null){
 			totalUnknown+=t.getAmount();
+			countUnknown++;
 		} else if (c.isGood()) {
 			totalGood+=t.getAmount();
+			countGood++;
 		} else {
 			totalBad+=t.getAmount();
+			countBad++;
 		}
 		total+=t.getAmount();
 	}
@@ -153,33 +167,74 @@ public class UserInterfaceFE {
 
 
 	public String[][] getGoodTransactions() {
-		//TODO
-		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
+		String[][] object = new String[countGood][4];
 		companies.current = companies.getHead();
-		
+		int count=0;
 		while (companies.current!=null){
-			if (){
-				
+			if (companies.current.getData().isGood()){
+				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
+				while(companies.current.getData().getTransactionList().current!=null){
+					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
+					object[count][1] = companies.current.getData().getCompanyName();
+					object[count][2] = companies.current.getData().getTransactionList().current.getData().getDescription();
+					object[count][3] = ""+companies.current.getData().getTransactionList().current.getData().getAmount();
+					count++;
+					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
+				}
 			}
 			companies.previous = companies.getCurrent();
 			companies.current = companies.getCurrent().getLink();
 		}
-		
 		return object;
 	}
 
 	public String[][] getBadTransactions() {
-		//TODO
-		// Loop through companies and return Object[][]: {"Date", "Company", "Transaction Description", "Amount"}		
-		return null;
+		String[][] object = new String[countBad][4];
+		companies.current = companies.getHead();
+		int count=0;
+		while (companies.current!=null){
+			if (!companies.current.getData().isGood()){
+				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
+				while(companies.current.getData().getTransactionList().current!=null){
+					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
+					object[count][1] = companies.current.getData().getCompanyName();
+					object[count][2] = companies.current.getData().getTransactionList().current.getData().getDescription();
+					object[count][3] = ""+companies.current.getData().getTransactionList().current.getData().getAmount();
+					count++;
+					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
+				}
+			}
+			companies.previous = companies.getCurrent();
+			companies.current = companies.getCurrent().getLink();
+		}
+		return object;
 	}
-
+	
 	public String[][] getUnknownTransactions() {
-		//TODO
-		// Loop through companies and return Object[][]: {"Date", "Transaction Description", "Amount", "Company", "Good/Bad"}		
-		return null;
+		String[][] object = new String[countBad][5];
+		companies.current = companies.getHead();
+		int count=0;
+		while (companies.current!=null){
+			if (companies.current.getData().isGood()==(Boolean)null){
+				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
+				while(companies.current.getData().getTransactionList().current!=null){
+					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
+					object[count][1] = companies.current.getData().getTransactionList().current.getData().getDescription();
+					object[count][2] = ""+companies.current.getData().getTransactionList().current.getData().getAmount();
+					object[count][3] = "";
+					object[count][4] = "";					
+					count++;
+					companies.current.getData().getTransactionList().previous = companies.current.getData().getTransactionList().current;
+					companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().current.getLink();
+				}
+			}
+			companies.previous = companies.getCurrent();
+			companies.current = companies.getCurrent().getLink();
+		}
+		return object;
 	}
-
 
 	//SETTERS
 	public void setTotal(double total) {
