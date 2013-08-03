@@ -6,7 +6,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import backend.DatabaseBE;
 /**
@@ -88,10 +90,19 @@ public class FrontEndGUI extends JFrame {
 		tabbedPane.addTab("Overview", null, overviewTab, null);
 		overviewTab.setLayout(null);
 		
+  		JLabel OverviewLabel = new JLabel("Key: YELLOW - Unknown, GREEN - Good, RED - Bad");
+  		OverviewLabel.setBounds((this.getBounds().width/2)-250, 29, 500, 20);
+  		OverviewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+  		OverviewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		overviewTab.add(OverviewLabel);
+		
 		//CREATE PIE CHART
-		Canvas pieChart = new Canvas();
-		pieChart.setBounds(208, 184, 433, 298);
-		overviewTab.add(pieChart);
+		JPanel pieChartPanel = new JPanel();
+		pieChartPanel.setLayout(new BoxLayout(pieChartPanel, BoxLayout.Y_AXIS));
+		pieChartPanel.setBounds((this.getBounds().width/2)-250, 160, 500, 400);
+		PieChart pieChart = new PieChart();
+		pieChartPanel.add(pieChart);
+		overviewTab.add(pieChartPanel);
 
 //CREATE GOOD TAB
 		JPanel goodTab = new JPanel();
@@ -117,24 +128,31 @@ System.out.println("Before first ProfileDate call");
 		goodTable.setModel(new DefaultTableModel(
 				profileData.getGoodTransactions(),
 				new String[] {
-						"Date", "Company", "Transaction Description", "Amount"
+						"Date", "Company", "Transaction Description", "Amount ($)"
 					}
-			));
+			){
+			boolean[] columnEditables = new boolean[] {
+					false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
 System.out.println("Got through first Profile Data Call");		
 		goodTable.getColumnModel().getColumn(0).setResizable(false);
 		goodTable.getColumnModel().getColumn(0).setMinWidth(2);
 		goodTable.getColumnModel().getColumn(0).setMaxWidth(100);
-		goodTable.getColumnModel().getColumn(1).setResizable(false);
+		goodTable.getColumnModel().getColumn(1).setResizable(true);
 		goodTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		goodTable.getColumnModel().getColumn(1).setMinWidth(2);
 		goodTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		goodTable.getColumnModel().getColumn(2).setResizable(false);
+		goodTable.getColumnModel().getColumn(2).setResizable(true);
 		goodTable.getColumnModel().getColumn(2).setPreferredWidth(300);
 		goodTable.getColumnModel().getColumn(2).setMinWidth(2);
 		goodTable.getColumnModel().getColumn(2).setMaxWidth(500);
 		goodTable.getColumnModel().getColumn(3).setResizable(false);
 		goodTable.getColumnModel().getColumn(3).setMinWidth(1);
-		goodTable.getColumnModel().getColumn(3).setMaxWidth(75);
+		goodTable.getColumnModel().getColumn(3).setMaxWidth(100);
 		goodTable.getModel();
         JScrollPane scrollPaneGood = new JScrollPane(goodTable);
         goodTab.add(scrollPaneGood);
@@ -163,24 +181,31 @@ System.out.println("Before first ProfileDate call");
 		badTable.setModel(new DefaultTableModel(
 				profileData.getBadTransactions(),
 				new String[] {
-						"Date", "Company", "Transaction Description", "Amount"
+						"Date", "Company", "Transaction Description", "Amount ($)"
 					}
-			));
+			){
+			boolean[] columnEditables = new boolean[] {
+					false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
 System.out.println("Got through first Profile Data Call");		
 		badTable.getColumnModel().getColumn(0).setResizable(false);
 		badTable.getColumnModel().getColumn(0).setMinWidth(2);
 		badTable.getColumnModel().getColumn(0).setMaxWidth(100);
-		badTable.getColumnModel().getColumn(1).setResizable(false);
+		badTable.getColumnModel().getColumn(1).setResizable(true);
 		badTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		badTable.getColumnModel().getColumn(1).setMinWidth(2);
 		badTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		badTable.getColumnModel().getColumn(2).setResizable(false);
+		badTable.getColumnModel().getColumn(2).setResizable(true);
 		badTable.getColumnModel().getColumn(2).setPreferredWidth(300);
 		badTable.getColumnModel().getColumn(2).setMinWidth(2);
 		badTable.getColumnModel().getColumn(2).setMaxWidth(500);
 		badTable.getColumnModel().getColumn(3).setResizable(false);
 		badTable.getColumnModel().getColumn(3).setMinWidth(1);
-		badTable.getColumnModel().getColumn(3).setMaxWidth(75);
+		badTable.getColumnModel().getColumn(3).setMaxWidth(100);
 		badTable.getModel();
         JScrollPane scrollPanebad = new JScrollPane(badTable);
         badTab.add(scrollPanebad);
@@ -209,25 +234,38 @@ System.out.println("Got through first Profile Data Call");
       		unknownTable.setModel(new DefaultTableModel(
       				profileData.getUnknownTransactions(),
       				new String[] {
-      						"Date", "Transaction Description", "Amount", "Company", "Good/Bad"
+      						"Date", "Transaction Description", "Amount ($)", "Company", "Good/Bad"
       					}
-      			));
+      			){
+    			boolean[] columnEditables = new boolean[] {
+    					false, false, false, true, true
+    				};
+    				public boolean isCellEditable(int row, int column) {
+    					return columnEditables[column];
+    				}
+    			});
       System.out.println("Got through third Profile Data Call");		
       		unknownTable.getColumnModel().getColumn(0).setResizable(false);
       		unknownTable.getColumnModel().getColumn(0).setMinWidth(2);
       		unknownTable.getColumnModel().getColumn(0).setMaxWidth(100);
-      		unknownTable.getColumnModel().getColumn(1).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(1).setResizable(true);
       		unknownTable.getColumnModel().getColumn(1).setPreferredWidth(200);
       		unknownTable.getColumnModel().getColumn(1).setMinWidth(2);
       		unknownTable.getColumnModel().getColumn(1).setMaxWidth(500);
       		unknownTable.getColumnModel().getColumn(2).setResizable(false);
-      		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(300);
+      		unknownTable.getColumnModel().getColumn(2).setPreferredWidth(100);
       		unknownTable.getColumnModel().getColumn(2).setMinWidth(2);
-      		unknownTable.getColumnModel().getColumn(2).setMaxWidth(500);
-      		unknownTable.getColumnModel().getColumn(3).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(2).setMaxWidth(100);
+      		unknownTable.getColumnModel().getColumn(3).setResizable(true);
+      		unknownTable.getColumnModel().getColumn(3).setPreferredWidth(200);
       		unknownTable.getColumnModel().getColumn(3).setMinWidth(1);
-      		unknownTable.getColumnModel().getColumn(3).setMaxWidth(75);
+      		unknownTable.getColumnModel().getColumn(3).setMaxWidth(500);
+      		unknownTable.getColumnModel().getColumn(4).setResizable(false);
+      		unknownTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+      		unknownTable.getColumnModel().getColumn(4).setMinWidth(1);
+      		unknownTable.getColumnModel().getColumn(4).setMaxWidth(100);
       		unknownTable.getModel();
+      		setUpGood_BadColumn(unknownTable, unknownTable.getColumnModel().getColumn(4));
             JScrollPane scrollPaneUnknown = new JScrollPane(unknownTable);
             unknownTab.add(scrollPaneUnknown);        
         
@@ -258,7 +296,14 @@ System.out.println("Got through fourth Profile Data Call");
   			new String[] {
   				"Company", "Good/Bad", "Total"
   			}
-  		));
+  		){
+			boolean[] columnEditables = new boolean[] {
+					false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
   		companyTable.getColumnModel().getColumn(0).setResizable(true);
   		companyTable.getColumnModel().getColumn(0).setPreferredWidth(200);
   		companyTable.getColumnModel().getColumn(0).setMinWidth(2);
@@ -283,6 +328,59 @@ System.out.println("Got through fourth Profile Data Call");
 		setContentPane(contentPane);
 		revalidate();
 	}
+	
+		
+	class Slice {
+		   double value;
+		   Color color;
+		   
+		   public Slice(double value, Color color) {  
+			   this.value = value;
+			   this.color = color;
+		   }
+	}
+	class PieChart extends JComponent {
+		Slice[] slices = { new Slice(profileData.getPercentGood(), Color.green),
+				new Slice(profileData.getPercentUnknown(), Color.yellow), new Slice(profileData.getPercentBad(), Color.red) };
+		PieChart() {}
+		public void paint(Graphics g) {
+			drawPie((Graphics2D) g, getBounds(), slices);
+		}
+		void drawPie(Graphics2D g, Rectangle area, Slice[] slices) {
+			double total = 0.0D;
+			for (int i = 0; i < slices.length; i++) {
+				total += slices[i].value;
+			}
+			double curValue = 0.0D;
+			int startAngle = 0;
+			for (int i = 0; i < slices.length; i++) {
+				startAngle = (int) (curValue * 360 / total);
+				int arcAngle = (int) (slices[i].value * 360 / total);
+				g.setColor(slices[i].color);
+				g.fillArc(area.x, area.y, area.width, area.height, 
+						startAngle, arcAngle);
+				curValue += slices[i].value;
+			}
+		}
+	}
+
+	
+	
+	public void setUpGood_BadColumn(JTable table, TableColumn good_BadColumn) {
+		//Set up the editor for the sport cells.
+		JComboBox<String> good_Bad = new JComboBox<String>();
+		good_Bad.addItem("");
+		good_Bad.addItem("Bad");
+		good_Bad.addItem("Good");
+		good_BadColumn.setCellEditor(new DefaultCellEditor(good_Bad));
+
+		//Set up tool tips for the sport cells.
+		DefaultTableCellRenderer renderer =
+				new DefaultTableCellRenderer();
+		renderer.setToolTipText("set value");
+		good_BadColumn.setCellRenderer(renderer);
+	}
+	
 	
 	// display frame.
 	public static void init() {
