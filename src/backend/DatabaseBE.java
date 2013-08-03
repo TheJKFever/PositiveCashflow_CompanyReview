@@ -93,11 +93,13 @@ public class DatabaseBE implements Serializable {
 			}
 			while ((nextLine = reader.readNext()) != null) {
 				// nextLine[] is an array of values from the line
-				boolean tempGood;
+				int tempGood;
 				if (nextLine[indexGood].equalsIgnoreCase("Good")){
-					tempGood = true;
+					tempGood = 1;
+				} else if (nextLine[indexGood].equalsIgnoreCase("Bad")) {
+					tempGood = 2;
 				} else {
-					tempGood = false;
+					tempGood = 0;
 				}
 				TransactionBE newTransaction = new TransactionBE(nextLine[indexDescription], new Company(tempGood, nextLine[indexCompany], nextLine[indexType]));
 //System.out.println(newTransaction.getCompany());

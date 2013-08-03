@@ -12,7 +12,7 @@ public class CompanyFE extends Company implements Comparable<Company> {
 	private SortedLL<Transaction> transactionList;
 	private double total;
 	
-	public CompanyFE(boolean good, String companyName, String companyType) {
+	public CompanyFE(int good, String companyName, String companyType) {
 		super(good, companyName, companyType);
 		transactionList = new SortedLL<Transaction>();
 		total=0;
@@ -39,7 +39,7 @@ public class CompanyFE extends Company implements Comparable<Company> {
 
 	public String toString(){
 		String output = "";
-		output+=companyName+" ("+typeOfCompany+"): "+good;
+		output+=companyName+" ("+typeOfCompany+"): "+isGood;
 		return output;
 	}
 

@@ -24,7 +24,7 @@ public class UserInterfaceFE {
 
 	public UserInterfaceFE() {
 		this.companies = new SortedLL<CompanyFE>();
-		unknown = new CompanyFE((Boolean)null, "Unknown", "");
+		unknown = new CompanyFE(0, "Unknown", "");
 		companies.add(unknown);
 		this.total = 0;
 		this.totalGood = 0;
@@ -39,7 +39,7 @@ public class UserInterfaceFE {
 	public UserInterfaceFE(String input, DatabaseBE tempDB){
 		super();
 		this.companies = new SortedLL<CompanyFE>();
-		unknown = new CompanyFE(true, "Unknown", "");
+		unknown = new CompanyFE(0, "Unknown", "");
 		companies.add(unknown);
 		this.total = 0;
 		this.totalGood = 0;
@@ -119,13 +119,13 @@ public class UserInterfaceFE {
 
 	
 	private void distributeAmount(Transaction t, CompanyFE c) {
-		if (c.isGood()==(Boolean)null){
+		if (c.isGood()==0){
 			totalUnknown+=t.getAmount();
 			countUnknown++;
-		} else if (c.isGood()) {
+		} else if (c.isGood()==1) {
 			totalGood+=t.getAmount();
 			countGood++;
-		} else {
+		} else if (c.isGood()==2){
 			totalBad+=t.getAmount();
 			countBad++;
 		}
@@ -171,7 +171,7 @@ public class UserInterfaceFE {
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
-			if (companies.current.getData().isGood()){
+			if (companies.current.getData().isGood()==1){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
 					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
@@ -194,7 +194,7 @@ public class UserInterfaceFE {
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
-			if (!companies.current.getData().isGood()){
+			if (companies.current.getData().isGood()==2){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
 					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
@@ -213,11 +213,11 @@ public class UserInterfaceFE {
 	}
 	
 	public String[][] getUnknownTransactions() {
-		String[][] object = new String[countBad][5];
+		String[][] object = new String[countUnknown][5];
 		companies.current = companies.getHead();
 		int count=0;
 		while (companies.current!=null){
-			if (companies.current.getData().isGood()==(Boolean)null){
+			if (companies.current.getData().isGood()==0){
 				companies.current.getData().getTransactionList().current = companies.current.getData().getTransactionList().getHead();
 				while(companies.current.getData().getTransactionList().current!=null){
 					object[count][0] = companies.current.getData().getTransactionList().current.getData().getDate().toString();
@@ -253,13 +253,11 @@ public class UserInterfaceFE {
 		this.totalUnknown = totalUnknown;
 	}	
 
-	//TODO Test the clean method and others
+
 	public static void main(String[] args){
 		DatabaseBE myDB = new DatabaseBE();
 		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
 		System.out.println("Completely finished");
-//		CompanyFE unknowntester = new CompanyFE(true,"Unknown","");
-//		System.out.print(UI.unknown.getTransactionList().toString());
-//		System.out.println(UI.companies.getCurrent().getTransactionList().toString());
+
 	}
 }

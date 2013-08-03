@@ -7,12 +7,15 @@ import java.io.Serializable;
  * CSC202 Final Project
  */
 public class Company implements Serializable, Comparable<Company> {
+	/*   
+	 * 	Company isGood Key: 0 = unknown, 1 = good, 2 = bad
+	 */
 
 	private static final long serialVersionUID = -8698835401119697249L;
-	protected boolean good;
+	protected int isGood;
 	protected String companyName, typeOfCompany;
 	
-	public Company(boolean good, String companyName, String type) {
+	public Company(int good, String companyName, String type) {
 		super();
 		setGood(good);
 		setCompanyName(companyName);
@@ -20,8 +23,8 @@ public class Company implements Serializable, Comparable<Company> {
 	}	
 
 	//GETTERS
-	public boolean isGood() {
-		return good;
+	public int isGood() {
+		return isGood;
 	}
 
 	public String getCompanyName() {
@@ -33,8 +36,8 @@ public class Company implements Serializable, Comparable<Company> {
 	}
 
 	//SETTERS
-	public void setGood(boolean good) {
-		this.good = good;
+	public void setGood(int good) {
+		this.isGood = good;
 	}
 
 	public void setCompanyName(String companyName) {

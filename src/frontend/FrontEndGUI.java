@@ -2,6 +2,7 @@ package frontend;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -74,6 +75,7 @@ public class FrontEndGUI extends JFrame {
 	}
 	
 	
+	@SuppressWarnings("serial")
 	private void setToTabbedPanel(){		
 		tabbedPanel = new JPanel();
 		tabbedPanel.setLayout(new BorderLayout(0, 0));
