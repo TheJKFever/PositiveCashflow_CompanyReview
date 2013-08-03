@@ -98,7 +98,7 @@ public class UserInterfaceFE {
 					//Did not find company in FE, add to companies
 					CompanyFE newCompanyFE = new CompanyFE(tempDB.getCurrentCo().isGood(), tempDB.getCurrentCo().getCompanyName(), tempDB.getCurrentCo().getTypeOfCompany());
 					newCompanyFE.addTransaction(unknown.getTransactionList().getCurrent().getData());
-					distributeAmount(unknown.getTransactionList().getCurrent().getData(), companies.getCurrent().getData());
+					distributeAmount(unknown.getTransactionList().getCurrent().getData(), newCompanyFE);
 					unknown.getTransactionList().remove();
 					companies.add(newCompanyFE);
 				}
@@ -138,31 +138,31 @@ public class UserInterfaceFE {
 	}
 
 	public double getTotal() {
-		return total;
+		return ((int)(total*100))/100.0;
 	}
 
 	public double getTotalGood() {
-		return totalGood;
+		return ((int)(totalGood*100))/100.0;
 	}
 
 	public double getTotalBad() {
-		return totalBad;
+		return ((int)(totalBad*100))/100.0;
 	}
 
 	public double getTotalUnknown() {
-		return totalUnknown;
+		return ((int)(totalUnknown*100))/100.0;
 	}
 
 	public double getPercentGood() {
-		return totalGood/total;
+		return ((int)(totalGood/total*10000))/100.0;
 	}
 
 	public double getPercentBad() {
-		return totalBad/total;
+		return ((int)(totalBad/total*10000))/100.0;
 	}
 
 	public double getPercentUnknown() {
-		return totalUnknown/total;
+		return ((int)(totalUnknown/total*10000))/100.0;
 	}
 
 
@@ -287,6 +287,11 @@ public class UserInterfaceFE {
 		DatabaseBE myDB = new DatabaseBE();
 		UserInterfaceFE UI = new UserInterfaceFE("files\\Original transactions.csv",myDB);
 		System.out.println("Completely finished");
+		System.out.println("$"+UI.getTotal());
+		System.out.println("$"+UI.getTotalBad());
+		System.out.println("$"+UI.getTotalGood());
+		System.out.println("$"+UI.getTotalUnknown());
+		System.out.println(UI.getPercentBad()+"%");
 
 	}
 
